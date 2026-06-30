@@ -1,5 +1,16 @@
 # YokaiOS
 
+# Build artifacts
+*.exe
+*.dll
+*.pdb
+*.cache
+*.json
+!package.json
+bin/
+obj/
+publish/
+
 # Arquivos temporarios
 *.tmp
 *.temp
@@ -11,10 +22,6 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 
-# Pastas de build
-*.zip
-*.apbx
-
 # Pastas extraidas
 extracted/
 
@@ -23,11 +30,8 @@ Revi-PB-26.04/
 AtlasPlaybook*/
 
 # Configuracoes do IDE
+.vs/
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# Arquivos de senha
-*.pem
-*.key
