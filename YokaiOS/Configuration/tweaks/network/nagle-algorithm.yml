@@ -1,0 +1,38 @@
+# Nagle's Algorithm
+# Disable Nagle's algorithm for lower latency
+
+---
+- title: "Disable Nagle's Algorithm"
+  description: "Reduce TCP packet batching for lower latency"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        # Get all network adapters
+        $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
+        foreach ($adapter in $adapters) {
+          $interfaceGuid = $adapter.InterfaceGuid
+          $regPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\$interfaceGuid"
+          if (Test-Path $regPath) {
+            Set-ItemProperty -Path $regPath -Name "TcpAckFrequency" -Value 1 -Type DWord -Force
+            Set-ItemProperty -Path $regPath -Name "TCPNoDelay" -Value 1 -Type DWord -Force
+            Set-ItemProperty -Path $regPath -Name "TcpDelAckTicks" -Value 0 -Type DWord -Force
+          }
+        }
+
+- title: "Set TCP Acknowledgment Frequency"
+  description: "Send ACK immediately instead of batching"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
+      name: "TcpDelAckTicks"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
+      name: "TcpMaxDataRetransmissions"
+      type: "REG_DWORD"
+      value: "5"

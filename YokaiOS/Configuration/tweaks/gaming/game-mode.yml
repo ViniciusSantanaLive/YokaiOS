@@ -1,0 +1,56 @@
+# Game Mode Optimization
+# Configures Windows Game Mode for maximum performance
+
+---
+- title: "Disable Game Mode"
+  description: "Game Mode can cause stuttering; disable it for consistent performance"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\GameBar"
+      name: "AllowAutoGameMode"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\GameBar"
+      name: "AutoGameModeEnabled"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Game Bar"
+  description: "Remove Game Bar overlay to reduce overhead"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\GameBar"
+      name: "UseNexusForGameBarEnabled"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR"
+      name: "AllowGameDVR"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_Enabled"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Game DVR"
+  description: "Prevent background recording that consumes resources"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR"
+      name: "AppCaptureEnabled"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR"
+      name: "AllowGameDVR"
+      type: "REG_DWORD"
+      value: "0"

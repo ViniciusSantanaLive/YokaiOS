@@ -1,0 +1,73 @@
+# Disable AI and Copilot
+# Remove all AI components from Windows
+
+---
+- title: "Disable Windows Copilot"
+  description: "Remove Microsoft Copilot completely"
+  category: "Debloat"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
+      name: "TurnOffWindowsCopilot"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
+      name: "TurnOffWindowsCopilot"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+      name: "ShowCopilotButton"
+      type: "REG_DWORD"
+      value: "0"
+    - !powershell
+      command: "Get-AppxPackage *Microsoft.Windows.Ai.Copilot.Provider* | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
+
+- title: "Disable Recall"
+  description: "Remove Windows Recall feature"
+  category: "Debloat"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI"
+      name: "DisableAIDataAnalysis"
+      type: "REG_DWORD"
+      value: "1"
+    - !powershell
+      command: "Get-AppxPackage *Microsoft.Windows.Recall* | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
+
+- title: "Disable AI Features"
+  description: "Disable all AI-powered features"
+  category: "Debloat"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI"
+      name: "DisableWindowsAI"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WindowsAI"
+      name: "DisableWindowsAI"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Remove AI Components from WinSxS"
+  description: "Remove AI system components"
+  category: "Debloat"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $aiPackages = @(
+          "Microsoft.Windows.Copilot",
+          "Microsoft.Windows.Ai.Copilot.Provider",
+          "Microsoft.Copilot",
+          "Microsoft.Windows.Recall"
+        )
+        foreach ($pkg in $aiPackages) {
+          Get-AppxPackage -Name $pkg -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+          Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -like "*$pkg*"} | Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
+        }

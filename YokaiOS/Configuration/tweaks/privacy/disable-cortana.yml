@@ -1,0 +1,37 @@
+# Disable Cortana
+# Removes Cortana completely
+
+---
+- title: "Disable Cortana"
+  description: "Disable Cortana and voice assistant"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+      name: "AllowCortana"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+      name: "DisableWebSearch"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+      name: "AllowSearchToUseLocation"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+      name: "ConnectedSearchUseWeb"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Remove Cortana Package"
+  description: "Uninstall Cortana from system"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: "Get-AppxPackage Microsoft.549981C3F5F10 | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"

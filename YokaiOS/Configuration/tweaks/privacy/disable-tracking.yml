@@ -1,0 +1,88 @@
+# Disable Tracking
+# Removes various tracking mechanisms
+
+---
+- title: "Disable Advertising ID"
+  description: "Prevent apps from using advertising ID"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo"
+      name: "Enabled"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo"
+      name: "DisabledByGroupPolicy"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Disable Location Tracking"
+  description: "Disable Windows location services"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors"
+      name: "DisableLocation"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors"
+      name: "DisableWindowsLocationProvider"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Disable Sensor Access"
+  description: "Disable sensor access for apps"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors"
+      name: "DisableSensors"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Disable Input Personalization"
+  description: "Disable typing and inking data collection"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\InputPersonalization"
+      name: "RestrictImplicitInkCollection"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\InputPersonalization"
+      name: "RestrictImplicitTextCollection"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\InputPersonalization\\TrainedDataStore"
+      name: "HarvestContacts"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Activity History"
+  description: "Disable activity timeline and history"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+      name: "EnableActivityFeed"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+      name: "PublishUserActivities"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+      name: "UploadUserActivities"
+      type: "REG_DWORD"
+      value: "0"

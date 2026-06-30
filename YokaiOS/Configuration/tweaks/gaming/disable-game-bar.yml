@@ -1,0 +1,51 @@
+# Disable Game Bar
+# Complete removal of Xbox Game Bar
+
+---
+- title: "Disable Xbox Game Bar"
+  description: "Remove Xbox Game Bar completely"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\GameBar"
+      name: "UseNexusForGameBarEnabled"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\GameBar"
+      name: "AutoGameModeEnabled"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR"
+      name: "AllowGameDVR"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_Enabled"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR"
+      name: "AppCaptureEnabled"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Appx\\PackageVolume"
+      name: "XboxGameOverlay"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Remove Xbox Game Bar Package"
+  description: "Uninstall Xbox Game Bar from system"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: "Get-AppxPackage Microsoft.XboxGameOverlay | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
+    - !powershell
+      command: "Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
+    - !powershell
+      command: "Get-AppxPackage Microsoft.Xbox.TCUI | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"

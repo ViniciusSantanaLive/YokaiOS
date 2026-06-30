@@ -1,0 +1,35 @@
+# Timer Resolution Optimization
+# Sets system timer to 0.5ms for lower latency
+
+---
+- title: "Set Timer Resolution"
+  description: "Configure system timer for 0.5ms resolution"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
+      name: "GlobalTimerResolutionRequests"
+      type: "REG_DWORD"
+      value: "1"
+    - !cmd
+      command: "bcdedit /set tscsyncpolicy enhanced"
+
+- title: "Disable Dynamic Tick"
+  description: "Force consistent timer behavior"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "bcdedit /set disabledynamictick yes"
+    - !cmd
+      command: "bcdedit /set useplatformtick yes"
+
+- title: "Install Timer Resolution Tool"
+  description: "SetTimerResolution.exe for manual control"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !file
+      source: "Executables/Tools/SetTimerResolution.exe"
+      destination: "C:\\YokaiOS\\Tools\\SetTimerResolution.exe"

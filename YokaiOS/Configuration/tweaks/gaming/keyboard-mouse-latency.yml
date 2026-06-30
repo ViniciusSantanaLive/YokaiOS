@@ -1,0 +1,82 @@
+# Keyboard and Mouse Latency Optimization
+# Reduces input lag for gaming
+
+---
+- title: "Optimize USB Polling Rate"
+  description: "Set USB polling to maximum rate"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\mouclass\\Parameters"
+      name: "MouseDataQueueSize"
+      type: "REG_DWORD"
+      value: "20"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdclass\\Parameters"
+      name: "KeyboardDataQueueSize"
+      type: "REG_DWORD"
+      value: "20"
+
+- title: "Disable Mouse Acceleration"
+  description: "Raw mouse input for precise aiming"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\Control Panel\\Mouse"
+      name: "MouseSpeed"
+      type: "REG_SZ"
+      value: "0"
+    - !registry
+      path: "HKCU\\Control Panel\\Mouse"
+      name: "MouseThreshold1"
+      type: "REG_SZ"
+      value: "0"
+    - !registry
+      path: "HKCU\\Control Panel\\Mouse"
+      name: "MouseThreshold2"
+      type: "REG_SZ"
+      value: "0"
+
+- title: "Set Mouse to 1:1"
+  description: "Disable enhanced pointer precision"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\Control Panel\\Mouse"
+      name: "MouseSensitivity"
+      type: "REG_SZ"
+      value: "10"
+    - !registry
+      path: "HKCU\\Control Panel\\Mouse"
+      name: "SmoothMouseXCurve"
+      type: "REG_BINARY"
+      value: "000000000000000000000000000000000000000000000000000000000000000000000000"
+    - !registry
+      path: "HKCU\\Control Panel\\Mouse"
+      name: "SmoothMouseYCurve"
+      type: "REG_BINARY"
+      value: "000000000000000000000000000000000000000000000000000000000000000000000000"
+
+- title: "Disable Filter Keys"
+  description: "Prevent keyboard input filtering"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\Control Panel\\Accessibility\\Keyboard Response"
+      name: "Flags"
+      type: "REG_SZ"
+      value: "0"
+    - !registry
+      path: "HKCU\\Control Panel\\Accessibility\\ToggleKeys"
+      name: "Flags"
+      type: "REG_SZ"
+      value: "0"
+    - !registry
+      path: "HKCU\\Control Panel\\Accessibility\\StickyKeys"
+      name: "Flags"
+      type: "REG_SZ"
+      value: "0"

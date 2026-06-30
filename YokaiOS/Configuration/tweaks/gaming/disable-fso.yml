@@ -1,0 +1,45 @@
+# Disable Fullscreen Optimizations
+# Forces exclusive fullscreen for better gaming performance
+
+---
+- title: "Disable Fullscreen Optimizations Globally"
+  description: "Force games to use exclusive fullscreen mode"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_FSEBehaviorMode"
+      type: "REG_DWORD"
+      value: "2"
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_HonorUserFSEBehaviorMode"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_FSEBehavior"
+      type: "REG_DWORD"
+      value: "2"
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_DXGIHonorFSEWindowsCompatible"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_EFSEFeatureFlags"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Flip Model"
+  description: "Disable flip model for lower latency"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_FSEBehaviorMode"
+      type: "REG_DWORD"
+      value: "2"

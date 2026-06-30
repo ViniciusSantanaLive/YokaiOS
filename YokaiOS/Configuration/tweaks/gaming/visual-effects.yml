@@ -1,0 +1,56 @@
+# Visual Effects Optimization
+# Disable unnecessary visual effects for gaming
+
+---
+- title: "Disable Visual Effects"
+  description: "Remove animations and effects that consume GPU"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects"
+      name: "VisualFXSetting"
+      type: "REG_DWORD"
+      value: "2"
+    - !registry
+      path: "HKCU\\Control Panel\\Desktop"
+      name: "UserPreferencesMask"
+      type: "REG_BINARY"
+      value: "9012038010000000"
+    - !registry
+      path: "HKCU\\Control Panel\\Desktop"
+      name: "DragFullWindows"
+      type: "REG_SZ"
+      value: "0"
+    - !registry
+      path: "HKCU\\Control Panel\\Desktop"
+      name: "FontSmoothing"
+      type: "REG_SZ"
+      value: "0"
+    - !registry
+      path: "HKCU\\Control Panel\\Desktop\\WindowMetrics"
+      name: "MinAnimate"
+      type: "REG_SZ"
+      value: "0"
+
+- title: "Disable Transparency"
+  description: "Disable Aero transparency for better performance"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
+      name: "EnableTransparency"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Cursor Shadow"
+  description: "Remove cursor shadow effect"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\Control Panel\\Cursors"
+      name: "CursorShadow"
+      type: "REG_DWORD"
+      value: "0"

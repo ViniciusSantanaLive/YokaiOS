@@ -1,0 +1,111 @@
+# MMCS Configuration
+# Multimedia Class Scheduler Service optimization for gaming
+
+---
+- title: "Optimize MMCS for Gaming"
+  description: "Configure Multimedia Class Scheduler Service for game prioritization"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
+      name: "NetworkThrottlingIndex"
+      type: "REG_DWORD"
+      value: "10"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
+      name: "SystemResponsiveness"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "GPU Priority"
+      type: "REG_DWORD"
+      value: "8"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "Priority"
+      type: "REG_DWORD"
+      value: "6"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "Scheduling Category"
+      type: "REG_SZ"
+      value: "High"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "SFIO Priority"
+      type: "REG_SZ"
+      value: "High"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "Background Only"
+      type: "REG_SZ"
+      value: "False"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "Clock Rate"
+      type: "REG_DWORD"
+      value: "10000"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "Affinity"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "BackgroundPriority"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Optimize Audio Tasks"
+  description: "Configure audio tasks for low latency"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
+      name: "GPU Priority"
+      type: "REG_DWORD"
+      value: "8"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
+      name: "Priority"
+      type: "REG_DWORD"
+      value: "6"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
+      name: "Scheduling Category"
+      type: "REG_SZ"
+      value: "High"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
+      name: "SFIO Priority"
+      type: "REG_SZ"
+      value: "High"
+
+- title: "Optimize Playback Tasks"
+  description: "Configure playback tasks for smooth video"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
+      name: "GPU Priority"
+      type: "REG_DWORD"
+      value: "8"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
+      name: "Priority"
+      type: "REG_DWORD"
+      value: "6"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
+      name: "Scheduling Category"
+      type: "REG_SZ"
+      value: "High"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
+      name: "SFIO Priority"
+      type: "REG_SZ"
+      value: "High"

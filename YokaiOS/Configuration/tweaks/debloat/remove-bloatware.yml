@@ -1,0 +1,130 @@
+# Remove Bloatware
+# Removes all pre-installed Windows apps
+
+---
+- title: "Remove Bloatware Apps"
+  description: "Uninstall all pre-installed Windows apps"
+  category: "Debloat"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $apps = @(
+          "Microsoft.3DBuilder"
+          "Microsoft.BingWeather"
+          "Microsoft.BingNews"
+          "Microsoft.BingFinance"
+          "Microsoft.BingSports"
+          "Microsoft.GamingApp"
+          "Microsoft.GetHelp"
+          "Microsoft.Getstarted"
+          "Microsoft.MicrosoftOfficeHub"
+          "Microsoft.MicrosoftSolitaireCollection"
+          "Microsoft.MixedReality.Portal"
+          "Microsoft.People"
+          "Microsoft.SkypeApp"
+          "Microsoft.MicrosoftStickyNotes"
+          "Microsoft.Todos"
+          "Microsoft.WindowsAlarms"
+          "Microsoft.WindowsFeedbackHub"
+          "Microsoft.WindowsMaps"
+          "Microsoft.YourPhone"
+          "Microsoft.ZuneMusic"
+          "Microsoft.ZuneVideo"
+          "MicrosoftTeams"
+          "Clipchamp.Clipchamp"
+          "Microsoft.WindowsSoundRecorder"
+          "Microsoft.PowerAutomateDesktop"
+          "Microsoft.549981C3F5F10"
+          "Disney.37853FC22B2CE"
+          "SpotifyAB.SpotifyMusic"
+          "BytedancePte.Ltd.TikTok"
+          "Facebook.InstagramBeta"
+          "Facebook.Facebook"
+          "king.com.CandyCrushSaga"
+          "king.com.CandyCrushSodaSaga"
+        )
+        foreach ($app in $apps) {
+          Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+          Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -like "*$app*"} | Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
+        }
+
+- title: "Remove Xbox Apps"
+  description: "Uninstall Xbox apps except Game Bar overlay"
+  category: "Debloat"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $xboxApps = @(
+          "Microsoft.XboxApp"
+          "Microsoft.XboxGameOverlay"
+          "Microsoft.XboxGamingOverlay"
+          "Microsoft.XboxIdentityProvider"
+          "Microsoft.XboxSpeechToTextOverlay"
+          "Microsoft.Xbox.TCUI"
+        )
+        foreach ($app in $xboxApps) {
+          Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+        }
+
+- title: "Remove Edge"
+  description: "Uninstall Microsoft Edge"
+  category: "Debloat"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $edgePath = "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\*\Installer\setup.exe"
+        if (Test-Path $edgePath) {
+          & $edgePath --uninstall --system-level --verbose-logging --force-uninstall
+        }
+
+- title: "Remove OneDrive"
+  description: "Uninstall Microsoft OneDrive"
+  category: "Debloat"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        Stop-Process -Name OneDrive -Force -ErrorAction SilentlyContinue
+        Start-Sleep -Seconds 2
+        if (Test-Path "$env:SystemRoot\SysWOW64\OneDriveSetup.exe") {
+          & "$env:SystemRoot\SysWOW64\OneDriveSetup.exe" /uninstall
+        } elseif (Test-Path "$env:SystemRoot\System32\OneDriveSetup.exe") {
+          & "$env:SystemRoot\System32\OneDriveSetup.exe" /uninstall
+        }
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive"
+      name: "DisableFileSyncNGSC"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Remove Widgets"
+  description: "Disable and remove Windows Widgets"
+  category: "Debloat"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh"
+      name: "AllowNewsAndInterests"
+      type: "REG_DWORD"
+      value: "0"
+    - !powershell
+      command: "Get-AppxPackage *WebExperience* | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
+
+- title: "Disable Copilot"
+  description: "Remove Microsoft Copilot"
+  category: "Debloat"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
+      name: "TurnOffWindowsCopilot"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
+      name: "TurnOffWindowsCopilot"
+      type: "REG_DWORD"
+      value: "1"

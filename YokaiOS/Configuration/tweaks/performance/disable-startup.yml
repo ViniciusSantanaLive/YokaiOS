@@ -1,0 +1,65 @@
+# Disable Startup Programs
+# Prevents unnecessary programs from starting with Windows
+
+---
+- title: "Disable OneDrive AutoStart"
+  description: "Prevent OneDrive from starting automatically"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      name: "OneDrive"
+      type: "REG_SZ"
+      value: ""
+    - !cmd
+      command: "reg delete \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\" /v OneDrive /f 2>nul"
+
+- title: "Disable Teams AutoStart"
+  description: "Prevent Microsoft Teams from starting automatically"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      name: "com.squirrel.Teams.Teams"
+      type: "REG_SZ"
+      value: ""
+
+- title: "Disable Skype AutoStart"
+  description: "Prevent Skype from starting automatically"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      name: "Skype for Desktop"
+      type: "REG_SZ"
+      value: ""
+
+- title: "Disable Edge AutoStart"
+  description: "Prevent Microsoft Edge from starting automatically"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      name: "Microsoft Edge"
+      type: "REG_SZ"
+      value: ""
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main"
+      name: "AllowPrelaunch"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Cortana AutoStart"
+  description: "Prevent Cortana from starting automatically"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+      name: "Cortana"
+      type: "REG_SZ"
+      value: ""

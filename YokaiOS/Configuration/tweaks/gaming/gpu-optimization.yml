@@ -1,0 +1,72 @@
+# GPU Optimization for Gaming
+# Reduces GPU overhead and improves frame delivery
+
+---
+- title: "Optimize GPU Scheduling"
+  description: "Enable hardware-accelerated GPU scheduling"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers"
+      name: "HwSchMode"
+      type: "REG_DWORD"
+      value: "2"
+
+- title: "Disable GPU Preemption"
+  description: "Prevent GPU from preempting rendering tasks"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers\\Scheduler"
+      name: "EnablePreemption"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Optimize GPU Priority"
+  description: "Set GPU priority for foreground applications"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "GPU Priority"
+      type: "REG_DWORD"
+      value: "8"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "Priority"
+      type: "REG_DWORD"
+      value: "6"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "Scheduling Category"
+      type: "REG_SZ"
+      value: "High"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+      name: "SFIO Priority"
+      type: "REG_SZ"
+      value: "High"
+
+- title: "Disable GPU Power Saving"
+  description: "Prevent GPU from downclocking during gaming"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000"
+      name: "PerfLevelSrc"
+      type: "REG_DWORD"
+      value: "0x2222"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000"
+      name: "PowerMizerEnable"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000"
+      name: "PowerMizerLevel"
+      type: "REG_DWORD"
+      value: "1"

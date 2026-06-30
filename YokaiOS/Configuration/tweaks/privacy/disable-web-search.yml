@@ -1,0 +1,45 @@
+# Disable Web Search
+# Removes Bing and web search from Start menu
+
+---
+- title: "Disable Web Search in Start Menu"
+  description: "Remove Bing search results from Start menu"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer"
+      name: "DisableSearchBoxSuggestions"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+      name: "ConnectedSearchUseWeb"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+      name: "DisableWebSearch"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search"
+      name: "BingSearchEnabled"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search"
+      name: "CortanaConsent"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Search Highlights"
+  description: "Remove search highlights and suggestions"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SearchSettings"
+      name: "IsDynamicSearchBoxEnabled"
+      type: "REG_DWORD"
+      value: "0"

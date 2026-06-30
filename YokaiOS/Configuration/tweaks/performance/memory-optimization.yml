@@ -1,0 +1,69 @@
+# Memory Optimization
+# Optimizes memory management for gaming
+
+---
+- title: "Optimize Memory Management"
+  description: "Configure Windows memory settings for gaming"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "DisablePagingExecutive"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "LargeSystemCache"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "ClearPageFileAtShutdown"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "IoPageLockLimit"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Memory Compression"
+  description: "Reduces CPU overhead from memory compression"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: "Disable-MMAgent -MemoryCompression"
+
+- title: "Disable Prefetch and Superfetch"
+  description: "Prevent unnecessary disk I/O from prefetching"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters"
+      name: "EnablePrefetcher"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters"
+      name: "EnableSuperfetch"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Optimize NTFS Memory Usage"
+  description: "Reduce NTFS memory consumption"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+      name: "NtfsDisableLastAccessUpdate"
+      type: "REG_DWORD"
+      value: "80000003"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+      name: "NtfsDisable8dot3NameCreation"
+      type: "REG_DWORD"
+      value: "1"

@@ -1,0 +1,71 @@
+# BCDedit Optimizations
+# Boot configuration optimizations for gaming
+
+---
+- title: "Disable Dynamic Tick"
+  description: "Prevent CPU from entering low-power states"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "bcdedit /set disabledynamictick yes"
+
+- title: "Set Platform Clock"
+  description: "Force use of platform clock for consistent timing"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "bcdedit /set useplatformclock true"
+    - !cmd
+      command: "bcdedit /set useplatformtick yes"
+
+- title: "Set TSC Sync Policy"
+  description: "Configure TSC synchronization for better performance"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "bcdedit /set tscsyncpolicy enhanced"
+
+- title: "Disable Boot Log"
+  description: "Disable boot logging for faster boot"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "bcdedit /set bootlog no"
+
+- title: "Disable Boot Menu"
+  description: "Skip boot menu for faster boot"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "bcdedit /set bootmenupolicy standard"
+
+- title: "Set Timeout"
+  description: "Set boot timeout to 0"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "bcdedit /timeout 0"
+
+- title: "Disable Integrity Checks"
+  description: "Disable driver integrity checks for performance"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "bcdedit /set nointegritychecks yes"
+
+- title: "Disable Debug"
+  description: "Disable kernel debugging"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "bcdedit /debug off"
+    - !cmd
+      command: "bcdedit /set debug no"

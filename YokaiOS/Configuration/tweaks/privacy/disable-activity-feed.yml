@@ -1,0 +1,40 @@
+# Disable Activity Feed
+# Removes timeline and activity tracking
+
+---
+- title: "Disable Activity Feed"
+  description: "Disable Windows Timeline and activity feed"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+      name: "EnableActivityFeed"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+      name: "PublishUserActivities"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+      name: "UploadUserActivities"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Timeline"
+  description: "Remove Timeline from task view"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
+      name: "SubscribedContent-353694Enabled"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
+      name: "SubscribedContent-353696Enabled"
+      type: "REG_DWORD"
+      value: "0"

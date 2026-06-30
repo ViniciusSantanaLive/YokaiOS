@@ -1,0 +1,81 @@
+# Disable Mitigations
+# Disable CPU security mitigations for performance
+
+---
+- title: "Disable Spectre Mitigations"
+  description: "Disable Spectre mitigations for better performance"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "FeatureSettingsOverride"
+      type: "REG_DWORD"
+      value: "3"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "FeatureSettingsOverrideMask"
+      type: "REG_DWORD"
+      value: "3"
+
+- title: "Disable Meltdown Mitigations"
+  description: "Disable Meltdown mitigations for better performance"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "EnableCfg"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable SEHOP"
+  description: "Disable Structured Exception Handling Overwrite Protection"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
+      name: "DisableExceptionChainValidation"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Disable ASLR"
+  description: "Disable Address Space Layout Randomization"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "MoveImages"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable DEP"
+  description: "Disable Data Execution Prevention"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "bcdedit /set nx AlwaysOff"
+
+- title: "Disable Core Isolation"
+  description: "Disable Virtualization-Based Security"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
+      name: "EnableVirtualizationBasedSecurity"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
+      name: "RequirePlatformSecurityFeatures"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity"
+      name: "Enabled"
+      type: "REG_DWORD"
+      value: "0"

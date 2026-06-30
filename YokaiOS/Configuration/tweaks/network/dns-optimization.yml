@@ -1,0 +1,33 @@
+# DNS Optimization
+# Configures DNS for low latency gaming
+
+---
+- title: "Set Cloudflare DNS"
+  description: "Use Cloudflare DNS (1.1.1.1) for low latency"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
+        foreach ($adapter in $adapters) {
+          Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ServerAddresses ("1.1.1.1","1.0.0.1")
+        }
+
+- title: "Flush DNS Cache"
+  description: "Clear DNS resolver cache"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "ipconfig /flushdns"
+
+- title: "Disable DNS Cache"
+  description: "Disable DNS caching for fresh lookups"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "Dnscache"
+      startup_type: "disabled"
+      state: "stopped"

@@ -1,0 +1,59 @@
+# Power Plan Optimization
+# Sets Ultimate Performance power plan for gaming
+
+---
+- title: "Create Ultimate Performance Power Plan"
+  description: "Import and activate Ultimate Performance power plan"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "powercfg /duplicatescheme 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
+    - !cmd
+      command: "powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
+
+- title: "Disable Sleep and Hibernation"
+  description: "Prevent system from sleeping during gaming"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "powercfg /change standby-timeout-ac 0"
+    - !cmd
+      command: "powercfg /change standby-timeout-dc 0"
+    - !cmd
+      command: "powercfg /change hibernate-timeout-ac 0"
+    - !cmd
+      command: "powercfg /change hibernate-timeout-dc 0"
+    - !cmd
+      command: "powercfg /hibernate off"
+
+- title: "Disable USB Selective Suspend"
+  description: "Prevent USB devices from being suspended"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "powercfg /setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0"
+    - !cmd
+      command: "powercfg /setactive SCHEME_CURRENT"
+
+- title: "Disable PCI Express Link State Power Management"
+  description: "Prevent PCIe devices from power saving"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "powercfg /setacvalueindex SCHEME_CURRENT 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0"
+    - !cmd
+      command: "powercfg /setactive SCHEME_CURRENT"
+
+- title: "Set Minimum Processor State to 100%"
+  description: "Force CPU to run at maximum clock speed"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 893dee8e-2bef-41e0-89c6-b55d0929964c 100"
+    - !cmd
+      command: "powercfg /setactive SCHEME_CURRENT"

@@ -1,0 +1,36 @@
+# Disable Paging
+# Optimizes virtual memory for gaming
+
+---
+- title: "Disable Paging Executive"
+  description: "Keep kernel and drivers in physical memory"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "DisablePagingExecutive"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Disable Large System Cache"
+  description: "Prioritize applications over system cache"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "LargeSystemCache"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Optimize IoPageLockLimit"
+  description: "Set optimal I/O page lock limit"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "IoPageLockLimit"
+      type: "REG_DWORD"
+      value: "0"

@@ -1,0 +1,52 @@
+# Disable Network Throttling
+# Removes Windows network throttling mechanisms
+
+---
+- title: "Disable Network Throttling Index"
+  description: "Remove Windows network throttling"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
+      name: "NetworkThrottlingIndex"
+      type: "REG_DWORD"
+      value: "4294967295"
+
+- title: "Set System Responsiveness"
+  description: "Minimize system responsiveness for gaming"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
+      name: "SystemResponsiveness"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Bandwidth Limit"
+  description: "Remove QoS bandwidth reservation"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched"
+      name: "NonBestEffortLimit"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable AutoTuning"
+  description: "Disable TCP window auto-tuning"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "netsh int tcp set global autotuninglevel=disabled"
+
+- title: "Disable TCP Timestamps"
+  description: "Remove TCP timestamp overhead"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "netsh int tcp set global timestamps=disabled"

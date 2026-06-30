@@ -1,0 +1,107 @@
+# Network Optimization
+# Optimizes network settings for low latency gaming
+
+---
+- title: "Disable Nagle's Algorithm"
+  description: "Reduce TCP packet batching for lower latency"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces"
+      name: "TcpAckFrequency"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces"
+      name: "TCPNoDelay"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
+      name: "TcpDelAckTicks"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Optimize TCP Settings"
+  description: "Configure TCP for low latency"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !cmd
+      command: "netsh int tcp set global autotuninglevel=normal"
+    - !cmd
+      command: "netsh int tcp set global chimney=enabled"
+    - !cmd
+      command: "netsh int tcp set global dca=enabled"
+    - !cmd
+      command: "netsh int tcp set global netdma=enabled"
+    - !cmd
+      command: "netsh int tcp set global ecncapability=disabled"
+    - !cmd
+      command: "netsh int tcp set global timestamps=disabled"
+    - !cmd
+      command: "netsh int tcp set global rss=enabled"
+    - !cmd
+      command: "netsh int tcp set global nonsackrttresiliency=disabled"
+    - !cmd
+      command: "netsh int tcp set global maxsynretransmissions=2"
+    - !cmd
+      command: "netsh int tcp set global initialRto=2000"
+
+- title: "Disable Network Throttling"
+  description: "Remove Windows network throttling index"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
+      name: "NetworkThrottlingIndex"
+      type: "REG_DWORD"
+      value: "4294967295"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
+      name: "SystemResponsiveness"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Optimize DNS"
+  description: "Set DNS to Cloudflare for low latency"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
+        foreach ($adapter in $adapters) {
+          Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ServerAddresses ("1.1.1.1","1.0.0.1")
+        }
+
+- title: "Disable Network Power Saving"
+  description: "Prevent network adapter from power saving"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
+        foreach ($adapter in $adapters) {
+          Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "Energy Efficient Ethernet" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+          Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "Power Saving Mode" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+          Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "Green Ethernet" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+        }
+
+- title: "Disable Network Offloads"
+  description: "Disable network offloading for consistent performance"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
+        foreach ($adapter in $adapters) {
+          Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "IPv4 Checksum Offload" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+          Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "TCP Checksum Offload (IPv4)" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+          Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "Large Send Offload v2 (IPv4)" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+          Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "Large Send Offload v2 (IPv6)" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+        }

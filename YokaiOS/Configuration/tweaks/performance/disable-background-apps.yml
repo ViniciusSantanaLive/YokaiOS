@@ -1,0 +1,45 @@
+# Disable Background Apps
+# Prevents UWP apps from running in background
+
+---
+- title: "Disable Background Apps Globally"
+  description: "Prevent all UWP apps from running in background"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications"
+      name: "GlobalUserDisabled"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy"
+      name: "LetAppsRunInBackground"
+      type: "REG_DWORD"
+      value: "2"
+
+- title: "Disable Background Activity for Specific Apps"
+  description: "Disable background activity for common apps"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.WindowsCalculator_8wekyb3d8bbwe"
+      name: "Disabled"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.Windows.Photos_8wekyb3d8bbwe"
+      name: "Disabled"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.SkypeApp_kzf8qxf38zg5c"
+      name: "Disabled"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe"
+      name: "Disabled"
+      type: "REG_DWORD"
+      value: "1"

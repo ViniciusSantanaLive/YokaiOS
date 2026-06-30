@@ -1,0 +1,87 @@
+# Disable Telemetry
+# Removes all Microsoft telemetry and data collection
+
+---
+- title: "Disable Telemetry Service"
+  description: "Stop and disable DiagTrack service"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "DiagTrack"
+      startup_type: "disabled"
+      state: "stopped"
+    - !service
+      name: "dmwappushservice"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Set Telemetry Level to Security"
+  description: "Minimize telemetry data sent to Microsoft"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection"
+      name: "AllowTelemetry"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection"
+      name: "AllowTelemetry"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppCompat"
+      name: "AITEnable"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Customer Experience Improvement Program"
+  description: "Disable CEIP data collection"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\SQMClient\\Windows"
+      name: "CEIPEnable"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\SQMClient\\Windows"
+      name: "CEIPEnable"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Application Impact Telemetry"
+  description: "Disable application telemetry"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppCompat"
+      name: "AITEnable"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Inventory Collector"
+  description: "Disable system inventory collection"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppCompat"
+      name: "DisableInventory"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Disable Steps Recorder"
+  description: "Disable Windows Steps Recorder"
+  category: "Privacy"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppCompat"
+      name: "DisableUAR"
+      type: "REG_DWORD"
+      value: "1"

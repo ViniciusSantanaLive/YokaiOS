@@ -1,0 +1,36 @@
+# Win32 Priority Separation
+# Optimizes CPU time allocation for gaming
+
+---
+- title: "Set Win32PrioritySeparation"
+  description: "Optimize CPU scheduling for foreground applications"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
+      name: "Win32PrioritySeparation"
+      type: "REG_DWORD"
+      value: "38"
+
+- title: "Set IRQ Priority"
+  description: "Prioritize hardware interrupts"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
+      name: "IRQ8Priority"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Disable Priority Boost"
+  description: "Disable dynamic priority boosting for consistent performance"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
+      name: "ConvertibleSlateMode"
+      type: "REG_DWORD"
+      value: "0"

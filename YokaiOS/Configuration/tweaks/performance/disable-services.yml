@@ -1,0 +1,193 @@
+# Disable Unnecessary Services
+# Stops and disables services that consume resources at idle
+
+---
+- title: "Disable DiagTrack (Connected User Experiences and Telemetry)"
+  description: "Primary telemetry service"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "DiagTrack"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable dmwappushservice"
+  description: "WAP Push Message Routing Service"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "dmwappushservice"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable SysMain (Superfetch)"
+  description: "Preloads apps into memory; can cause stuttering in games"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "SysMain"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Windows Search Indexer"
+  description: "Indexes files for search; consumes CPU and disk I/O"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "WSearch"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Windows Update Service"
+  description: "Prevents automatic updates during gaming"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "wuauserv"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Delivery Optimization"
+  description: "P2P update distribution; consumes bandwidth"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "DoSvc"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Print Spooler"
+  description: "Printing service; unnecessary for gaming"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "Spooler"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Fax Service"
+  description: "Legacy fax service"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "Fax"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Remote Registry"
+  description: "Remote registry access; security risk"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "RemoteRegistry"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Touch Keyboard and Handwriting Panel"
+  description: "Unnecessary for desktop gaming"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "TabletInputService"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Windows Error Reporting"
+  description: "Sends crash reports to Microsoft"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "WerSvc"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Diagnostic Policy Service"
+  description: "Windows diagnostics"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "DPS"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Program Compatibility Assistant"
+  description: "Compatibility checking service"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "PcaSvc"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Secondary Logon"
+  description: "Run as different user service"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "seclogon"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable SSDP Discovery"
+  description: "UPnP device discovery"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "SSDPSRV"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Retail Demo Service"
+  description: "Store demo mode service"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "RetailDemo"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable WalletService"
+  description: "Microsoft Wallet service"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "WalletService"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable Maps Manager"
+  description: "Downloaded Maps Manager"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "MapsBroker"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable IP Helper"
+  description: "IPv6 transition technologies"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "iphlpsvc"
+      startup_type: "disabled"
+      state: "stopped"

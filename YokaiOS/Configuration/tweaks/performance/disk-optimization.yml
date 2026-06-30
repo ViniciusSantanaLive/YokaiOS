@@ -1,0 +1,63 @@
+# Disk Optimization
+# Optimizes disk I/O for gaming
+
+---
+- title: "Disable NTFS Last Access Time"
+  description: "Prevents updating file access timestamps"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+      name: "NtfsDisableLastAccessUpdate"
+      type: "REG_DWORD"
+      value: "80000003"
+
+- title: "Disable 8.3 Name Creation"
+  description: "Disables legacy short filename creation"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+      name: "NtfsDisable8dot3NameCreation"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Optimize NTFS Memory Usage"
+  description: "Configure NTFS paged pool memory"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+      name: "NtfsPagedPoolSize"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+      name: "NtfsNonPagedPoolSize"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Bandwidth Limit"
+  description: "Remove network bandwidth reservation"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched"
+      name: "NonBestEffortLimit"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Disable Background Disk Defragmentation"
+  description: "Prevent background defrag during gaming"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Dfrg\\BootOptimizeFunction"
+      name: "Enable"
+      type: "REG_SZ"
+      value: "N"

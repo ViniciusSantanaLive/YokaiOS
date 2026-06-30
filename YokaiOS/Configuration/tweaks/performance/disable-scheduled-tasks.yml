@@ -1,0 +1,66 @@
+# Disable Scheduled Tasks
+# Disables unnecessary scheduled tasks that consume resources
+
+---
+- title: "Disable Telemetry Tasks"
+  description: "Disable scheduled tasks related to telemetry"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $tasks = @(
+          "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser"
+          "\Microsoft\Windows\Application Experience\ProgramDataUpdater"
+          "\Microsoft\Windows\Autochk\Proxy"
+          "\Microsoft\Windows\Customer Experience Improvement Program\Consolidator"
+          "\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip"
+          "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector"
+          "\Microsoft\Windows\Feedback\Siuf\DmClient"
+          "\Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload"
+          "\Microsoft\Windows\Maps\MapsToastTask"
+          "\Microsoft\Windows\Maps\MapsUpdateTask"
+          "\Microsoft\Windows\Windows Error Reporting\QueueReporting"
+          "\Microsoft\Windows\PI\Sqm-Tasks"
+          "\Microsoft\Windows\CloudExperienceHost\CreateObjectTask"
+          "\Microsoft\Windows\DiskFootprint\Diagnostics"
+          "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem"
+        )
+        foreach ($task in $tasks) {
+          Disable-ScheduledTask -TaskName $task -ErrorAction SilentlyContinue
+        }
+
+- title: "Disable Update Tasks"
+  description: "Disable automatic update scheduled tasks"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $tasks = @(
+          "\Microsoft\Windows\WindowsUpdate\Scheduled Start"
+          "\Microsoft\Windows\UpdateOrchestrator\Reboot"
+          "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"
+          "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan Static Task"
+          "\Microsoft\Windows\UpdateOrchestrator\UpdateModelTask"
+          "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"
+        )
+        foreach ($task in $tasks) {
+          Disable-ScheduledTask -TaskName $task -ErrorAction SilentlyContinue
+        }
+
+- title: "Disable Maintenance Tasks"
+  description: "Disable automatic maintenance tasks"
+  category: "Performance"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        $tasks = @(
+          "\Microsoft\Windows\TaskScheduler\Maintenance Configurator"
+          "\Microsoft\Windows\TaskScheduler\Manual Maintenance"
+          "\Microsoft\Windows\TaskScheduler\Regular Maintenance"
+        )
+        foreach ($task in $tasks) {
+          Disable-ScheduledTask -TaskName $task -ErrorAction SilentlyContinue
+        }
