@@ -1,6 +1,6 @@
 # ============================================================
-# YokaiOS Toolbox - Interface Grafica de Gerenciamento
-# Identidade visual: Roxo/Rosa neon sobre escuro
+# YokaiOS Toolbox v2.0 - Interface Grafica Moderna
+# Identidade visual: Roxo/Rosa neon sobre escuro com gradientes
 # ============================================================
 
 Add-Type -AssemblyName System.Windows.Forms
@@ -8,145 +8,207 @@ Add-Type -AssemblyName System.Drawing
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 # ============================================================
-# CORES E ESTILO YOKAIOS
+# CORES YOKAIOS
 # ============================================================
-$Colors = @{
-    BG_DARK       = [System.Drawing.Color]::FromArgb(18, 18, 24)
-    BG_CARD       = [System.Drawing.Color]::FromArgb(28, 28, 38)
-    BG_HOVER      = [System.Drawing.Color]::FromArgb(38, 38, 52)
-    ACCENT_PURPLE = [System.Drawing.Color]::FromArgb(139, 92, 246)
-    ACCENT_PINK   = [System.Drawing.Color]::FromArgb(236, 72, 153)
-    ACCENT_BLUE   = [System.Drawing.Color]::FromArgb(59, 130, 246)
-    TEXT_PRIMARY   = [System.Drawing.Color]::FromArgb(241, 245, 249)
-    TEXT_SECONDARY = [System.Drawing.Color]::FromArgb(148, 163, 184)
-    SUCCESS       = [System.Drawing.Color]::FromArgb(34, 197, 94)
-    DANGER        = [System.Drawing.Color]::FromArgb(239, 68, 68)
-    WARNING       = [System.Drawing.Color]::FromArgb(234, 179, 8)
+$C = @{
+    BG          = [System.Drawing.Color]::FromArgb(12, 12, 18)
+    BG2         = [System.Drawing.Color]::FromArgb(18, 18, 28)
+    CARD        = [System.Drawing.Color]::FromArgb(24, 24, 36)
+    CARD_HOVER  = [System.Drawing.Color]::FromArgb(32, 32, 48)
+    PURPLE      = [System.Drawing.Color]::FromArgb(139, 92, 246)
+    PURPLE_DARK = [System.Drawing.Color]::FromArgb(109, 70, 200)
+    PINK        = [System.Drawing.Color]::FromArgb(236, 72, 153)
+    BLUE        = [System.Drawing.Color]::FromArgb(59, 130, 246)
+    GREEN       = [System.Drawing.Color]::FromArgb(34, 197, 94)
+    RED         = [System.Drawing.Color]::FromArgb(239, 68, 68)
+    YELLOW      = [System.Drawing.Color]::FromArgb(234, 179, 8)
+    WHITE       = [System.Drawing.Color]::FromArgb(241, 245, 249)
+    GRAY        = [System.Drawing.Color]::FromArgb(148, 163, 184)
+    GRAY_DARK   = [System.Drawing.Color]::FromArgb(71, 85, 105)
+    SIDEBAR     = [System.Drawing.Color]::FromArgb(15, 15, 22)
 }
 
-$Fonts = @{
-    TITLE   = New-Object System.Drawing.Font("Segoe UI", 18, [System.Drawing.FontStyle]::Bold)
-    SUB     = New-Object System.Drawing.Font("Segoe UI", 12, [System.Drawing.FontStyle]::Bold)
-    BODY    = New-Object System.Drawing.Font("Segoe UI", 10)
-    SMALL   = New-Object System.Drawing.Font("Segoe UI", 8)
-    MONO    = New-Object System.Drawing.Font("Consolas", 9)
-}
-
-# ============================================================
-# FUNCOES UTILITARIAS
-# ============================================================
-function New-YokaiButton {
-    param([string]$Text, [System.Drawing.Color]$BGColor, [int]$X, [int]$Y, [int]$W = 200, [int]$H = 40)
-    $btn = New-Object System.Windows.Forms.Button
-    $btn.Text = $Text
-    $btn.Location = New-Object System.Drawing.Point($X, $Y)
-    $btn.Size = New-Object System.Drawing.Size($W, $H)
-    $btn.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-    $btn.FlatAppearance.BorderSize = 0
-    $btn.BackColor = $BGColor
-    $btn.ForeColor = $Colors.TEXT_PRIMARY
-    $btn.Font = $Fonts.BODY
-    $btn.Cursor = [System.Windows.Forms.Cursors]::Hand
-    return $btn
-}
-
-function New-YokaiLabel {
-    param([string]$Text, [System.Drawing.Font]$Font, [int]$X, [int]$Y, [int]$W = 400, [int]$H = 30, [System.Drawing.Color]$FG = $Colors.TEXT_PRIMARY)
-    $lbl = New-Object System.Windows.Forms.Label
-    $lbl.Text = $Text
-    $lbl.Location = New-Object System.Drawing.Point($X, $Y)
-    $lbl.Size = New-Object System.Drawing.Size($W, $H)
-    $lbl.Font = $Font
-    $lbl.ForeColor = $FG
-    $lbl.BackColor = [System.Drawing.Color]::Transparent
-    return $lbl
-}
-
-function New-YokaiPanel {
-    param([int]$X, [int]$Y, [int]$W, [int]$H, [System.Drawing.Color]$BG = $Colors.BG_CARD)
-    $pnl = New-Object System.Windows.Forms.Panel
-    $pnl.Location = New-Object System.Drawing.Point($X, $Y)
-    $pnl.Size = New-Object System.Drawing.Size($W, $H)
-    $pnl.BackColor = $BG
-    return $pnl
-}
-
-function New-YokaiCheckBox {
-    param([string]$Text, [bool]$Checked, [int]$X, [int]$Y, [int]$W = 300)
-    $chk = New-Object System.Windows.Forms.CheckBox
-    $chk.Text = $Text
-    $chk.Location = New-Object System.Drawing.Point($X, $Y)
-    $chk.Size = New-Object System.Drawing.Size($W, 25)
-    $chk.ForeColor = $Colors.TEXT_PRIMARY
-    $chk.BackColor = [System.Drawing.Color]::Transparent
-    $chk.Font = $Fonts.BODY
-    $chk.Checked = $Checked
-    return $chk
+$F = @{
+    TITLE    = New-Object System.Drawing.Font("Segoe UI Semibold", 20)
+    TITLE_SM = New-Object System.Drawing.Font("Segoe UI Semibold", 14)
+    SUB      = New-Object System.Drawing.Font("Segoe UI Semibold", 11)
+    BODY     = New-Object System.Drawing.Font("Segoe UI", 10)
+    BODY_SM  = New-Object System.Drawing.Font("Segoe UI", 9)
+    SMALL    = New-Object System.Drawing.Font("Segoe UI", 8)
+    MONO     = New-Object System.Drawing.Font("Cascadia Code", 10)
+    MONO_SM  = New-Object System.Drawing.Font("Cascadia Code", 9)
+    ICON     = New-Object System.Drawing.Font("Segoe MDL2 Assets", 16)
+    ICON_SM  = New-Object System.Drawing.Font("Segoe MDL2 Assets", 12)
 }
 
 # ============================================================
-# JANELA PRINCIPAL
+# COMPONENTES REUTILIZAVEIS
+# ============================================================
+function New-Panel {
+    param([int]$X,[int]$Y,[int]$W,[int]$H,[System.Drawing.Color]$BG=$C.CARD,[int]$Radius=8)
+    $p = New-Object System.Windows.Forms.Panel
+    $p.Location = New-Object System.Drawing.Point($X,$Y)
+    $p.Size = New-Object System.Drawing.Size($W,$H)
+    $p.BackColor = $BG
+    return $p
+}
+
+function New-Label {
+    param([string]$Text,[System.Drawing.Font]$Font=$F.BODY,[int]$X,[int]$Y,[int]$W=200,[int]$H=25,[System.Drawing.Color]$FG=$C.WHITE,[System.Windows.Forms.HorizontalAlignment]$Align="Left")
+    $l = New-Object System.Windows.Forms.Label
+    $l.Text = $Text
+    $l.Location = New-Object System.Drawing.Point($X,$Y)
+    $l.Size = New-Object System.Drawing.Size($W,$H)
+    $l.Font = $Font
+    $l.ForeColor = $FG
+    $l.BackColor = [System.Drawing.Color]::Transparent
+    $l.TextAlign = [System.Drawing.ContentAlignment]::$Align
+    return $l
+}
+
+function New-Btn {
+    param([string]$Text,[System.Drawing.Color]$BG=$C.PURPLE,[int]$X,[int]$Y,[int]$W=180,[int]$H=42)
+    $b = New-Object System.Windows.Forms.Button
+    $b.Text = $Text
+    $b.Location = New-Object System.Drawing.Point($X,$Y)
+    $b.Size = New-Object System.Drawing.Size($W,$H)
+    $b.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+    $b.FlatAppearance.BorderSize = 0
+    $b.BackColor = $BG
+    $b.ForeColor = $C.WHITE
+    $b.Font = $F.BODY
+    $b.Cursor = [System.Windows.Forms.Cursors]::Hand
+    return $b
+}
+
+function New-Check {
+    param([string]$Text,[bool]$Checked=$true,[int]$X,[int]$Y,[int]$W=350)
+    $c = New-Object System.Windows.Forms.CheckBox
+    $c.Text = $Text
+    $c.Location = New-Object System.Drawing.Point($X,$Y)
+    $c.Size = New-Object System.Drawing.Size($W,28)
+    $c.ForeColor = $C.WHITE
+    $c.BackColor = [System.Drawing.Color]::Transparent
+    $c.Font = $F.BODY
+    $c.Checked = $Checked
+    return $c
+}
+
+function New-StatCard {
+    param([string]$Title,[string]$Value,[string]$Sub,[int]$X,[int]$Y,[System.Drawing.Color]$Accent=$C.PURPLE)
+    $card = New-Panel -X $X -Y $Y -W 175 -H 90
+    
+    $dot = New-Object System.Windows.Forms.Label
+    $dot.Text = [char]0x25CF
+    $dot.Location = New-Object System.Drawing.Point(12,12)
+    $dot.AutoSize = $true
+    $dot.Font = New-Object System.Drawing.Font("Segoe UI", 8)
+    $dot.ForeColor = $Accent
+    $dot.BackColor = [System.Drawing.Color]::Transparent
+    $card.Controls.Add($dot)
+    
+    $card.Controls.Add((New-Label -Text $Title -Font $F.BODY_SM -X 25 -Y 10 -W 140 -H 20 -FG $C.GRAY))
+    $card.Controls.Add((New-Label -Text $Value -Font $F.TITLE_SM -X 12 -Y 32 -W 155 -H 35 -FG $C.WHITE))
+    $card.Controls.Add((New-Label -Text $Sub -Font $F.SMALL -X 12 -Y 68 -W 155 -H 18 -FG $C.GRAY_DARK))
+    return $card
+}
+
+function New-SidebarBtn {
+    param([string]$Icon,[string]$Text,[int]$Y,[bool]$Active=$false)
+    $b = New-Object System.Windows.Forms.Button
+    $b.Text = "  $Icon   $Text"
+    $b.Location = New-Object System.Drawing.Point(8,$Y)
+    $b.Size = New-Object System.Drawing.Size(184,44)
+    $b.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+    $b.FlatAppearance.BorderSize = 0
+    $b.BackColor = $(if($Active){$C.CARD}else{$C.SIDEBAR})
+    $b.ForeColor = $(if($Active){$C.WHITE}else{$C.GRAY})
+    $b.Font = $F.BODY
+    $b.Cursor = [System.Windows.Forms.Cursors]::Hand
+    $b.TextAlign = [System.Drawing.ContentAlignment]::MiddleLeft
+    $b.Padding = New-Object System.Windows.Forms.Padding(8,0,0,0)
+    return $b
+}
+
+# ============================================================
+# FORM PRINCIPAL
 # ============================================================
 $Form = New-Object System.Windows.Forms.Form
-$Form.Text = "YokaiOS Toolbox v1.0.0"
-$Form.Size = New-Object System.Drawing.Size(1000, 700)
+$Form.Text = "YokaiOS Toolbox"
+$Form.Size = New-Object System.Drawing.Size(1050, 680)
 $Form.StartPosition = "CenterScreen"
-$Form.BackColor = $Colors.BG_DARK
-$Form.ForeColor = $Colors.TEXT_PRIMARY
-$Form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedSingle
-$Form.MaximizeBox = $false
+$Form.BackColor = $C.BG
+$Form.ForeColor = $C.WHITE
+$Form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::None
+$Form.DoubleBuffered = $true
 
 # ============================================================
-# HEADER COM LOGO
+# HEADER
 # ============================================================
-$HeaderPanel = New-YokaiPanel -X 0 -Y 0 -W 1000 -H 80 -BG ([System.Drawing.Color]::FromArgb(15, 15, 20))
+$Header = New-Panel -X 0 -Y 0 -W 1050 -H 52 -BG $C.BG2
 
-$LogoLabel = New-YokaiLabel -Text "YOKAI OS" -Font $Fonts.TITLE -X 20 -Y 15 -W 300 -H 50 -FG $Colors.ACCENT_PURPLE
-$HeaderPanel.Controls.Add($LogoLabel)
+$LogoIcon = New-Label -Text "Y" -Font (New-Object System.Drawing.Font("Segoe UI",18,[System.Drawing.FontStyle]::Bold)) -X 20 -Y 8 -W 35 -H 35 -FG $C.PURPLE
+$Header.Controls.Add($LogoIcon)
 
-$SubLabel = New-YokaiLabel -Text "Windows 11 Ultra-Otimizado para Gaming" -Font $Fonts.SMALL -X 20 -Y 50 -W 400 -H 20 -FG $Colors.TEXT_SECONDARY
-$HeaderPanel.Controls.Add($SubLabel)
+$LogoText = New-Label -Text "YOKAI OS" -Font (New-Object System.Drawing.Font("Segoe UI Semibold",16)) -X 52 -Y 10 -W 200 -H 32 -FG $C.WHITE
+$Header.Controls.Add($LogoText)
 
-$VersionLabel = New-YokaiLabel -Text "v1.0.0" -Font $Fonts.MONO -X 900 -Y 30 -W 80 -H 25 -FG $Colors.TEXT_SECONDARY
-$HeaderPanel.Controls.Add($VersionLabel)
+$HeaderSub = New-Label -Text "Toolbox v2.0" -Font $F.SMALL -X 165 -Y 14 -W 100 -H 20 -FG $C.GRAY_DARK
+$Header.Controls.Add($HeaderSub)
 
-$Form.Controls.Add($HeaderPanel)
+# Botoes da janela
+$BtnClose = New-Label -Text "X" -Font (New-Object System.Drawing.Font("Segoe UI",12,[System.Drawing.FontStyle]::Bold)) -X 1010 -Y 10 -W 30 -H 30 -FG $C.GRAY
+$BtnClose.Cursor = [System.Windows.Forms.Cursors]::Hand
+$BtnClose.Add_Click({ $Form.Close() })
+$Header.Controls.Add($BtnClose)
+
+$BtnMin = New-Label -Text "-" -Font (New-Object System.Drawing.Font("Segoe UI",14,[System.Drawing.FontStyle]::Bold)) -X 975 -Y 8 -W 30 -H 30 -FG $C.GRAY
+$BtnMin.Cursor = [System.Windows.Forms.Cursors]::Hand
+$BtnMin.Add_Click({ $Form.WindowState = "Minimized" })
+$Header.Controls.Add($BtnMin)
+
+$Form.Controls.Add($Header)
 
 # ============================================================
-# MENU LATERAL
+# SIDEBAR
 # ============================================================
-$MenuPanel = New-YokaiPanel -X 0 -Y 80 -W 200 -H 620 -BG ([System.Drawing.Color]::FromArgb(20, 20, 28))
+$Sidebar = New-Panel -X 0 -Y 52 -W 200 -H 628 -BG $C.SIDEBAR
 
 $MenuItems = @(
-    @{Text = "Dashboard"; Icon = "[*]"},
-    @{Text = "Gaming"; Icon = "[G]"},
-    @{Text = "Performance"; Icon = "[P]"},
-    @{Text = "Privacidade"; Icon = "[L]"},
-    @{Text = "Debloat"; Icon = "[D]"},
-    @{Text = "Rede"; Icon = "[N]"},
-    @{Text = "Servicos"; Icon = "[S]"},
-    @{Text = "Benchmark"; Icon = "[B]"},
-    @{Text = "Restaurar"; Icon = "[R]"}
+    @{Icon=[char]0xE80F; Text="Dashboard"; Active=$true},
+    @{Icon=[char]0xE7FC; Text="Gaming"; Active=$false},
+    @{Icon=[char]0xE9F5; Text="Performance"; Active=$false},
+    @{Icon=[char]0xE72B; Text="Privacidade"; Active=$false},
+    @{Icon=[char]0xE74D; Text="Debloat"; Active=$false},
+    @{Icon=[char]0xE774; Text="Rede"; Active=$false},
+    @{Icon=[char]0xE7BA; Text="Servicos"; Active=$false},
+    @{Icon=[char]0xE9D9; Text="Benchmark"; Active=$false},
+    @{Icon=[char]0xE777; Text="Restaurar"; Active=$false}
 )
 
-$MenuY = 20
+$MenuY = 15
+$SidebarBtns = @()
 foreach ($item in $MenuItems) {
-    $MenuBtn = New-YokaiButton -Text "$($item.Icon) $($item.Text)" -BGColor $Colors.BG_CARD -X 10 -Y $MenuY -W 180 -H 40
-    $MenuBtn.Tag = $item.Text
-    $MenuBtn.Add_Click({
-        $PageName = $this.Tag
-        Show-Page -PageName $PageName
+    $btn = New-SidebarBtn -Icon $item.Icon -Text $item.Text -Y $MenuY -Active $item.Active
+    $btn.Tag = $item.Text
+    $btn.Add_Click({
+        foreach ($b in $SidebarBtns) { $b.BackColor = $C.SIDEBAR; $b.ForeColor = $C.GRAY }
+        $this.BackColor = $C.CARD
+        $this.ForeColor = $C.WHITE
+        Show-Page $this.Tag
     }.GetNewClosure())
-    $MenuPanel.Controls.Add($MenuBtn)
+    $Sidebar.Controls.Add($btn)
+    $SidebarBtns += $btn
     $MenuY += 50
 }
-$Form.Controls.Add($MenuPanel)
+
+$Form.Controls.Add($Sidebar)
 
 # ============================================================
 # AREA DE CONTEUDO
 # ============================================================
-$ContentPanel = New-YokaiPanel -X 210 -Y 90 -W 770 -H 590
-$Form.Controls.Add($ContentPanel)
+$Content = New-Panel -X 208 -Y 60 -W 834 -H 612 -BG $C.BG
+$Form.Controls.Add($Content)
 
 # ============================================================
 # PAGES
@@ -154,434 +216,395 @@ $Form.Controls.Add($ContentPanel)
 $Pages = @{}
 
 # --- DASHBOARD ---
-$DashboardPage = New-Object System.Windows.Forms.Panel
-$DashboardPage.Dock = [System.Windows.Forms.DockStyle]::Fill
-$DashboardPage.BackColor = $Colors.BG_DARK
+$pg = New-Object System.Windows.Forms.Panel
+$pg.Dock = [System.Windows.Forms.DockStyle]::Fill
+$pg.BackColor = $C.BG
+$pg.AutoScroll = $true
 
-$DashTitle = New-YokaiLabel -Text "Dashboard" -Font $Fonts.TITLE -X 20 -Y 10 -W 400 -H 40
-$DashboardPage.Controls.Add($DashTitle)
+$pg.Controls.Add((New-Label -Text "Dashboard" -Font $F.TITLE -X 0 -Y 0 -W 400 -H 40))
+$pg.Controls.Add((New-Label -Text "Visao geral do sistema e acoes rapidas" -Font $F.BODY_SM -X 0 -Y 35 -W 400 -H 20 -FG $C.GRAY))
 
-# Status Cards
-$StatusCards = @(
-    @{Title = "Processos"; Value = "..."; Y = 60},
-    @{Title = "RAM em Uso"; Value = "..."; Y = 160},
-    @{Title = "CPU"; Value = "..."; Y = 260},
-    @{Title = "Servicos YokaiOS"; Value = "40+ Desabilitados"; Y = 360}
-)
+# Stat Cards
+$pg.Controls.Add((New-StatCard -Title "Processos" -Value "..." -Sub "em execucao" -X 0 -Y 70 -Accent $C.GREEN))
+$pg.Controls.Add((New-StatCard -Title "RAM" -Value "..." -Sub "em uso" -X 185 -Y 70 -Accent $C.BLUE))
+$pg.Controls.Add((New-StatCard -Title "CPU" -Value "..." -Sub "uso medio" -X 370 -Y 70 -Accent $C.PURPLE))
+$pg.Controls.Add((New-StatCard -Title "Servicos" -Value "50+" -Sub "desabilitados" -X 555 -Y 70 -Accent $C.PINK))
 
-foreach ($card in $StatusCards) {
-    $CardPanel = New-YokaiPanel -X 20 -Y $card.Y -W 170 -H 80
-    $CardTitle = New-YokaiLabel -Text $card.Title -Font $Fonts.SMALL -X 10 -Y 5 -W 150 -H 20 -FG $Colors.TEXT_SECONDARY
-    $CardValue = New-YokaiLabel -Text $card.Value -Font $Fonts.SUB -X 10 -Y 30 -W 150 -H 40 -FG $Colors.ACCENT_PURPLE
-    $CardPanel.Controls.Add($CardTitle)
-    $CardPanel.Controls.Add($CardValue)
-    $DashboardPage.Controls.Add($CardPanel)
-}
+# Acoes Rapidasection
+$ActionsCard = New-Panel -X 0 -Y 180 -W 730 -H 200
+$pg.Controls.Add($ActionsCard)
 
-# Quick Actions
-$QuickTitle = New-YokaiLabel -Text "Acoes Rapidas" -Font $Fonts.SUB -X 20 -Y 460 -W 300 -H 30
-$DashboardPage.Controls.Add($QuickTitle)
+$ActionsCard.Controls.Add((New-Label -Text "Acoes Rapidas" -Font $F.SUB -X 15 -Y 12 -W 300 -H 25))
+$ActionsCard.Controls.Add((New-Label -Text "Execute as otimizacoes com um clique" -Font $F.BODY_SM -X 15 -Y 35 -W 400 -H 20 -FG $C.GRAY))
 
-$BtnApplyAll = New-YokaiButton -Text "Aplicar Todas Otimizacoes" -BGColor $Colors.ACCENT_PURPLE -X 20 -Y 500 -W 250 -H 45
-$BtnApplyAll.Add_Click({
-    $result = [System.Windows.Forms.MessageBox]::Show("Isso vai aplicar TODAS as otimizacoes do YokaiOS. Continuar?", "Confirmar", "YesNo", "Warning")
-    if ($result -eq "Yes") {
-        Apply-AllOptimizations
-    }
+$BtnApply = New-Btn -Text "Aplicar Todas Otimizacoes" -BG $C.PURPLE -X 15 -Y 70 -W 230 -H 48
+$BtnApply.Add_Click({
+    $r = [System.Windows.Forms.MessageBox]::Show("Aplicar TODAS as otimizacoes?","YokaiOS","YesNo","Warning")
+    if($r -eq "Yes"){ Start-Process powershell.exe -ArgumentList '-STA','-ExecutionPolicy','Bypass','-File',"C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS\Executables\Install-YokaiOS.ps1" -Verb RunAs }
 })
-$DashboardPage.Controls.Add($BtnApplyAll)
+$ActionsCard.Controls.Add($BtnApply)
 
-$BtnVerify = New-YokaiButton -Text "Verificar Instalacao" -BGColor $Colors.ACCENT_BLUE -X 290 -Y 500 -W 200 -H 45
-$BtnVerify.Add_Click({ Verify-Installation })
-$DashboardPage.Controls.Add($BtnVerify)
+$BtnBench = New-Btn -Text "Executar Benchmark" -BG $C.BLUE -X 260 -Y 70 -W 200 -H 48
+$BtnBench.Add_Click({ Run-Benchmark })
+$ActionsCard.Controls.Add($BtnBench)
 
-$Pages["Dashboard"] = $DashboardPage
+$BtnVerify = New-Btn -Text "Verificar Instalacao" -BG $C.CARD_HOVER -X 475 -Y 70 -W 200 -H 48
+$BtnVerify.Add_Click({
+    $p = "C:\YokaiOS\Scripts\Verify-Installation.ps1"
+    if(Test-Path $p){ Start-Process powershell.exe -ArgumentList "-ExecutionPolicy Bypass -File `"$p`"" }
+    else{ [System.Windows.Forms.MessageBox]::Execute("Execute a instalacao primeiro.","YokaiOS","OK","Warning") }
+})
+$ActionsCard.Controls.Add($BtnVerify)
+
+$BtnToolbox = New-Btn -Text "Abrir Toolbox Avancada" -BG $C.CARD -X 15 -Y 130 -W 230 -H 48
+$ActionsCard.Controls.Add($BtnToolbox)
+
+# System Info Card
+$SysCard = New-Panel -X 0 -Y 400 -W 730 -H 180
+$pg.Controls.Add($SysCard)
+
+$SysCard.Controls.Add((New-Label -Text "Informacoes do Sistema" -Font $F.SUB -X 15 -Y 12 -W 300 -H 25))
+$SysCard.Controls.Add((New-Label -Text "Windows 11" -Font $F.BODY -X 15 -Y 45 -W 200 -H 20 -FG $C.GRAY))
+$SysCard.Controls.Add((New-Label -Text $env:COMPUTERNAME -Font $F.MONO -X 15 -Y 70 -W 200 -H 20 -FG $C.WHITE))
+$SysCard.Controls.Add((New-Label -Text "YokaiOS v2.0" -Font $F.MONO_SM -X 15 -Y 95 -W 200 -H 20 -FG $C.PURPLE))
+
+$Pages["Dashboard"] = $pg
 
 # --- GAMING ---
-$GamingPage = New-Object System.Windows.Forms.Panel
-$GamingPage.Dock = [System.Windows.Forms.DockStyle]::Fill
-$GamingPage.BackColor = $Colors.BG_DARK
+$pg = New-Object System.Windows.Forms.Panel
+$pg.Dock = [System.Windows.Forms.DockStyle]::Fill
+$pg.BackColor = $C.BG
+$pg.AutoScroll = $true
 
-$GamingTitle = New-YokaiLabel -Text "Otimizacoes Gaming" -Font $Fonts.TITLE -X 20 -Y 10 -W 500 -H 40
-$GamingPage.Controls.Add($GamingTitle)
+$pg.Controls.Add((New-Label -Text "Otimizacoes Gaming" -Font $F.TITLE -X 0 -Y 0 -W 500 -H 40))
+$pg.Controls.Add((New-Label -Text "Configuracoes para maximo desempenho em jogos" -Font $F.BODY_SM -X 0 -Y 35 -W 500 -H 20 -FG $C.GRAY))
 
-$GamingChecks = @(
-    @{Text = "Desabilitar Game Mode"; Y = 60},
-    @{Text = "Desabilitar Game Bar e DVR"; Y = 90},
-    @{Text = "Desabilitar Fullscreen Optimizations"; Y = 120},
-    @{Text = "Otimizar GPU Scheduling (Hardware)"; Y = 150},
-    @{Text = "Otimizar CPU Priority (Win32Priority=38)"; Y = 180},
-    @{Text = "Otimizar MMCS (Multimedia Scheduler)"; Y = 210},
-    @{Text = "Timer Resolution 0.5ms"; Y = 240},
-    @{Text = "Desabilitar Aceleracao do Mouse"; Y = 270},
-    @{Text = "Desabilitar Efeitos Visuais"; Y = 300},
-    @{Text = "Desabilitar Preempcao de GPU"; Y = 330},
-    @{Text = "Input Raw do Mouse (1:1)"; Y = 360},
-    @{Text = "Desabilitar Filter Keys"; Y = 390}
+$GameCard = New-Panel -X 0 -Y 70 -W 730 -H 480
+$pg.Controls.Add($GameCard)
+
+$GameChecks = @(
+    "Desabilitar Game Mode","Desabilitar Game Bar e DVR","Desabilitar Fullscreen Optimizations",
+    "Otimizar GPU Scheduling (Hardware)","Otimizar CPU Priority (Win32Priority=38)",
+    "Otimizar MMCS (Multimedia Scheduler)","Timer Resolution 0.5ms","Desabilitar Aceleracao do Mouse",
+    "Desabilitar Efeitos Visuais","Desabilitar Preempcao de GPU","Input Raw do Mouse (1:1)",
+    "Desabilitar Filter Keys"
 )
 
-$GamingChecksY = 60
-foreach ($chk in $GamingChecks) {
-    $CheckBox = New-YokaiCheckBox -Text $chk.Text -Checked $true -X 30 -Y $chk.Y -W 400
-    $GamingPage.Controls.Add($CheckBox)
+$gy = 15
+foreach($chk in $GameChecks){
+    $GameCard.Controls.Add((New-Check -Text $chk -X 15 -Y $gy))
+    $gy += 32
 }
 
-$BtnApplyGaming = New-YokaiButton -Text "Aplicar Otimizacoes Gaming" -BGColor $Colors.ACCENT_PURPLE -X 20 -Y 500 -W 300 -H 45
-$BtnApplyGaming.Add_Click({ Apply-GamingOptimizations })
-$GamingPage.Controls.Add($BtnApplyGaming)
+$BtnGame = New-Btn -Text "Aplicar Gaming" -BG $C.PURPLE -X 15 -Y ($gy+15) -W 200 -H 45
+$GameCard.Controls.Add($BtnGame)
 
-$Pages["Gaming"] = $GamingPage
+$Pages["Gaming"] = $pg
 
 # --- PERFORMANCE ---
-$PerfPage = New-Object System.Windows.Forms.Panel
-$PerfPage.Dock = [System.Windows.Forms.DockStyle]::Fill
-$PerfPage.BackColor = $Colors.BG_DARK
+$pg = New-Object System.Windows.Forms.Panel
+$pg.Dock = [System.Windows.Forms.DockStyle]::Fill
+$pg.BackColor = $C.BG
+$pg.AutoScroll = $true
 
-$PerfTitle = New-YokaiLabel -Text "Otimizacoes de Performance" -Font $Fonts.TITLE -X 20 -Y 10 -W 500 -H 40
-$PerfPage.Controls.Add($PerfTitle)
+$pg.Controls.Add((New-Label -Text "Performance" -Font $F.TITLE -X 0 -Y 0 -W 500 -H 40))
+$pg.Controls.Add((New-Label -Text "50+ servicos, 60+ tarefas, otimizacoes WinUtil" -Font $F.BODY_SM -X 0 -Y 35 -W 500 -H 20 -FG $C.GRAY))
+
+$PerfCard = New-Panel -X 0 -Y 70 -W 730 -H 480
+$pg.Controls.Add($PerfCard)
 
 $PerfChecks = @(
-    @{Text = "Desabilitar 50+ Servicos Desnecessarios"; Y = 60},
-    @{Text = "Desabilitar 60+ Tarefas Agendadas"; Y = 90},
-    @{Text = "Otimizar Memoria (Sem Compressao)"; Y = 120},
-    @{Text = "Otimizar Disco NTFS"; Y = 150},
-    @{Text = "Plano de Energia Ultimate Performance"; Y = 180},
-    @{Text = "Desabilitar Paging Executive"; Y = 210},
-    @{Text = "Desabilitar Background Apps"; Y = 240},
-    @{Text = "Desabilitar Startup Programs"; Y = 270},
-    @{Text = "BCDedit Otimizado"; Y = 300},
-    @{Text = "Desabilitar Mitigacoes de CPU"; Y = 330},
-    @{Text = "SvcHost Split Threshold"; Y = 360},
-    @{Text = "Desabilitar Reserved Storage"; Y = 390},
-    @{Text = "Desabilitar Storage Sense"; Y = 420}
+    "Desabilitar 50+ Servicos Desnecessarios","Desabilitar 60+ Tarefas Agendadas",
+    "Otimizar Memoria (Sem Compressao)","Otimizar Disco NTFS","Plano Ultimate Performance",
+    "Desabilitar Paging Executive","Desabilitar Background Apps","Desabilitar Startup Programs",
+    "BCDedit Otimizado","Desabilitar Mitigacoes de CPU","SvcHost Split Threshold",
+    "Desabilitar Reserved Storage","Desabilitar Storage Sense","Consumer Features",
+    "Delivery Optimization","WPBT","Notifications","IPv6 Preferencial","Teredo",
+    "End Task no Taskbar","Explorer Auto Discovery","Menu Contexto Classico",
+    "Mostrar Extensoes","Modo Escuro"
 )
 
-foreach ($chk in $PerfChecks) {
-    $CheckBox = New-YokaiCheckBox -Text $chk.Text -Checked $true -X 30 -Y $chk.Y -W 400
-    $PerfPage.Controls.Add($CheckBox)
+$py = 15
+foreach($chk in $PerfChecks){
+    $PerfCard.Controls.Add((New-Check -Text $chk -X 15 -Y $py))
+    $py += 32
 }
 
-$BtnApplyPerf = New-YokaiButton -Text "Aplicar Performance" -BGColor $Colors.ACCENT_PURPLE -X 20 -Y 500 -W 300 -H 45
-$BtnApplyPerf.Add_Click({ Apply-PerformanceOptimizations })
-$PerfPage.Controls.Add($BtnApplyPerf)
+$BtnPerf = New-Btn -Text "Aplicar Performance" -BG $C.PURPLE -X 15 -Y ($py+15) -W 200 -H 45
+$PerfCard.Controls.Add($BtnPerf)
 
-$Pages["Performance"] = $PerfPage
+$Pages["Performance"] = $pg
 
 # --- PRIVACIDADE ---
-$PrivPage = New-Object System.Windows.Forms.Panel
-$PrivPage.Dock = [System.Windows.Forms.DockStyle]::Fill
-$PrivPage.BackColor = $Colors.BG_DARK
+$pg = New-Object System.Windows.Forms.Panel
+$pg.Dock = [System.Windows.Forms.DockStyle]::Fill
+$pg.BackColor = $C.BG
+$pg.AutoScroll = $true
 
-$PrivTitle = New-YokaiLabel -Text "Privacidade" -Font $Fonts.TITLE -X 20 -Y 10 -W 500 -H 40
-$PrivPage.Controls.Add($PrivTitle)
+$pg.Controls.Add((New-Label -Text "Privacidade" -Font $F.TITLE -X 0 -Y 0 -W 500 -H 40))
+$pg.Controls.Add((New-Label -Text "20+ otimizacoes para eliminar telemetria e tracking" -Font $F.BODY_SM -X 0 -Y 35 -W 500 -H 20 -FG $C.GRAY))
+
+$PrivCard = New-Panel -X 0 -Y 70 -W 730 -H 480
+$pg.Controls.Add($PrivCard)
 
 $PrivChecks = @(
-    @{Text = "Desabilitar Telemetria"; Y = 60},
-    @{Text = "Desabilitar Tracking e Advertising ID"; Y = 90},
-    @{Text = "Desabilitar Activity Feed / Timeline"; Y = 120},
-    @{Text = "Desabilitar Cortana"; Y = 150},
-    @{Text = "Desabilitar Busca Web (Bing)"; Y = 180},
-    @{Text = "Desabilitar Propagandas"; Y = 210},
-    @{Text = "Desabilitar Location Tracking"; Y = 240},
-    @{Text = "Desabilitar Input Personalization"; Y = 270},
-    @{Text = "Desabilitar SmartScreen"; Y = 300},
-    @{Text = "Desabilitar Cloud Search"; Y = 330},
-    @{Text = "Desabilitar Feedback Frequency"; Y = 360},
-    @{Text = "Desabilitar WiFi Sense"; Y = 390},
-    @{Text = "Desabilitar App Diagnostics"; Y = 420}
+    "Desabilitar Telemetria","Desabilitar Tracking e Advertising ID","Desabilitar Activity Feed",
+    "Desabilitar Cortana","Desabilitar Busca Web (Bing)","Desabilitar Propagandas",
+    "Desabilitar Location Tracking","Desabilitar Input Personalization","Desabilitar SmartScreen",
+    "Desabilitar Cloud Search","Desabilitar Feedback","Desabilitar WiFi Sense",
+    "Desabilitar App Diagnostics","Desabilitar Speech Recognition","Desabilitar Typing Insights",
+    "Desabilitar Device Monitoring","Desabilitar Search History","Desabilitar Search Suggestions",
+    "Desabilitar Suggested Content","Desabilitar Privacy Experience"
 )
 
-foreach ($chk in $PrivChecks) {
-    $CheckBox = New-YokaiCheckBox -Text $chk.Text -Checked $true -X 30 -Y $chk.Y -W 400
-    $PrivPage.Controls.Add($CheckBox)
+$pry = 15
+foreach($chk in $PrivChecks){
+    $PrivCard.Controls.Add((New-Check -Text $chk -X 15 -Y $pry))
+    $pry += 32
 }
 
-$BtnApplyPriv = New-YokaiButton -Text "Aplicar Privacidade" -BGColor $Colors.ACCENT_PURPLE -X 20 -Y 500 -W 300 -H 45
-$BtnApplyPriv.Add_Click({ Apply-PrivacyOptimizations })
-$PrivPage.Controls.Add($BtnApplyPriv)
+$BtnPriv = New-Btn -Text "Aplicar Privacidade" -BG $C.PURPLE -X 15 -Y ($pry+15) -W 200 -H 45
+$PrivCard.Controls.Add($BtnPriv)
 
-$Pages["Privacidade"] = $PrivPage
+$Pages["Privacidade"] = $pg
 
 # --- DEBLOAT ---
-$DebloatPage = New-Object System.Windows.Forms.Panel
-$DebloatPage.Dock = [System.Windows.Forms.DockStyle]::Fill
-$DebloatPage.BackColor = $Colors.BG_DARK
+$pg = New-Object System.Windows.Forms.Panel
+$pg.Dock = [System.Windows.Forms.DockStyle]::Fill
+$pg.BackColor = $C.BG
+$pg.AutoScroll = $true
 
-$DebloatTitle = New-YokaiLabel -Text "Remocao de Bloatware" -Font $Fonts.TITLE -X 20 -Y 10 -W 500 -H 40
-$DebloatPage.Controls.Add($DebloatTitle)
+$pg.Controls.Add((New-Label -Text "Debloat" -Font $F.TITLE -X 0 -Y 0 -W 500 -H 40))
+$pg.Controls.Add((New-Label -Text "Remocao de bloatware e componentes desnecessarios" -Font $F.BODY_SM -X 0 -Y 35 -W 500 -H 20 -FG $C.GRAY))
+
+$DebloatCard = New-Panel -X 0 -Y 70 -W 730 -H 400
+$pg.Controls.Add($DebloatCard)
 
 $DebloatChecks = @(
-    @{Text = "Remover Microsoft Edge"; Y = 60},
-    @{Text = "Remover OneDrive"; Y = 90},
-    @{Text = "Remover Cortana"; Y = 120},
-    @{Text = "Remover Copilot e IA"; Y = 150},
-    @{Text = "Remover Widgets"; Y = 180},
-    @{Text = "Remover Xbox Apps"; Y = 210},
-    @{Text = "Remover Teams"; Y = 240},
-    @{Text = "Remover Apps Pre-Instalados"; Y = 270},
-    @{Text = "Remover Recall (IA)"; Y = 300},
-    @{Text = "Desabilitar Copilot"; Y = 330},
-    @{Text = "Desabilitar Consumer Features"; Y = 360},
-    @{Text = "Desabilitar WPBT"; Y = 390}
+    "Remover Microsoft Edge","Remover OneDrive","Remover Cortana","Remover Copilot e IA",
+    "Remover Widgets","Remover Xbox Apps","Remover Teams","Remover Apps Pre-Instalados",
+    "Remover Recall (IA)","Desabilitar Copilot","Desabilitar Consumer Features","Desabilitar WPBT"
 )
 
-foreach ($chk in $DebloatChecks) {
-    $CheckBox = New-YokaiCheckBox -Text $chk.Text -Checked $true -X 30 -Y $chk.Y -W 400
-    $DebloatPage.Controls.Add($CheckBox)
+$dy = 15
+foreach($chk in $DebloatChecks){
+    $DebloatCard.Controls.Add((New-Check -Text $chk -X 15 -Y $dy))
+    $dy += 32
 }
 
-$BtnApplyDebloat = New-YokaiButton -Text "Aplicar Debloat" -BGColor $Colors.ACCENT_PURPLE -X 20 -Y 500 -W 300 -H 45
-$BtnApplyDebloat.Add_Click({ Apply-DebloatOptimizations })
-$DebloatPage.Controls.Add($BtnApplyDebloat)
+$BtnDebloat = New-Btn -Text "Aplicar Debloat" -BG $C.PURPLE -X 15 -Y ($dy+15) -W 200 -H 45
+$DebloatCard.Controls.Add($BtnDebloat)
 
-$Pages["Debloat"] = $DebloatPage
+$Pages["Debloat"] = $pg
 
 # --- REDE ---
-$NetPage = New-Object System.Windows.Forms.Panel
-$NetPage.Dock = [System.Windows.Forms.DockStyle]::Fill
-$NetPage.BackColor = $Colors.BG_DARK
+$pg = New-Object System.Windows.Forms.Panel
+$pg.Dock = [System.Windows.Forms.DockStyle]::Fill
+$pg.BackColor = $C.BG
+$pg.AutoScroll = $true
 
-$NetTitle = New-YokaiLabel -Text "Otimizacoes de Rede" -Font $Fonts.TITLE -X 20 -Y 10 -W 500 -H 40
-$NetPage.Controls.Add($NetTitle)
+$pg.Controls.Add((New-Label -Text "Rede" -Font $F.TITLE -X 0 -Y 0 -W 500 -H 40))
+$pg.Controls.Add((New-Label -Text "Otimizacoes de rede para baixa latencia" -Font $F.BODY_SM -X 0 -Y 35 -W 500 -H 20 -FG $C.GRAY))
+
+$NetCard = New-Panel -X 0 -Y 70 -W 730 -H 350
+$pg.Controls.Add($NetCard)
 
 $NetChecks = @(
-    @{Text = "Desabilitar Algoritmo de Nagle"; Y = 60},
-    @{Text = "Otimizar TCP Settings"; Y = 90},
-    @{Text = "DNS Cloudflare (1.1.1.1)"; Y = 120},
-    @{Text = "Desabilitar Network Throttling"; Y = 150},
-    @{Text = "Desabilitar Teredo"; Y = 180},
-    @{Text = "IPv4 Preferencial"; Y = 210},
-    @{Text = "Desabilitar Network Power Saving"; Y = 240},
-    @{Text = "Desabilitar Network Offloads"; Y = 270},
-    @{Text = "Flush DNS Cache"; Y = 300}
+    "Desabilitar Algoritmo de Nagle","Otimizar TCP Settings","DNS Cloudflare (1.1.1.1)",
+    "Desabilitar Network Throttling","Desabilitar Teredo","IPv4 Preferencial",
+    "Desabilitar Network Power Saving","Desabilitar Network Offloads","Flush DNS Cache"
 )
 
-foreach ($chk in $NetChecks) {
-    $CheckBox = New-YokaiCheckBox -Text $chk.Text -Checked $true -X 30 -Y $chk.Y -W 400
-    $NetPage.Controls.Add($CheckBox)
+$ny = 15
+foreach($chk in $NetChecks){
+    $NetCard.Controls.Add((New-Check -Text $chk -X 15 -Y $ny))
+    $ny += 32
 }
 
-$BtnApplyNet = New-YokaiButton -Text "Aplicar Rede" -BGColor $Colors.ACCENT_PURPLE -X 20 -Y 500 -W 300 -H 45
-$BtnApplyNet.Add_Click({ Apply-NetworkOptimizations })
-$NetPage.Controls.Add($BtnApplyNet)
+$BtnNet = New-Btn -Text "Aplicar Rede" -BG $C.PURPLE -X 15 -Y ($ny+15) -W 200 -H 45
+$NetCard.Controls.Add($BtnNet)
 
-$Pages["Rede"] = $NetPage
+$Pages["Rede"] = $pg
 
 # --- SERVICOS ---
-$SvcPage = New-Object System.Windows.Forms.Panel
-$SvcPage.Dock = [System.Windows.Forms.DockStyle]::Fill
-$SvcPage.BackColor = $Colors.BG_DARK
+$pg = New-Object System.Windows.Forms.Panel
+$pg.Dock = [System.Windows.Forms.DockStyle]::Fill
+$pg.BackColor = $C.BG
+$pg.AutoScroll = $true
 
-$SvcTitle = New-YokaiLabel -Text "Gerenciamento de Servicos" -Font $Fonts.TITLE -X 20 -Y 10 -W 500 -H 40
-$SvcPage.Controls.Add($SvcTitle)
+$pg.Controls.Add((New-Label -Text "Servicos" -Font $F.TITLE -X 0 -Y 0 -W 500 -H 40))
+$pg.Controls.Add((New-Label -Text "50+ servicos desabilitados para reduzir processos em idle" -Font $F.BODY_SM -X 0 -Y 35 -W 600 -H 20 -FG $C.GRAY))
 
-$SvcInfo = New-YokaiLabel -Text "Servicos desabilitados pelo YokaiOS para reduzir processos em idle:" -Font $Fonts.BODY -X 20 -Y 55 -W 700 -H 25 -FG $Colors.TEXT_SECONDARY
-$SvcPage.Controls.Add($SvcInfo)
+$SvcCard = New-Panel -X 0 -Y 70 -W 730 -H 500
+$pg.Controls.Add($SvcCard)
 
-$SvcListBox = New-Object System.Windows.Forms.ListBox
-$SvcListBox.Location = New-Object System.Drawing.Point(20, 85)
-$SvcListBox.Size = New-Object System.Drawing.Size(730, 400)
-$SvcListBox.BackColor = $Colors.BG_CARD
-$SvcListBox.ForeColor = $Colors.TEXT_PRIMARY
-$SvcListBox.Font = $Fonts.MONO
-$SvcListBox.BorderStyle = [System.Windows.Forms.BorderStyle]::None
+$SvcList = New-Object System.Windows.Forms.ListView
+$SvcList.Location = New-Object System.Drawing.Point(10,10)
+$SvcList.Size = New-Object System.Drawing.Size(710,480)
+$SvcList.BackColor = $C.CARD
+$SvcList.ForeColor = $C.WHITE
+$SvcList.Font = $F.MONO_SM
+$SvcList.View = [System.Windows.Forms.View]::Details
+$SvcList.FullRowSelect = $true
+$SvcList.Columns.Add("Servico",200)
+$SvcList.Columns.Add("Descricao",350)
+$SvcList.Columns.Add("Status",100)
 
-$ServicesList = @(
-    "DiagTrack                - Telemetria do Windows",
-    "dmwappushservice         - WAP Push",
-    "SysMain                  - Superfetch",
-    "WSearch                  - Indexador de Busca",
-    "wuauserv                 - Windows Update",
-    "DoSvc                    - Delivery Optimization",
-    "Spooler                  - Impressora",
-    "Fax                      - Fax",
-    "RemoteRegistry           - Registro Remoto",
-    "TabletInputService       - Teclado Touch",
-    "WerSvc                   - Relatorio de Erros",
-    "DPS                      - Diagnostico",
-    "PcaSvc                   - Assistente de Compatibilidade",
-    "seclogon                 - Logon Secundario",
-    "SSDPSRV                  - SSDP Discovery",
-    "RetailDemo               - Modo Demo",
-    "WalletService            - Carteira",
-    "MapsBroker               - Mapas",
-    "iphlpsvc                 - IPv6 Helper",
-    "wisvc                    - Windows Insider",
-    "WdiServiceHost           - Diagnostico Host",
-    "WdiSystemHost            - Diagnostico Sistema",
-    "Wecsvc                   - Event Collector",
-    "UCPD                     - UCPD Velocity",
-    "Telemetry                - Intel Telemetry",
-    "lfsvc                    - Location Service",
-    "CscService               - Offline Files",
-    "SharedAccess             - ICS",
-    "StorSvc                  - Storage Service",
-    "Ndu                      - Network Usage",
-    "GraphicsPerfSvc          - Graphics Perf",
-    "TrkWks                   - Distributed Link",
-    "WMPNetworkSvc            - Media Player Network",
-    "XblAuthManager           - Xbox Auth",
-    "XblGameSave              - Xbox Game Save",
-    "XboxNetApiSvc            - Xbox Network",
-    "XboxGipSvc               - Xbox Accessory",
-    "SEMgrSvc                 - Payments",
-    "PhoneSvc                 - Telefone",
-    "TapiSrv                  - Telephony",
-    "WbioSrvc                 - Biometric",
-    "WpcMonSvc                - Parental Controls",
-    "ScDeviceEnum             - Device Enum",
-    "SensrSvc                 - Sensors",
-    "OneSyncSvc               - OneSync",
-    "CDPSvc                   - Connected Devices",
-    "CDPUserSvc               - Connected Devices User",
-    "DusmSvc                  - Data Usage"
+$SvcData = @(
+    @("DiagTrack","Telemetria do Windows","Desabilitado"),
+    @("dmwappushservice","WAP Push","Desabilitado"),
+    @("SysMain","Superfetch","Desabilitado"),
+    @("WSearch","Indexador de Busca","Desabilitado"),
+    @("wuauserv","Windows Update","Desabilitado"),
+    @("DoSvc","Delivery Optimization","Desabilitado"),
+    @("Spooler","Impressora","Desabilitado"),
+    @("Fax","Fax","Desabilitado"),
+    @("RemoteRegistry","Registro Remoto","Desabilitado"),
+    @("WerSvc","Relatorio de Erros","Desabilitado"),
+    @("DPS","Diagnostico","Desabilitado"),
+    @("PcaSvc","Compatibilidade","Desabilitado"),
+    @("XblAuthManager","Xbox Auth","Desabilitado"),
+    @("XblGameSave","Xbox Game Save","Desabilitado"),
+    @("XboxNetApiSvc","Xbox Network","Desabilitado"),
+    @("lfsvc","Location Service","Desabilitado"),
+    @("WbioSrvc","Biometric","Desabilitado"),
+    @("WpcMonSvc","Parental Controls","Desabilitado"),
+    @("Telemetry","Intel Telemetry","Desabilitado"),
+    @("UCPD","UCPD Velocity","Desabilitado")
 )
 
-foreach ($svc in $ServicesList) {
-    $SvcListBox.Items.Add($svc) | Out-Null
+foreach($svc in $SvcData){
+    $item = New-Object System.Windows.Forms.ListViewItem($svc[0])
+    $item.SubItems.Add($svc[1])
+    $item.SubItems.Add($svc[2])
+    $item.ForeColor = $C.RED
+    $SvcList.Items.Add($item)
 }
-$SvcPage.Controls.Add($SvcListBox)
 
-$Pages["Servicos"] = $SvcPage
+$SvcCard.Controls.Add($SvcList)
+
+$Pages["Servicos"] = $pg
 
 # --- BENCHMARK ---
-$BenchPage = New-Object System.Windows.Forms.Panel
-$BenchPage.Dock = [System.Windows.Forms.DockStyle]::Fill
-$BenchPage.BackColor = $Colors.BG_DARK
+$pg = New-Object System.Windows.Forms.Panel
+$pg.Dock = [System.Windows.Forms.DockStyle]::Fill
+$pg.BackColor = $C.BG
+$pg.AutoScroll = $true
 
-$BenchTitle = New-YokaiLabel -Text "Benchmark do Sistema" -Font $Fonts.TITLE -X 20 -Y 10 -W 500 -H 40
-$BenchPage.Controls.Add($BenchTitle)
+$pg.Controls.Add((New-Label -Text "Benchmark" -Font $F.TITLE -X 0 -Y 0 -W 500 -H 40))
+$pg.Controls.Add((New-Label -Text "Compare performance antes e depois das otimizacoes" -Font $F.BODY_SM -X 0 -Y 35 -W 500 -H 20 -FG $C.GRAY))
 
-$BenchInfo = New-YokaiLabel -Text "Execute o benchmark ANTES e DEPOIS de aplicar as otimizacoes para comparar." -Font $Fonts.BODY -X 20 -Y 55 -W 700 -H 25 -FG $Colors.TEXT_SECONDARY
-$BenchPage.Controls.Add($BenchInfo)
+$BenchCard = New-Panel -X 0 -Y 70 -W 730 -H 450
+$pg.Controls.Add($BenchCard)
 
 $BenchOutput = New-Object System.Windows.Forms.RichTextBox
-$BenchOutput.Location = New-Object System.Drawing.Point(20, 90)
-$BenchOutput.Size = New-Object System.Drawing.Size(730, 400)
-$BenchOutput.BackColor = $Colors.BG_CARD
-$BenchOutput.ForeColor = $Colors.SUCCESS
-$BenchOutput.Font = $Fonts.MONO
+$BenchOutput.Location = New-Object System.Drawing.Point(10,10)
+$BenchOutput.Size = New-Object System.Drawing.Size(710,380)
+$BenchOutput.BackColor = $C.BG2
+$BenchOutput.ForeColor = $C.GREEN
+$BenchOutput.Font = $F.MONO_SM
 $BenchOutput.ReadOnly = $true
 $BenchOutput.BorderStyle = [System.Windows.Forms.BorderStyle]::None
-$BenchPage.Controls.Add($BenchOutput)
+$BenchOutput.Text = "Clique em 'Executar Benchmark' para comecar..."
+$BenchCard.Controls.Add($BenchOutput)
 
-$BtnBenchRun = New-YokaiButton -Text "Executar Benchmark" -BGColor $Colors.ACCENT_PURPLE -X 20 -Y 500 -W 250 -H 45
+$BtnBenchRun = New-Btn -Text "Executar Benchmark" -BG $C.PURPLE -X 10 -Y 400 -W 200 -H 40
 $BtnBenchRun.Add_Click({ Run-Benchmark })
-$BenchPage.Controls.Add($BtnBenchRun)
+$BenchCard.Controls.Add($BtnBenchRun)
 
-$BtnBenchSave = New-YokaiButton -Text "Salvar Resultados" -BGColor $Colors.ACCENT_BLUE -X 290 -Y 500 -W 200 -H 45
-$BenchPage.Controls.Add($BtnBenchSave)
-
-$Pages["Benchmark"] = $BenchPage
+$Pages["Benchmark"] = $pg
 
 # --- RESTAURAR ---
-$RestorePage = New-Object System.Windows.Forms.Panel
-$RestorePage.Dock = [System.Windows.Forms.DockStyle]::Fill
-$RestorePage.BackColor = $Colors.BG_DARK
+$pg = New-Object System.Windows.Forms.Panel
+$pg.Dock = [System.Windows.Forms.DockStyle]::Fill
+$pg.BackColor = $C.BG
+$pg.AutoScroll = $true
 
-$RestoreTitle = New-YokaiLabel -Text "Restaurar Configuracoes" -Font $Fonts.TITLE -X 20 -Y 10 -W 500 -H 40
-$RestorePage.Controls.Add($RestoreTitle)
+$pg.Controls.Add((New-Label -Text "Restaurar" -Font $F.TITLE -X 0 -Y 0 -W 500 -H 40))
+$pg.Controls.Add((New-Label -Text "Restaure as configuracoes padrao do Windows" -Font $F.BODY_SM -X 0 -Y 35 -W 500 -H 20 -FG $C.GRAY))
 
-$RestoreInfo = New-YokaiLabel -Text "Restaura as configuracoes padrao do Windows. Use se algo parar de funcionar." -Font $Fonts.BODY -X 20 -Y 55 -W 700 -H 25 -FG $Colors.TEXT_SECONDARY
-$RestorePage.Controls.Add($RestoreInfo)
+$RestoreCard = New-Panel -X 0 -Y 70 -W 730 -H 300
+$pg.Controls.Add($RestoreCard)
 
-$BtnRestoreAll = New-YokaiButton -Text "Restaurar Tudo" -BGColor $Colors.DANGER -X 20 -Y 100 -W 250 -H 50
-$BtnRestoreAll.Add_Click({
-    $result = [System.Windows.Forms.MessageBox]::Show("Isso vai restaurar TODAS as configuracoes padrao do Windows. Continuar?", "Confirmar", "YesNo", "Warning")
-    if ($result -eq "Yes") {
-        Restore-AllDefaults
+$RestoreCard.Controls.Add((New-Label -Text "Use se algo parar de funcionar apos as otimizacoes." -Font $F.BODY -X 15 -Y 15 -W 500 -H 25 -FG $C.GRAY))
+$RestoreCard.Controls.Add((New-Label -Text "O script de backup foi criado automaticamente antes da instalacao." -Font $F.BODY_SM -X 15 -Y 40 -W 500 -H 20 -FG $C.GRAY_DARK))
+
+$BtnRestore = New-Btn -Text "Restaurar Tudo" -BG $C.RED -X 15 -Y 80 -W 200 -H 48
+$BtnRestore.Add_Click({
+    $r = [System.Windows.Forms.MessageBox]::Show("Restaurar TODAS as configuracoes padrao?","YokaiOS","YesNo","Warning")
+    if($r -eq "Yes"){
+        $p = "C:\YokaiOS\Scripts\Restore-Defaults.ps1"
+        if(Test-Path $p){ Start-Process powershell.exe -ArgumentList "-ExecutionPolicy Bypass -File `"$p`"" -Verb RunAs }
     }
 })
-$RestorePage.Controls.Add($BtnRestoreAll)
+$RestoreCard.Controls.Add($BtnRestore)
 
-$BtnRestoreSvc = New-YokaiButton -Text "Restaurar Servicos" -BGColor $Colors.WARNING -X 20 -Y 160 -W 250 -H 45
-$RestorePage.Controls.Add($BtnRestoreSvc)
-
-$BtnRestoreReg = New-YokaiButton -Text "Restaurar Registro" -BGColor $Colors.WARNING -X 20 -Y 215 -W 250 -H 45
-$RestorePage.Controls.Add($BtnRestoreReg)
-
-$Pages["Restaurar"] = $RestorePage
+$Pages["Restaurar"] = $pg
 
 # ============================================================
-# FUNCOES DE NAVEGACAO
+# FUNCOES
 # ============================================================
-function Show-Page {
-    param([string]$PageName)
-    $ContentPanel.Controls.Clear()
-    if ($Pages.ContainsKey($PageName)) {
-        $ContentPanel.Controls.Add($Pages[$PageName])
-    }
+function Show-Page([string]$Name){
+    $Content.Controls.Clear()
+    if($Pages.ContainsKey($Name)){ $Content.Controls.Add($Pages[$Name]) }
 }
 
-function Apply-AllOptimizations {
-    $BenchOutput.AppendText("[*] Aplicando todas as otimizacoes...`n")
-    # Chama o script de instalacao
-    $scriptPath = Join-Path $PSScriptRoot "Install-YokaiOS.ps1"
-    if (Test-Path $scriptPath) {
-        Start-Process powershell.exe -ArgumentList "-ExecutionPolicy Bypass -File `"$scriptPath`" -SkipReboot" -Verb RunAs -Wait
-        [System.Windows.Forms.MessageBox]::Show("Otimizacoes aplicadas! Reinicie o computador.", "YokaiOS", "OK", "Information")
-    }
-}
-
-function Verify-Installation {
-    $scriptPath = "C:\YokaiOS\Scripts\Verify-Installation.ps1"
-    if (Test-Path $scriptPath) {
-        Start-Process powershell.exe -ArgumentList "-ExecutionPolicy Bypass -File `"$scriptPath`""
-    } else {
-        [System.Windows.Forms.MessageBox]::Show("Execute a instalacao primeiro.", "YokaiOS", "OK", "Warning")
-    }
-}
-
-function Run-Benchmark {
+function Run-Benchmark{
     $BenchOutput.Clear()
+    $BenchOutput.SelectionColor = $C.PURPLE
     $BenchOutput.AppendText("=== YOKAIOS BENCHMARK ===`n")
+    $BenchOutput.SelectionColor = $C.GRAY
     $BenchOutput.AppendText("Data: $(Get-Date)`n`n")
     
-    # CPU
     $cpu = (Get-Counter '\Processor(_Total)\% Processor Time').CounterSamples.CookedValue
-    $BenchOutput.AppendText("[CPU] Uso: $([math]::Round($cpu, 1))%`n")
+    $BenchOutput.SelectionColor = $C.GREEN
+    $BenchOutput.AppendText("[CPU] Uso: $([math]::Round($cpu,1))%`n")
     
-    # RAM
     $os = Get-CimInstance Win32_OperatingSystem
-    $totalRAM = [math]::Round($os.TotalVisibleMemorySize/1MB, 2)
-    $freeRAM = [math]::Round($os.FreePhysicalMemory/1MB, 2)
-    $usedRAM = [math]::Round($totalRAM - $freeRAM, 2)
+    $totalRAM = [math]::Round($os.TotalVisibleMemorySize/1MB,2)
+    $freeRAM = [math]::Round($os.FreePhysicalMemory/1MB,2)
+    $usedRAM = [math]::Round($totalRAM - $freeRAM,2)
     $BenchOutput.AppendText("[RAM] Uso: $usedRAM GB / $totalRAM GB`n")
     
-    # Processos
     $procCount = (Get-Process).Count
-    $BenchOutput.AppendText("[PROC] Processos ativos: $procCount`n")
+    $BenchOutput.AppendText("[PROC] Processos: $procCount`n")
     
-    # Servicos
-    $svcRunning = (Get-Service | Where-Object {$_.Status -eq "Running"}).Count
-    $BenchOutput.AppendText("[SVC] Servicos rodando: $svcRunning`n")
+    $svcRun = (Get-Service | Where-Object {$_.Status -eq "Running"}).Count
+    $svcDis = (Get-Service | Where-Object {$_.StartType -eq "Disabled"}).Count
+    $BenchOutput.AppendText("[SVC] Rodando: $svcRun | Desabilitados: $svcDis`n")
     
-    # Latencia
     $ping = Test-Connection -ComputerName 1.1.1.1 -Count 4 -ErrorAction SilentlyContinue
-    if ($ping) {
+    if($ping){
         $avg = ($ping | Measure-Object -Property Latency -Average).Average
-        $BenchOutput.AppendText("[NET] Latencia: $([math]::Round($avg, 1))ms`n")
+        $BenchOutput.AppendText("[NET] Latencia: $([math]::Round($avg,1))ms`n")
     }
     
-    # Disco
-    $disk = Get-CimInstance Win32_LogicalDisk -Filter "DeviceID='C:'"
-    $diskFree = [math]::Round($disk.FreeSpace/1GB, 2)
-    $BenchOutput.AppendText("[DISCO] Espaco livre C: $diskFree GB`n")
-    
-    $BenchOutput.AppendText("`n=== BENCHMARK CONCLUIDO ===`n")
+    $BenchOutput.SelectionColor = $C.PURPLE
+    $BenchOutput.AppendText("`n=== CONCLUIDO ===`n")
 }
 
-function Restore-AllDefaults {
-    $scriptPath = "C:\YokaiOS\Scripts\Restore-Defaults.ps1"
-    if (Test-Path $scriptPath) {
-        Start-Process powershell.exe -ArgumentList "-ExecutionPolicy Bypass -File `"$scriptPath`"" -Verb RunAs
-    } else {
-        [System.Windows.Forms.MessageBox]::Show("Script de restauracao nao encontrado.", "YokaiOS", "OK", "Error")
+# ============================================================
+# DRAG PARA MOVER JANELA
+# ============================================================
+$Header.Add_MouseDown({
+    if($_.Button -eq [System.Windows.Forms.MouseButtons]::Left){
+        $global:DragX = $_.X
+        $global:DragY = $_.Y
+        $global:Dragging = $true
     }
-}
+})
+$Header.Add_MouseMove({
+    if($global:Dragging){
+        $Form.Location = New-Object System.Drawing.Point(
+            ([System.Windows.Forms.Cursor]::Position.X - $global:DragX),
+            ([System.Windows.Forms.Cursor]::Position.Y - $global:DragY)
+        )
+    }
+})
+$Header.Add_MouseUp({ $global:Dragging = $false })
 
 # ============================================================
 # INICIAR
 # ============================================================
-Show-Page -PageName "Dashboard"
+Show-Page "Dashboard"
 [void]$Form.ShowDialog()
