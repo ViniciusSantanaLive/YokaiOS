@@ -41,6 +41,12 @@
 - !include tweaks/privacy/disable-advertising.yml
 - !include tweaks/privacy/privacy-expandido.yml
 
+# Quality of Life
+- !include tweaks/qol/explorer.yml
+- !include tweaks/qol/taskbar.yml
+- !include tweaks/qol/context-menu.yml
+- !include tweaks/qol/qol-tweaks.yml
+
 # Debloat
 - !include tweaks/debloat/remove-bloatware.yml
 - !include tweaks/debloat/remove-edge.yml

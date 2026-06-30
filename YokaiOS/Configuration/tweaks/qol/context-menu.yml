@@ -1,0 +1,121 @@
+---
+title: Context Menu Tweaks
+description: Otimizacoes do menu de contexto
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Configurando Context Menu..."}
+
+  # === Menu de Contexto Classico
+  - title: "Restaurar Menu de Contexto Classico"
+    description: "Volta o menu de contexto antigo do Windows 11"
+    category: "Context Menu"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: "New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}' -Name InprocServer32 -Value '' -Force"
+
+  # === Remover Cast to Device
+  - title: "Remover Cast to Device"
+    description: "Remove 'Transmitir para dispositivo' do menu"
+    category: "Context Menu"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Shell Extensions\\Blocked"
+        name: "{7AD84985-87B4-4a15-B36C-9D3F5271D4C0}"
+        type: "REG_SZ"
+        value: ""
+
+  # === Remover Share
+  - title: "Remover Share do Context Menu"
+    description: "Remove 'Compartilhar' do menu de contexto"
+    category: "Context Menu"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Shell Extensions\\Blocked"
+        name: "{E2BF9676-5F8F-435C-97EB-11607A5BEDF7}"
+        type: "REG_SZ"
+        value: ""
+
+  # === Remover Give Access To
+  - title: "Remover Give Access To"
+    description: "Remove 'Dar acesso a' do menu"
+    category: "Context Menu"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $path = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked"
+          New-Item -Path $path -Force -ErrorAction SilentlyContinue
+          New-ItemProperty -Path $path -Name "{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}" -Value "" -Force
+
+  # === Remover Include in Library
+  - title: "Remover Include in Library"
+    description: "Remove 'Incluir na biblioteca' do menu"
+    category: "Context Menu"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $path = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked"
+          New-ItemProperty -Path $path -Name "{3dad6c5d-2167-4cae-9914-f99e41c12cfa}" -Value "" -Force
+
+  # === Remover Previous Versions
+  - title: "Remover Previous Versions"
+    description: "Remove 'Versoes anteriores' do menu"
+    category: "Context Menu"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Shell Extensions\\Blocked"
+        name: "{596AB062-B4D2-4215-9F74-E9109B0A8153}"
+        type: "REG_SZ"
+        value: ""
+
+  # === Adicionar Take Ownership
+  - title: "Adicionar Take Ownership"
+    description: "Adiciona 'Tomar posse' ao menu de contexto"
+    category: "Context Menu"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $regPath = "HKCR:\*\shell\runas"
+          New-Item -Path $regPath -Force -ErrorAction SilentlyContinue
+          Set-ItemProperty -Path $regPath -Name "(Default)" -Value "Take Ownership"
+          Set-ItemProperty -Path $regPath -Name "NoWorkingDirectory" -Value ""
+          New-Item -Path "$regPath\command" -Force -ErrorAction SilentlyContinue
+          Set-ItemProperty -Path "$regPath\command" -Name "(Default)" -Value "cmd.exe /c takeown /f `"%1`" && icacls `"%1`" /grant administrators:F"
+          Set-ItemProperty -Path "$regPath\command" -Name "IsolatedCommand" -Value "cmd.exe /c takeown /f `"%1`" && icacls `"%1`" /grant administrators:F"
+
+  # === Adicionar Open CMD Here
+  - title: "Adicionar Open CMD Here"
+    description: "Adiciona 'Abrir CMD aqui' ao menu de contexto"
+    category: "Context Menu"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $regPath = "HKCR:\Directory\shell\cmd"
+          New-Item -Path $regPath -Force -ErrorAction SilentlyContinue
+          Set-ItemProperty -Path $regPath -Name "(Default)" -Value "Open CMD Here"
+          New-Item -Path "$regPath\command" -Force -ErrorAction SilentlyContinue
+          Set-ItemProperty -Path "$regPath\command" -Name "(Default)" -Value "cmd.exe /k cd /d `"%1`""
+
+  # === Adicionar Open PowerShell Here
+  - title: "Adicionar Open PowerShell Here"
+    description: "Adiciona 'Abrir PowerShell aqui' ao menu"
+    category: "Context Menu"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $regPath = "HKCR:\Directory\shell\powershell"
+          New-Item -Path $regPath -Force -ErrorAction SilentlyContinue
+          Set-ItemProperty -Path $regPath -Name "(Default)" -Value "Open PowerShell Here"
+          New-Item -Path "$regPath\command" -Force -ErrorAction SilentlyContinue
+          Set-ItemProperty -Path "$regPath\command" -Name "(Default)" -Value "powershell.exe -noexit -command Set-Location '%1'"
+
+  - !writeStatus {status: "Context Menu configurado!"}

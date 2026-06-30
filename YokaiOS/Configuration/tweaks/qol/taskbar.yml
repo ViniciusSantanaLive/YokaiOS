@@ -1,0 +1,153 @@
+---
+title: Taskbar Tweaks
+description: Otimizacoes da barra de tarefas
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Configurando Taskbar..."}
+
+  # === Desabilitar Search Box
+  - title: "Desabilitar Search Box na Taskbar"
+    description: "Remove a caixa de busca da barra de tarefas"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search"
+        name: "SearchboxTaskbarMode"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Desabilitar Task View Button
+  - title: "Desabilitar Task View Button"
+    description: "Remove o botao de Task View da barra"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "ShowTaskViewButton"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Desabilitar Widgets Button
+  - title: "Desabilitar Widgets Button"
+    description: "Remove o botao de Widgets da barra"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "TaskbarDa"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Desabilitar Chat Button
+  - title: "Desabilitar Chat Button"
+    description: "Remove o botao de Chat da barra"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "TaskbarMn"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Desabilitar Meet Now
+  - title: "Desabilitar Meet Now"
+    description: "Remove o icone de Meet Now da barra"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
+        name: "HideSCAMeetNow"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Desabilitar News and Interests
+  - title: "Desabilitar News and Interests"
+    description: "Remove News and Interests da barra"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds"
+        name: "EnableFeeds"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Desabilitar Desktop Peek
+  - title: "Desabilitar Desktop Peek"
+    description: "Desabilita preview ao passar mouse no botao Desktop"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "DisablePreviewDesktop"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === End Task com Botao Direito
+  - title: "End Task com Botao Direito"
+    description: "Permite finalizar tarefa com clique direto na barra"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\TaskbarDeveloperSettings"
+        name: "TaskbarEndTask"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Desabilitar Copilot Button
+  - title: "Desabilitar Copilot Button"
+    description: "Remove o botao de Copilot da barra"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "ShowCopilotButton"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Taskbar Esquerda (Windows 10 style)
+  - title: "Taskbar Icons Esquerda"
+    description: "Move icones da barra para esquerda (estilo Windows 10)"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "TaskbarAl"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Desabilitar Notification Badges
+  - title: "Desabilitar Notification Badges"
+    description: "Remove badges de notificacao dos icones"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "TaskbarBadges"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Mostrar Segundos no Relogio
+  - title: "Mostrar Segundos no Relogio"
+    description: "Exibe segundos no relogio da barra"
+    category: "Taskbar"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "ShowSecondsInSystemClock"
+        type: "REG_DWORD"
+        value: "1"
+
+  - !writeStatus {status: "Taskbar configurada!"}

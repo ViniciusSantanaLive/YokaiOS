@@ -24,7 +24,7 @@ namespace YokaiOS_Toolbox
             }
         }
 
-        private void Navigate(string page)
+        public void Navigate(string page)
         {
             var (title, sub) = page switch
             {
