@@ -1,0 +1,70 @@
+---
+title: Instalar Navegador
+description: Instala o navegador selecionado pelo usuario
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Instalando navegador selecionado..."}
+
+  # === Brave
+  - !writeStatus {status: "Instalando Brave", option: "browser-brave"}
+  - !download:
+    option: "browser-brave"
+    url: "https://github.com/brave/brave-browser/releases/latest/download/BraveBrowserStandaloneSetup.exe"
+    destination: "BraveBrowserStandaloneSetup.exe"
+    cpuArch: X64
+    package: 'brave'
+  - !run:
+    exeDir: true
+    exe: "BraveBrowserStandaloneSetup.exe"
+    args: "/silent /install"
+    cpuArch: X64
+    weight: 150
+    option: "browser-brave"
+  - !download:
+    option: "browser-brave"
+    url: "https://github.com/brave/brave-browser/releases/latest/download/BraveBrowserStandaloneSetup.exe"
+    destination: "BraveBrowserStandaloneSetupArm64.exe"
+    cpuArch: Arm64
+    package: 'brave'
+  - !run:
+    exeDir: true
+    exe: "BraveBrowserStandaloneSetupArm64.exe"
+    args: "/silent /install"
+    cpuArch: Arm64
+    weight: 150
+    option: "browser-brave"
+
+  # === Firefox
+  - !writeStatus {status: "Instalando Firefox", option: "browser-firefox"}
+  - !download:
+    option: "browser-firefox"
+    url: "https://download.mozilla.org/?product=firefox-stub&os=win64&lang=pt-BR"
+    destination: "FirefoxInstaller.exe"
+    cpuArch: X64
+    package: 'firefox'
+  - !run:
+    exeDir: true
+    exe: "FirefoxInstaller.exe"
+    args: "/S"
+    cpuArch: X64
+    weight: 150
+    option: "browser-firefox"
+
+  # === LibreWolf
+  - !writeStatus {status: "Instalando LibreWolf", option: "browser-librewolf"}
+  - !download:
+    option: "browser-librewolf"
+    url: "https://gitlab.com/librewolf-community/browser/windows/uploads/-/raw/main/librewolf-128.0-2.en-US.win64-setup.exe"
+    destination: "LibreWolfSetup.exe"
+    cpuArch: X64
+    package: 'librewolf'
+  - !run:
+    exeDir: true
+    exe: "LibreWolfSetup.exe"
+    args: "/S"
+    cpuArch: X64
+    weight: 150
+    option: "browser-librewolf"
+
+  - !writeStatus {status: "Navegador instalado!"}

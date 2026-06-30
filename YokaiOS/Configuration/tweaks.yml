@@ -2,6 +2,9 @@
 # This file orchestrates all tweaks for the playbook
 
 ---
+# Software Installation (Browser)
+- !include tweaks/software.yml
+
 # Gaming Optimizations
 - !include tweaks/gaming/gpu-optimization.yml
 - !include tweaks/gaming/cpu-scheduling.yml
