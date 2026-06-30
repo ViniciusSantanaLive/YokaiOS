@@ -1,0 +1,55 @@
+---
+title: Remover Cortana
+description: Remove a Cortana completamente do sistema
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Removendo Cortana..."}
+
+  - title: "Desabilitar Cortana via registro"
+    description: "Desabilita a Cortana via politicas de grupo"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+        name: "AllowCortana"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+        name: "DisableWebSearch"
+        type: "REG_DWORD"
+        value: "1"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+        name: "AllowSearchToUseLocation"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+        name: "ConnectedSearchUseWeb"
+        type: "REG_DWORD"
+        value: "0"
+
+  - title: "Remover pacote da Cortana"
+    description: "Remove o app da Cortana"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          Get-AppxPackage -Name "Microsoft.549981C3F5F10" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+          Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -like "*549981C3F5F10*"} | Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
+
+  - title: "Desabilitar tarefas da Cortana"
+    description: "Desabilita tarefas agendadas da Cortana"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          Disable-ScheduledTask -TaskName "Consolidator" -TaskPath "\Microsoft\Windows\Customer Experience Improvement Program\" -ErrorAction SilentlyContinue
+          Disable-ScheduledTask -TaskName "UsbCeip" -TaskPath "\Microsoft\Windows\Customer Experience Improvement Program\" -ErrorAction SilentlyContinue
+
+  - !writeStatus {status: "Cortana removida!"}

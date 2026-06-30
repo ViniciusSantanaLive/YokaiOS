@@ -1,0 +1,56 @@
+---
+title: Remover Xbox Apps
+description: Remove aplicativos Xbox (exceto Game Bar overlay para captura)
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Removendo Xbox Apps..."}
+
+  - title: "Remover pacotes Xbox"
+    description: "Remove apps Xbox do sistema"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $xboxApps = @(
+            "Microsoft.XboxApp"
+            "Microsoft.XboxGameCallableUI"
+            "Microsoft.XboxGamingOverlay"
+            "Microsoft.XboxIdentityProvider"
+            "Microsoft.XboxSpeechToTextOverlay"
+            "Microsoft.Xbox.TCUI"
+            "Microsoft.GamingApp"
+            "Microsoft.Edge.GameAssist"
+          )
+          foreach ($app in $xboxApps) {
+            Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+          }
+
+  - title: "Desabilitar servicos Xbox"
+    description: "Desabilita servicos relacionados ao Xbox"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !service: {name: 'XblAuthManager', operation: change, startup: 4}
+      - !service: {name: 'XblGameSave', operation: change, startup: 4}
+      - !service: {name: 'XboxNetApiSvc', operation: change, startup: 4}
+      - !service: {name: 'XboxGipSvc', operation: change, startup: 4}
+
+  - title: "Desabilitar Game DVR"
+    description: "Desabilita gravacao em background do Xbox"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR"
+        name: "AppCaptureEnabled"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR"
+        name: "AllowGameDVR"
+        type: "REG_DWORD"
+        value: "0"
+
+  - !writeStatus {status: "Xbox Apps removidas!"}

@@ -1,0 +1,47 @@
+---
+title: Desabilitar Widgets
+description: Desabilita e remove Widgets do Windows 11
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Desabilitando Widgets..."}
+
+  - title: "Desabilitar Widgets via registro"
+    description: "Remove Widgets da barra de tarefas"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh"
+        name: "AllowNewsAndInterests"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "TaskbarDa"
+        type: "REG_DWORD"
+        value: "0"
+
+  - title: "Remover pacote de Widgets"
+    description: "Remove o app de Widgets"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          Get-Process *Widget* | Stop-Process -Force -ErrorAction SilentlyContinue
+          Get-AppxPackage -Name "Microsoft.WidgetsPlatformRuntime" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+          Get-AppxPackage -Name "MicrosoftWindows.Client.WebExperience" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+
+  - title: "Desabilitar feed de Widgets"
+    description: "Desabilita o feed de noticias dos Widgets"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Feeds"
+        name: "ShellFeedsTaskbarViewMode"
+        type: "REG_DWORD"
+        value: "2"
+
+  - !writeStatus {status: "Widgets desabilitados!"}

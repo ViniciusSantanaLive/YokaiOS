@@ -1,0 +1,53 @@
+---
+title: Remover Microsoft Edge
+description: Remove o Microsoft Edge do sistema
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Removendo Microsoft Edge..."}
+
+  - title: "Finalizar processos do Edge"
+    description: "Fecha todos os processos do Edge antes de remover"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !taskKill: {name: "MicrosoftEdgeUpdate", errorAction: Ignore}
+      - !taskKill: {name: "msedge", errorAction: Ignore}
+      - !taskKill: {name: "MicrosoftEdge*", errorAction: Ignore}
+
+  - title: "Desinstalar Edge"
+    description: "Usa o desinstalador oficial do Edge"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $edgePath = "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\*\Installer\setup.exe"
+          $resolved = Resolve-Path -Path $edgePath -ErrorAction SilentlyContinue | Select-Object -Last 1
+          if ($resolved) {
+            New-Item -Path "$env:SystemRoot\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe" -Force -ErrorAction SilentlyContinue
+            Start-Process -FilePath $resolved -ArgumentList "--uninstall --system-level --force-uninstall --delete-profile" -Wait
+          }
+
+  - title: "Remover pacotes APPX do Edge"
+    description: "Remove pacotes restantes do Edge"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          Get-AppxPackage -Name "Microsoft.MicrosoftEdge" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+          Get-AppxPackage -Name "Microsoft.MicrosoftEdgeDevToolsClient" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+
+  - title: "Bloquear reinstalacao do Edge"
+    description: "Impede que o Windows reinstale o Edge"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\EdgeUpdate"
+        name: "DoNotUpdateToEdgeWithChromium"
+        type: "REG_DWORD"
+        value: "1"
+
+  - !writeStatus {status: "Edge removido!"}

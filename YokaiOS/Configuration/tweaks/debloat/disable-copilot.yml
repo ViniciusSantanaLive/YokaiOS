@@ -1,0 +1,59 @@
+---
+title: Desabilitar Copilot
+description: Desabilita o Microsoft Copilot completamente
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Desabilitando Copilot..."}
+
+  - title: "Desabilitar Copilot via registro"
+    description: "Remove Copilot via politicas de grupo"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
+        name: "TurnOffWindowsCopilot"
+        type: "REG_DWORD"
+        value: "1"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
+        name: "TurnOffWindowsCopilot"
+        type: "REG_DWORD"
+        value: "1"
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "ShowCopilotButton"
+        type: "REG_DWORD"
+        value: "0"
+
+  - title: "Remover pacote do Copilot"
+    description: "Remove o app do Copilot"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          Get-AppxPackage -Name "*Copilot*" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+          Get-AppxPackage -Name "Microsoft.Copilot" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+          Get-AppxPackage -Name "Microsoft.Windows.Ai.Copilot.Provider" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+
+  - title: "Desabilitar servico do Copilot"
+    description: "Desabilita servico relacionado ao Copilot"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !service: {name: 'WSAIFabricSvc', operation: change, startup: 4}
+
+  - title: "Remover botao da barra de tarefas"
+    description: "Remove icone do Copilot da barra de tarefas"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "ShowCopilotButton"
+        type: "REG_DWORD"
+        value: "0"
+
+  - !writeStatus {status: "Copilot desabilitado!"}

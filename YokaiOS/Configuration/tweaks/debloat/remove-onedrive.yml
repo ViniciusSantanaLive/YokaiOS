@@ -1,0 +1,60 @@
+---
+title: Remover OneDrive
+description: Remove o Microsoft OneDrive do sistema
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Removendo OneDrive..."}
+
+  - title: "Finalizar processos do OneDrive"
+    description: "Fecha todos os processos do OneDrive"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !taskKill: {name: "OneDriveStandaloneUpdater", errorAction: Ignore}
+      - !taskKill: {name: "OneDriveSetup", errorAction: Ignore}
+      - !taskKill: {name: "OneDrive*", errorAction: Ignore}
+
+  - title: "Desinstalar OneDrive"
+    description: "Usa o desinstalador do OneDrive"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          if (Test-Path "$env:SystemRoot\SysWOW64\OneDriveSetup.exe") {
+            Start-Process "$env:SystemRoot\SysWOW64\OneDriveSetup.exe" -ArgumentList "/uninstall" -Wait
+          } elseif (Test-Path "$env:SystemRoot\System32\OneDriveSetup.exe") {
+            Start-Process "$env:SystemRoot\System32\OneDriveSetup.exe" -ArgumentList "/uninstall" -Wait
+          }
+
+  - title: "Remover pastas do OneDrive"
+    description: "Remove arquivos residuais do OneDrive"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          Remove-Item -Path "$env:LocalAppData\Microsoft\OneDrive" -Recurse -Force -ErrorAction SilentlyContinue
+          Remove-Item -Path "$env:ProgramData\Microsoft OneDrive" -Recurse -Force -ErrorAction SilentlyContinue
+          Remove-Item -Path "$env:SystemDrive\OneDriveTemp" -Recurse -Force -ErrorAction SilentlyContinue
+
+  - title: "Desabilitar OneSyncSvc"
+    description: "Desabilita servico de sincronizacao"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !service: {name: 'OneSyncSvc', operation: change, startup: 4}
+
+  - title: "Blocar reinstalacao do OneDrive"
+    description: "Impede que o Windows reinstale o OneDrive"
+    category: "Debloat"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive"
+        name: "DisableFileSyncNGSC"
+        type: "REG_DWORD"
+        value: "1"
+
+  - !writeStatus {status: "OneDrive removido!"}
