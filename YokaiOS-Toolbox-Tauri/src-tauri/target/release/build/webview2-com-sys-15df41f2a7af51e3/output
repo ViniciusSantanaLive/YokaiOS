@@ -1,2 +1,0 @@
-cargo:rustc-link-search=native=C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS-Toolbox-Tauri\src-tauri\target\release\build\webview2-com-sys-15df41f2a7af51e3\out\x64
-cargo:rustc-link-lib=advapi32

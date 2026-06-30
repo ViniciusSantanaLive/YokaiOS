@@ -10,12 +10,23 @@
 bin/
 obj/
 publish/
+target/
+dist/
+node_modules/
+*.msi
+*.nsis
+*.nsi
 
 # Arquivos temporarios
 *.tmp
 *.temp
 *.log
 *.bak
+*.d
+*.rlib
+*.rmeta
+*.lib
+*.exp
 
 # Arquivos de sistema
 Thumbs.db
