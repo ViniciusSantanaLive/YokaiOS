@@ -2,8 +2,16 @@
 # Creates the .apbx file for AME Wizard
 
 param(
-    [string]$OutputPath = "C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS-v1.0.0.apbx"
+    [string]$OutputPath = ""
 )
+
+# Resolve paths relative to script location
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$RootDir = Split-Path -Parent $ScriptDir
+
+if ([string]::IsNullOrEmpty($OutputPath)) {
+    $OutputPath = Join-Path (Split-Path -Parent $RootDir) "YokaiOS-v1.1.0.apbx"
+}
 
 Write-Host @"
 
@@ -14,7 +22,7 @@ Write-Host @"
 
 "@ -ForegroundColor Cyan
 
-$sourcePath = "C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS"
+$sourcePath = $RootDir
 
 # Verify source exists
 if (-not (Test-Path $sourcePath)) {

@@ -1,29 +1,40 @@
-using Microsoft.Win32;
+using System;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace YokaiOS_Toolbox.Helpers
 {
     public static class TweakHelper
     {
         // Registry helpers
-        public static void SetRegistryValue(string path, string name, object value, RegistryValueKind kind)
+        public static bool SetRegistryValue(string path, string name, object value, RegistryValueKind kind)
         {
             try
             {
                 using var key = Registry.CurrentUser.CreateSubKey(path, true);
                 key?.SetValue(name, value, kind);
+                return true;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[Registry HKCU] {path}\\{name}: {ex.Message}");
+                return false;
+            }
         }
 
-        public static void SetRegistryValueLM(string path, string name, object value, RegistryValueKind kind)
+        public static bool SetRegistryValueLM(string path, string name, object value, RegistryValueKind kind)
         {
             try
             {
                 using var key = Registry.LocalMachine.CreateSubKey(path, true);
                 key?.SetValue(name, value, kind);
+                return true;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[Registry HKLM] {path}\\{name}: {ex.Message}");
+                return false;
+            }
         }
 
         public static int? GetRegistryValue(string path, string name)
@@ -37,28 +48,38 @@ namespace YokaiOS_Toolbox.Helpers
         }
 
         // Service helpers
-        public static void DisableService(string serviceName)
+        public static bool DisableService(string serviceName)
         {
             try
             {
                 RunCommand($"sc.exe config {serviceName} start= disabled");
                 RunCommand($"sc.exe stop {serviceName}");
+                return true;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[Service] Disable {serviceName}: {ex.Message}");
+                return false;
+            }
         }
 
-        public static void EnableService(string serviceName)
+        public static bool EnableService(string serviceName)
         {
             try
             {
                 RunCommand($"sc.exe config {serviceName} start= auto");
                 RunCommand($"sc.exe start {serviceName}");
+                return true;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[Service] Enable {serviceName}: {ex.Message}");
+                return false;
+            }
         }
 
         // Command helpers
-        public static void RunCommand(string command)
+        public static bool RunCommand(string command)
         {
             try
             {
@@ -70,12 +91,18 @@ namespace YokaiOS_Toolbox.Helpers
                     CreateNoWindow = true,
                     UseShellExecute = false
                 };
-                Process.Start(psi)?.WaitForExit(5000);
+                var proc = Process.Start(psi);
+                proc?.WaitForExit(5000);
+                return proc?.ExitCode == 0;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[CMD] {command}: {ex.Message}");
+                return false;
+            }
         }
 
-        public static void RunPowerShell(string command)
+        public static bool RunPowerShell(string command)
         {
             try
             {
@@ -87,9 +114,15 @@ namespace YokaiOS_Toolbox.Helpers
                     CreateNoWindow = true,
                     UseShellExecute = false
                 };
-                Process.Start(psi)?.WaitForExit(10000);
+                var proc = Process.Start(psi);
+                proc?.WaitForExit(10000);
+                return proc?.ExitCode == 0;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[PS] {command}: {ex.Message}");
+                return false;
+            }
         }
 
         // Gaming tweaks
@@ -161,6 +194,81 @@ namespace YokaiOS_Toolbox.Helpers
             SetRegistryValue(@"SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo", "Enabled", val, RegistryValueKind.DWord);
         }
 
+        public static void ApplyCortana(bool disable)
+        {
+            if (disable)
+            {
+                SetRegistryValueLM(@"SOFTWARE\Policies\Microsoft\Windows\Windows Search", "AllowCortana", 0, RegistryValueKind.DWord);
+                DisableService("WSearch");
+            }
+        }
+
+        public static void ApplyWebSearch(bool disable)
+        {
+            if (disable)
+            {
+                SetRegistryValue(@"SOFTWARE\Policies\Microsoft\Windows\Explorer", "DisableSearchBoxSuggestions", 1, RegistryValueKind.DWord);
+                SetRegistryValueLM(@"SOFTWARE\Policies\Microsoft\Windows\Windows Search", "ConnectedSearchUseWeb", 0, RegistryValueKind.DWord);
+            }
+        }
+
+        public static void ApplyLocationTracking(bool disable)
+        {
+            if (disable)
+            {
+                DisableService("lfsvc");
+                SetRegistryValueLM(@"SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors", "DisableLocation", 1, RegistryValueKind.DWord);
+            }
+        }
+
+        public static void ApplySmartScreen(bool disable)
+        {
+            if (disable)
+            {
+                SetRegistryValueLM(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer", "SmartScreenEnabled", "Off", RegistryValueKind.String);
+            }
+        }
+
+        public static void ApplyFeedback(bool disable)
+        {
+            if (disable)
+            {
+                SetRegistryValueLM(@"SOFTWARE\Policies\Microsoft\Windows\DataCollection", "DoNotShowFeedbackNotifications", 1, RegistryValueKind.DWord);
+                DisableService("WerSvc");
+            }
+        }
+
+        // Performance - Services
+        public static void DisableUnnecessaryServices()
+        {
+            var services = new[] {
+                "DiagTrack", "dmwappushservice", "SysMain", "WSearch", "wuauserv", "DoSvc",
+                "Spooler", "Fax", "RemoteRegistry", "WerSvc", "DPS", "PcaSvc",
+                "XblAuthManager", "XblGameSave", "XboxNetApiSvc", "lfsvc", "WbioSrvc",
+                "WpcMonSvc", "Telemetry", "UCPD", "RetailDemo", "MapsBroker",
+                "PhoneSvc", "TapiSrv", "TabletInputService", "WpcMonSvc"
+            };
+            foreach (var svc in services) DisableService(svc);
+        }
+
+        public static void ApplyPowerPlan()
+        {
+            RunPowerShell("powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c");
+        }
+
+        public static void ApplyClassicContextMenu()
+        {
+            SetRegistryValue(@"Software\Classes\CLSID\{86ca1aa0-a74e-4293-abe8-d26b6e0e8f1d}\InprocServer32", "", "", RegistryValueKind.String);
+        }
+
+        public static void ApplyEndTask(bool enable)
+        {
+            if (enable)
+            {
+                SetRegistryValue(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "TaskbarEndTask", 1, RegistryValueKind.DWord);
+            }
+        }
+
         // Debloat
         public static void RemoveAppxPackage(string packageName)
         {
@@ -187,6 +295,63 @@ namespace YokaiOS_Toolbox.Helpers
                     Start-Process '$env:SystemRoot\SysWOW64\OneDriveSetup.exe' -ArgumentList '/uninstall' -Wait
                 }
             ");
+        }
+
+        public static void RemoveXboxApps()
+        {
+            var xboxApps = new[] {
+                "Microsoft.XboxApp", "Microsoft.XboxGameOverlay", "Microsoft.XboxGamingOverlay",
+                "Microsoft.XboxIdentityProvider", "Microsoft.XboxSpeechToTextOverlay",
+                "Microsoft.Xbox.TCUI", "Microsoft.GamingApp"
+            };
+            foreach (var app in xboxApps) RemoveAppxPackage(app);
+        }
+
+        public static void RemoveTeams()
+        {
+            RunPowerShell(@"
+                Get-AppxPackage -Name '*Teams*' -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+                Get-AppxPackage -Name '*Skype*' -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+            ");
+        }
+
+        // Network tweaks
+        public static void ApplyNagleDisable()
+        {
+            RunPowerShell(@"
+                Get-NetAdapter | Where-Object {$_.Status -eq 'Up'} | ForEach-Object {
+                    $iface = $_.InterfaceIndex
+                    Set-NetTCPSetting -InterfaceIndex $iface -TcpNoDelay 1 -ErrorAction SilentlyContinue
+                    Set-NetTCPSetting -InterfaceIndex $iface -TcpAckFrequency 1 -ErrorAction SilentlyContinue
+                }
+            ");
+        }
+
+        public static void ApplyTcpOptimization()
+        {
+            RunPowerShell(@"
+                Set-NetTCPSetting -SettingName 'Internet' -AutoTuningLevelLocal 'Normal' -ErrorAction SilentlyContinue
+                Set-NetTCPSetting -SettingName 'Internet' -ScalingHeuristics 'Disabled' -ErrorAction SilentlyContinue
+                netsh int tcp set global autotuninglevel=normal
+                netsh int tcp set global chimney=enabled
+                netsh int tcp set global dca=enabled
+                netsh int tcp set global netdma=enabled
+            ");
+        }
+
+        public static void ApplyNetworkThrottlingDisable()
+        {
+            SetRegistryValueLM(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile", "NetworkThrottlingIndex", 0xFFFFFFFF, RegistryValueKind.DWord);
+        }
+
+        public static void ApplyTeredoDisable()
+        {
+            RunCommand("netsh interface teredo set state disabled");
+        }
+
+        public static void ApplyIPv4Preference()
+        {
+            SetRegistryValueLM(@"SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters", "DisabledComponents", 0x20, RegistryValueKind.DWord);
         }
 
         // System info

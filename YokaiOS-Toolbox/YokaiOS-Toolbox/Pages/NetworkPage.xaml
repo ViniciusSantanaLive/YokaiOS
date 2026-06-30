@@ -10,7 +10,7 @@
                 <CheckBox Content="Desabilitar Network Throttling" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
                 <CheckBox Content="Desabilitar Teredo" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
                 <CheckBox Content="IPv4 Preferencial" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,16"/>
-                <Button Content="Aplicar Rede" Style="{StaticResource PrimaryBtn}"/>
+                <Button Content="Aplicar Rede" Style="{StaticResource PrimaryBtn}" Click="Apply_Click"/>
             </StackPanel>
         </Border>
     </StackPanel>

@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace YokaiOS_Toolbox
@@ -7,6 +8,7 @@ namespace YokaiOS_Toolbox
     public partial class MainWindow : Window
     {
         private Button? _activeNav;
+        private bool _isDragging;
 
         public MainWindow()
         {
@@ -15,6 +17,58 @@ namespace YokaiOS_Toolbox
             SetActiveNav(NavDashboard);
         }
 
+        // ==================== TITLE BAR ====================
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                ToggleMaximize();
+            }
+            else
+            {
+                _isDragging = true;
+                DragMove();
+            }
+        }
+
+        private void TitleBar_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _isDragging = false;
+        }
+
+        private void TitleBar_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isDragging && WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+                var mousePos = PointToScreen(e.GetPosition(this));
+                Left = mousePos.X - (Width / 2);
+                Top = mousePos.Y - 20;
+                DragMove();
+            }
+        }
+
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void BtnMaximize_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMaximize();
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ToggleMaximize()
+        {
+            WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        }
+
+        // ==================== NAVEGAÇÃO ====================
         private void Nav_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button b && b.Tag is string page)
@@ -50,9 +104,11 @@ namespace YokaiOS_Toolbox
             {
                 _activeNav.Background = Brushes.Transparent;
                 _activeNav.Foreground = (Brush)FindResource("YokaiText2");
+                _activeNav.FontWeight = FontWeights.Normal;
             }
             btn.Background = (Brush)FindResource("YokaiCard");
             btn.Foreground = (Brush)FindResource("YokaiText");
+            btn.FontWeight = FontWeights.SemiBold;
             _activeNav = btn;
         }
     }

@@ -240,7 +240,11 @@ $ActionsCard.Controls.Add((New-Label -Text "Execute as otimizacoes com um clique
 $BtnApply = New-Btn -Text "Aplicar Todas Otimizacoes" -BG $C.PURPLE -X 15 -Y 70 -W 230 -H 48
 $BtnApply.Add_Click({
     $r = [System.Windows.Forms.MessageBox]::Show("Aplicar TODAS as otimizacoes?","YokaiOS","YesNo","Warning")
-    if($r -eq "Yes"){ Start-Process powershell.exe -ArgumentList '-STA','-ExecutionPolicy','Bypass','-File',"C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS\Executables\Install-YokaiOS.ps1" -Verb RunAs }
+    if($r -eq "Yes"){
+        $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+        $installScript = Join-Path $scriptDir "Install-YokaiOS.ps1"
+        Start-Process powershell.exe -ArgumentList '-STA','-ExecutionPolicy','Bypass','-File',"`"$installScript`"" -Verb RunAs
+    }
 })
 $ActionsCard.Controls.Add($BtnApply)
 

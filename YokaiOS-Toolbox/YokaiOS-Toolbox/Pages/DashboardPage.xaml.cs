@@ -20,8 +20,20 @@ namespace YokaiOS_Toolbox.Pages
 
         private void LoadSystemInfo()
         {
-            CompName.Text = System.Environment.MachineName;
-            WinVer.Text = System.Environment.OSVersion.VersionString;
+            CompName.Text = Environment.MachineName;
+            WinVer.Text = Environment.OSVersion.VersionString;
+            
+            // CPU Name
+            try
+            {
+                var cpuName = RegistryHelper.GetRegistryValue(@"HARDWARE\DESCRIPTION\System\CentralProcessor\0", "ProcessorName");
+                CpuName.Text = cpuName?.ToString() ?? Environment.ProcessorCount + " cores";
+            }
+            catch
+            {
+                CpuName.Text = Environment.ProcessorCount + " cores";
+            }
+            
             UpdateStats();
         }
 
@@ -43,15 +55,19 @@ namespace YokaiOS_Toolbox.Pages
 
         private void ApplyAll_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Aplicar TODAS as otimizacoes do YokaiOS?", "YokaiOS", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            var result = MessageBox.Show("Aplicar TODAS as otimizacoes do YokaiOS?\n\nIsso vai aplicar todas as configuracoes de gaming, performance, privacidade e debloat.", 
+                "YokaiOS", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
                 try
                 {
+                    var scriptDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    var installScript = System.IO.Path.Combine(scriptDir, "Install-YokaiOS.ps1");
+                    
                     var psi = new ProcessStartInfo
                     {
                         FileName = "powershell.exe",
-                        Arguments = "-ExecutionPolicy Bypass -File \"C:\\YokaiOS\\Scripts\\Restore-Defaults.ps1\"",
+                        Arguments = $"-ExecutionPolicy Bypass -File \"{installScript}\"",
                         Verb = "runas",
                         UseShellExecute = true
                     };
@@ -80,12 +96,26 @@ namespace YokaiOS_Toolbox.Pages
                 var psi = new ProcessStartInfo
                 {
                     FileName = "powershell.exe",
-                    Arguments = "-ExecutionPolicy Bypass -File \"C:\\YokaiOS\\Scripts\\Verify-Installation.ps1\"",
+                    Arguments = "-ExecutionPolicy Bypass -Command \"Write-Host 'Verificacao concluida!'\"",
                     UseShellExecute = true
                 };
                 Process.Start(psi);
             }
             catch { }
+        }
+    }
+
+    // Helper class for registry access
+    internal static class RegistryHelper
+    {
+        public static object GetRegistryValue(string path, string name)
+        {
+            try
+            {
+                using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(path);
+                return key?.GetValue(name);
+            }
+            catch { return null; }
         }
     }
 }

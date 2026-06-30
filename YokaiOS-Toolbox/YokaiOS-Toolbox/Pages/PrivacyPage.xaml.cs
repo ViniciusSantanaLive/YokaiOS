@@ -18,8 +18,13 @@ namespace YokaiOS_Toolbox.Pages
 
             TweakHelper.ApplyTelemetry(true);
             TweakHelper.ApplyAdvertisingId(true);
+            TweakHelper.ApplyCortana(true);
+            TweakHelper.ApplyWebSearch(true);
+            TweakHelper.ApplyLocationTracking(true);
+            TweakHelper.ApplySmartScreen(true);
+            TweakHelper.ApplyFeedback(true);
 
-            MessageBox.Show("Privacidade aplicada!", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Privacidade aplicada!\n\nReinicie para aplicar todas as mudancas.", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

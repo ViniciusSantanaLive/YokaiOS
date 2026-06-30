@@ -1,13 +1,12 @@
 # YokaiOS Toolbox v2.0
 
-Toolbox oficial do YokaiOS feita em **C# + WinUI 3** (mesma stack do AtlasOS).
+Toolbox oficial do YokaiOS feita em **C# + WPF** (.NET 8).
 
 ## Stack
 
 - **C# .NET 8.0**
-- **WinUI 3** (Windows App SDK)
-- **WinUI 3 Gallery** (componentes)
-- **Mica Backdrop** (efeito de vidro do Windows 11)
+- **WPF** (Windows Presentation Foundation)
+- **Self-contained** (nao requer .NET instalado)
 
 ## Requisitos para Build
 

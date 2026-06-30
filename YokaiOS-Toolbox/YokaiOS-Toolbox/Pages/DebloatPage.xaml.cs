@@ -21,8 +21,10 @@ namespace YokaiOS_Toolbox.Pages
             TweakHelper.RemoveAppxPackage("Microsoft.549981C3F5F10");
             TweakHelper.RemoveAppxPackage("Microsoft.Copilot");
             TweakHelper.RemoveAppxPackage("Microsoft.WidgetsPlatformRuntime");
+            TweakHelper.RemoveXboxApps();
+            TweakHelper.RemoveTeams();
 
-            MessageBox.Show("Debloat aplicado!", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Debloat aplicado!\n\nReinicie para aplicar todas as mudancas.", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

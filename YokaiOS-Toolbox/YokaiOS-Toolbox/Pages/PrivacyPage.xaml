@@ -12,7 +12,7 @@
                 <CheckBox Content="Desabilitar SmartScreen" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
                 <CheckBox Content="Desabilitar Cloud Search" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
                 <CheckBox Content="Desabilitar Feedback" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,16"/>
-                <Button Content="Aplicar Privacidade" Style="{StaticResource PrimaryBtn}"/>
+                <Button Content="Aplicar Privacidade" Style="{StaticResource PrimaryBtn}" Click="Apply_Click"/>
             </StackPanel>
         </Border>
     </StackPanel>

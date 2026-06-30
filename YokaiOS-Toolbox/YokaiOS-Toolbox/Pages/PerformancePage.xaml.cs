@@ -16,10 +16,14 @@ namespace YokaiOS_Toolbox.Pages
             var result = MessageBox.Show("Aplicar otimizacoes de performance?", "YokaiOS", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
+            TweakHelper.DisableUnnecessaryServices();
+            TweakHelper.ApplyPowerPlan();
             TweakHelper.ApplyDarkMode(true);
             TweakHelper.ApplyTransparency(true);
+            TweakHelper.ApplyClassicContextMenu();
+            TweakHelper.ApplyEndTask(true);
 
-            MessageBox.Show("Performance aplicada!", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Performance aplicada!\n\nReinicie para aplicar todas as mudancas.", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

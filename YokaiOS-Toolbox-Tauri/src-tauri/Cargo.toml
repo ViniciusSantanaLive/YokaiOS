@@ -1,0 +1,25 @@
+[package]
+name = "yokaios-toolbox"
+version = "2.0.0"
+description = "YokaiOS Toolbox - Windows 11 Ultra-Optimized for Gaming"
+authors = ["YokaiOS"]
+edition = "2021"
+
+[lib]
+name = "yokaios_toolbox_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+sysinfo = "0.30"
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

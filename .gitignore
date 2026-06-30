@@ -37,4 +37,4 @@ AtlasPlaybook*/
 *.swo
 
 # Build outputs
-*.apbx
+# *.apbx  # Comentado: releases do YokaiOS devem ser tracked

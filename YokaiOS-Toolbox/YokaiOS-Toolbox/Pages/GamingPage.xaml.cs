@@ -22,7 +22,7 @@ namespace YokaiOS_Toolbox.Pages
             TweakHelper.ApplyMouseAcceleration(true);
             TweakHelper.SetRegistryValue(@"Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects", "VisualFXSetting", 2, Microsoft.Win32.RegistryValueKind.DWord);
 
-            MessageBox.Show("Gaming aplicado!", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Gaming aplicado!\n\nReinicie para aplicar todas as mudancas.", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

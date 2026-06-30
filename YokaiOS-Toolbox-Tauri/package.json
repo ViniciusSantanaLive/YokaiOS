@@ -1,0 +1,21 @@
+{
+  "name": "yokaios-toolbox",
+  "version": "2.0.0",
+  "description": "YokaiOS Toolbox - Windows 11 Ultra-Optimized for Gaming",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/plugin-shell": "^2.0.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0",
+    "typescript": "^5.4.0",
+    "vite": "^5.4.0"
+  }
+}

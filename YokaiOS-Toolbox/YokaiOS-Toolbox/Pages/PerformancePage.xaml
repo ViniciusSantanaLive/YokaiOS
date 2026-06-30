@@ -13,7 +13,7 @@
                 <CheckBox Content="End Task no Taskbar" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
                 <CheckBox Content="Menu Contexto Classico" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
                 <CheckBox Content="Modo Escuro" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,16"/>
-                <Button Content="Aplicar Performance" Style="{StaticResource PrimaryBtn}"/>
+                <Button Content="Aplicar Performance" Style="{StaticResource PrimaryBtn}" Click="Apply_Click"/>
             </StackPanel>
         </Border>
     </StackPanel>

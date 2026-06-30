@@ -11,7 +11,7 @@
                 <CheckBox Content="Remover Xbox Apps" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
                 <CheckBox Content="Remover Teams" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
                 <CheckBox Content="Remover Apps Pre-Instalados" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,16"/>
-                <Button Content="Aplicar Debloat" Style="{StaticResource PrimaryBtn}"/>
+                <Button Content="Aplicar Debloat" Style="{StaticResource PrimaryBtn}" Click="Apply_Click"/>
             </StackPanel>
         </Border>
     </StackPanel>
