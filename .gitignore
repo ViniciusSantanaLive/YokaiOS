@@ -35,3 +35,6 @@ AtlasPlaybook*/
 .idea/
 *.swp
 *.swo
+
+# Build outputs
+*.apbx
