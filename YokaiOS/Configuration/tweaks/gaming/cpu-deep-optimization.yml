@@ -1,0 +1,155 @@
+---
+title: CPU Deep Optimization
+description: Otimizacoes avancadas de CPU para gaming extremo
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Otimizando CPU profundamente..."}
+
+  # === Disable CPU C-States
+  - title: "Desabilitar CPU C-States"
+    description: "Previne que a CPU entre em estados de baixo consumo"
+    category: "CPU"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Desabilitar C-States via registro
+          $cpuPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Processor"
+          New-ItemProperty -Path $cpuPath -Name "Capabilities" -Value 0x0007e066 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+
+  # === Disable Core Parking
+  - title: "Desabilitar Core Parking"
+    description: "Mantem todos os nucleos da CPU ativos"
+    category: "CPU"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Desabilitar Core Parking via Power Plan
+          powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 0cc5b647-c1df-4637-891a-dec35c318583 100
+          powercfg /setactive SCHEME_CURRENT
+
+          # Registry override
+          $parkPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583"
+          New-ItemProperty -Path $parkPath -Name "Attributes" -Value 0 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+
+  # === Disable CPU Throttling
+  - title: "Desabilitar CPU Throttling"
+    description: "Previne que a CPU reduza clock por temperatura"
+    category: "CPU"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Maximo performance
+          powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100
+          powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100
+          powercfg /setactive SCHEME_CURRENT
+
+  # === Optimize Thread Quantum
+  - title: "Otimizar Thread Quantum"
+    description: "Define quantum curto para melhor responsividade"
+    category: "CPU"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
+        name: "Win32PrioritySeparation"
+        type: "REG_DWORD"
+        value: "38"
+
+  # === Disable Dynamic Tick
+  - title: "Desabilitar Dynamic Tick"
+    description: "Forca timer consistente para menor latencia"
+    category: "CPU"
+    privilege: "Admin"
+    actions:
+      - !cmd
+        command: "bcdedit /set disabledynamictick yes"
+      - !cmd
+        command: "bcdedit /set useplatformtick yes"
+
+  # === Set TSC Sync Policy
+  - title: "TSC Sync Policy Enhanced"
+    description: "Otimiza sincronizacao de timer entre nucleos"
+    category: "CPU"
+    privilege: "Admin"
+    actions:
+      - !cmd
+        command: "bcdedit /set tscsyncpolicy enhanced"
+
+  # === Disable Spectre/Meltdown
+  - title: "Desabilitar Spectre/Meltdown"
+    description: "Desabilita mitigacoes de seguranca que reduzem performance"
+    category: "CPU"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+        name: "FeatureSettingsOverride"
+        type: "REG_DWORD"
+        value: "3"
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+        name: "FeatureSettingsOverrideMask"
+        type: "REG_DWORD"
+        value: "3"
+
+  # === Disable TSX (Intel)
+  - title: "Habilitar TSX (Intel)"
+    description: "Habilita Intel TSX para melhor performance em transacoes"
+    category: "CPU"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Habilitar TSX se disponivel
+          $tsxPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel"
+          New-ItemProperty -Path $tsxPath -Name "DisableTsx" -Value 0 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+
+  # === Disable Hyper-Threading Security
+  - title: "Otimizar Hyper-Threading"
+    description: "Otimiza HT para performance em vez de seguranca"
+    category: "CPU"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
+        name: "DisableExceptionChainValidation"
+        type: "REG_DWORD"
+        value: "1"
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
+        name: "KernelSEHOPEnabled"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === MMCSS CPU Priority
+  - title: "MMCS CPU Priority para Gaming"
+    description: "Define prioridade maxima para tarefas de multimedia"
+    category: "CPU"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+        name: "GPU Priority"
+        type: "REG_DWORD"
+        value: "8"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+        name: "Priority"
+        type: "REG_DWORD"
+        value: "6"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+        name: "Scheduling Category"
+        type: "REG_SZ"
+        value: "High"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+        name: "SFIO Priority"
+        type: "REG_SZ"
+        value: "High"
+
+  - !writeStatus {status: "CPU otimizada!"}

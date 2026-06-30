@@ -1,0 +1,115 @@
+---
+title: GPU Driver Optimization
+description: Otimizacoes avancadas de driver de GPU para gaming
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Otimizando drivers de GPU..."}
+
+  # === NVIDIA Optimizations
+  - title: "Otimizar NVIDIA Profile"
+    description: "Configura perfil NVIDIA para maxima performance em jogos"
+    category: "GPU"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Desabilitar NVIDIA Telemetry
+          $nvidiaServices = @("NvTelemetryContainer", "NvStreamSvc", "NVDisplay.ContainerLocalSystem")
+          foreach ($svc in $nvidiaServices) {
+            Stop-Service -Name $svc -Force -ErrorAction SilentlyContinue
+            Set-Service -Name $svc -StartupType Disabled -ErrorAction SilentlyContinue
+          }
+
+          # Desabilitar NVIDIA Background Tasks
+          $tasks = @(
+            "\NVIDIA\NvDriverUpdateCheckDaily_{B2FE1952-0786-46D3-86BF-936317945654}",
+            "\NVIDIA\NVIDIA GeForce Experience SelfUpdate_{B2FE1952-0786-46D3-86BF-936317945654}",
+            "\NVIDIA\NvTmRep_CrashReport_{B2FE1952-0786-46D3-86BF-936317945654}",
+            "\NVIDIA\NvTmRep_{B2FE1952-0786-46D3-86BF-936317945654}"
+          )
+          foreach ($task in $tasks) {
+            Disable-ScheduledTask -TaskName $task -ErrorAction SilentlyContinue
+          }
+
+  # === AMD Optimizations
+  - title: "Otimizar AMD Profile"
+    description: "Configura perfil AMD para maxima performance"
+    category: "GPU"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Desabilitar AMD Crash Defender
+          Stop-Service -Name "AMDCrashDefenderService" -Force -ErrorAction SilentlyContinue
+          Set-Service -Name "AMDCrashDefenderService" -StartupType Disabled -ErrorAction SilentlyContinue
+
+          # Desabilitar AMD External Events
+          Stop-Service -Name "AMDExternalEventsUtility" -Force -ErrorAction SilentlyContinue
+          Set-Service -Name "AMDExternalEventsUtility" -StartupType Disabled -ErrorAction SilentlyContinue
+
+  # === GPU Interrupt Priority
+  - title: "Otimizar GPU Interrupt Priority"
+    description: "Define prioridade maxima para interrupcoes de GPU"
+    category: "GPU"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
+        name: "IRQ8Priority"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Disable GPU Preemption
+  - title: "Desabilitar GPU Preemption"
+    description: "Previne que a GPU interrompa tarefas de renderizacao"
+    category: "GPU"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers\\Scheduler"
+        name: "EnablePreemption"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Disable GPU Power Saving
+  - title: "Desabilitar GPU Power Saving"
+    description: "Previne que a GPU reduza clock durante jogos"
+    category: "GPU"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # NVIDIA PowerMizer
+          $gpuPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000"
+          if (Test-Path $gpuPath) {
+            New-ItemProperty -Path $gpuPath -Name "PerfLevelSrc" -Value 0x2222 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+            New-ItemProperty -Path $gpuPath -Name "PowerMizerEnable" -Value 1 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+            New-ItemProperty -Path $gpuPath -Name "PowerMizerLevel" -Value 1 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+            New-ItemProperty -Path $gpuPath -Name "PowerMizerLevelAC" -Value 1 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+          }
+
+  # === Hardware Accelerated GPU Scheduling
+  - title: "Habilitar HAGS"
+    description: "Hardware-Accelerated GPU Scheduling para menor latencia"
+    category: "GPU"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers"
+        name: "HwSchMode"
+        type: "REG_DWORD"
+        value: "2"
+
+  # === Disable MPO (Multi-Plane Overlay)
+  - title: "Desabilitar MPO"
+    description: "Desabilita Multi-Plane Overlay para reduzir stuttering"
+    category: "GPU"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $mpoPath = "HKLM:\SOFTWARE\Microsoft\Windows\Dwm"
+          New-ItemProperty -Path $mpoPath -Name "OverlayTestMode" -Value 5 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+
+  - !writeStatus {status: "GPU otimizada!"}

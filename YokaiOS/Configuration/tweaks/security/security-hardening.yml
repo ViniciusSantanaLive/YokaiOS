@@ -1,0 +1,183 @@
+---
+title: Security Hardening
+description: Hardening de seguranca que nao impacta performance
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Aplicando security hardening..."}
+
+  # === Disable Remote Access
+  - title: "Desabilitar Acesso Remoto"
+    description: "Desabilita todos os servicos de acesso remoto"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !service: {name: 'RemoteRegistry', operation: change, startup: 4}
+      - !service: {name: 'RemoteAccess', operation: change, startup: 4}
+      - !service: {name: 'SessionEnv', operation: change, startup: 4}
+      - !service: {name: 'TermService', operation: change, startup: 4}
+      - !service: {name: 'UmRdpService', operation: change, startup: 4}
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server"
+        name: "fDenyTSConnections"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Disable SMBv1
+  - title: "Desabilitar SMBv1"
+    description: "Desabilita protocolo SMBv1 inseguro"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart -ErrorAction SilentlyContinue
+          Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force -ErrorAction SilentlyContinue
+
+  # === Disable NetBIOS
+  - title: "Desabilitar NetBIOS"
+    description: "Desabilita NetBIOS sobre TCP/IP"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $adapters = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object {$_.IPEnabled}
+          foreach ($adapter in $adapters) {
+            $adapter.SetTcpipNetbios(2) # 2 = Disable
+          }
+
+  # === Disable LLMNR
+  - title: "Desabilitar LLMNR"
+    description: "Desabilita Link-Local Multicast Name Resolution"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\DNSClient"
+        name: "EnableMulticast"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Disable WPBT
+  - title: "Desabilitar WPBT"
+    description: "Impede que fabricante execute programas no boot"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager"
+        name: "DisableWpbtExecution"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Disable AutoPlay
+  - title: "Desabilitar AutoPlay"
+    description: "Previne execucao automatica de midia"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\AutoplayHandlers"
+        name: "DisableAutoplay"
+        type: "REG_DWORD"
+        value: "1"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
+        name: "NoDriveTypeAutoRun"
+        type: "REG_DWORD"
+        value: "255"
+
+  # === Disable AutoRun
+  - title: "Desabilitar AutoRun"
+    description: "Previne execucao automatica de executaveis"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
+        name: "NoAutorun"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Disable Windows Script Host
+  - title: "Desabilitar Windows Script Host"
+    description: "Previne execucao de scripts maliciosos"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows Script Host\\Settings"
+        name: "Enabled"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Disable Remote Assistance
+  - title: "Desabilitar Remote Assistance"
+    description: "Desabilita Assistencia Remota"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance"
+        name: "fAllowToGetHelp"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Disable Windows Remote Management
+  - title: "Desabilitar WinRM"
+    description: "Desabilita Windows Remote Management"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !service: {name: 'WinRM', operation: change, startup: 4}
+
+  # === Restrict Anonymous Access
+  - title: "Restringir Acesso Anonimo"
+    description: "Bloqueia acesso anonimo a recursos compartilhados"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa"
+        name: "restrictanonymous"
+        type: "REG_DWORD"
+        value: "1"
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa"
+        name: "restrictanonymoussam"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Disable Cortana Online
+  - title: "Desabilitar Cortana Online"
+    description: "Forca Cortana a funcionar apenas offline"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+        name: "AllowCortana"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+        name: "DisableWebSearch"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Disable Telemetry
+  - title: "Desabilitar Telemetria"
+    description: "Desabilita todos os servicos de telemetria"
+    category: "Security"
+    privilege: "Admin"
+    actions:
+      - !service: {name: 'DiagTrack', operation: change, startup: 4}
+      - !service: {name: 'dmwappushservice', operation: change, startup: 4}
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection"
+        name: "AllowTelemetry"
+        type: "REG_DWORD"
+        value: "0"
+
+  - !writeStatus {status: "Security hardening aplicado!"}

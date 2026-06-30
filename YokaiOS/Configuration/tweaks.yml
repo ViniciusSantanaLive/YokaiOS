@@ -7,7 +7,9 @@
 
 # Gaming Optimizations
 - !include tweaks/gaming/gpu-optimization.yml
+- !include tweaks/gaming/gpu-driver-optimization.yml
 - !include tweaks/gaming/cpu-scheduling.yml
+- !include tweaks/gaming/cpu-deep-optimization.yml
 - !include tweaks/gaming/game-mode.yml
 - !include tweaks/gaming/disable-game-bar.yml
 - !include tweaks/gaming/disable-fso.yml
@@ -15,6 +17,7 @@
 - !include tweaks/gaming/keyboard-mouse-latency.yml
 - !include tweaks/gaming/visual-effects.yml
 - !include tweaks/gaming/mmcs-optimization.yml
+- !include tweaks/gaming/hardware-detection.yml
 
 # Performance Optimizations
 - !include tweaks/performance/disable-services.yml
@@ -46,6 +49,9 @@
 - !include tweaks/qol/taskbar.yml
 - !include tweaks/qol/context-menu.yml
 - !include tweaks/qol/qol-tweaks.yml
+
+# Security Hardening
+- !include tweaks/security/security-hardening.yml
 
 # Debloat
 - !include tweaks/debloat/remove-bloatware.yml

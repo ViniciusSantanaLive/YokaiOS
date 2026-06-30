@@ -1,0 +1,255 @@
+---
+title: Hardware Detection and Optimization
+description: Detecta hardware e aplica otimizacoes especificas
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Detectando hardware..."}
+
+  # === Detect GPU and Apply Specific Optimizations
+  - title: "Detectar e Otimizar GPU"
+    description: "Detecta GPU e aplica otimizacoes especificas"
+    category: "Hardware"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Detectar GPU
+          $gpu = Get-WmiObject Win32_VideoController | Select-Object -First 1
+          $gpuName = $gpu.Name
+
+          Write-Host "GPU Detectada: $gpuName"
+
+          # NVIDIA Optimizations
+          if ($gpuName -match "NVIDIA|GeForce|RTX|GTX") {
+            Write-Host "Aplicando otimizacoes NVIDIA..."
+            
+            # Desabilitar NVIDIA Telemetry
+            Stop-Service -Name "NvTelemetryContainer" -Force -ErrorAction SilentlyContinue
+            Set-Service -Name "NvTelemetryContainer" -StartupType Disabled -ErrorAction SilentlyContinue
+            
+            # Desabilitar NVIDIA Streamer
+            Stop-Service -Name "NvStreamSvc" -Force -ErrorAction SilentlyContinue
+            Set-Service -Name "NvStreamSvc" -StartupType Disabled -ErrorAction SilentlyContinue
+            
+            # Otimizar NVIDIA Profile
+            $nvidiaPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000"
+            if (Test-Path $nvidiaPath) {
+              New-ItemProperty -Path $nvidiaPath -Name "PerfLevelSrc" -Value 0x2222 -PropertyType DWord -Force
+              New-ItemProperty -Path $nvidiaPath -Name "PowerMizerEnable" -Value 1 -PropertyType DWord -Force
+              New-ItemProperty -Path $nvidiaPath -Name "PowerMizerLevel" -Value 1 -PropertyType DWord -Force
+            }
+          }
+
+          # AMD Optimizations
+          if ($gpuName -match "AMD|Radeon|RX") {
+            Write-Host "Aplicando otimizacoes AMD..."
+            
+            # Desabilitar AMD Services
+            Stop-Service -Name "AMDCrashDefenderService" -Force -ErrorAction SilentlyContinue
+            Set-Service -Name "AMDCrashDefenderService" -StartupType Disabled -ErrorAction SilentlyContinue
+            
+            Stop-Service -Name "AMDExternalEventsUtility" -Force -ErrorAction SilentlyContinue
+            Set-Service -Name "AMDExternalEventsUtility" -StartupType Disabled -ErrorAction SilentlyContinue
+          }
+
+          # Intel Optimizations
+          if ($gpuName -match "Intel|UHD|Iris") {
+            Write-Host "Aplicando otimizacoes Intel..."
+            
+            # Desabilitar Intel Services
+            Stop-Service -Name "Intel(R) Capability Licensing Service TCP IP Interface" -Force -ErrorAction SilentlyContinue
+            Set-Service -Name "Intel(R) Capability Licensing Service TCP IP Interface" -StartupType Disabled -ErrorAction SilentlyContinue
+          }
+
+  # === Detect CPU and Apply Specific Optimizations
+  - title: "Detectar e Otimizar CPU"
+    description: "Detecta CPU e aplica otimizacoes especificas"
+    category: "Hardware"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Detectar CPU
+          $cpu = Get-WmiObject Win32_Processor | Select-Object -First 1
+          $cpuName = $cpu.Name
+          $cpuCores = $cpu.NumberOfCores
+          $cpuThreads = $cpu.NumberOfLogicalProcessors
+
+          Write-Host "CPU Detectada: $cpuName"
+          Write-Host "Nucleos: $cpuCores | Threads: $cpuThreads"
+
+          # Otimizar para CPUs com muitos nucleos
+          if ($cpuCores -ge 8) {
+            Write-Host "CPU de alto nucleo detectada, otimizando..."
+            
+            # Aumentar limite de processos svchost
+            $memory = (Get-CimInstance Win32_PhysicalMemory | Measure-Object Capacity -Sum).Sum / 1KB
+            Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "SvcHostSplitThresholdInKB" -Value $memory
+          }
+
+          # Intel Optimizations
+          if ($cpuName -match "Intel|i[3579]") {
+            Write-Host "Aplicando otimizacoes Intel..."
+            
+            # Habilitar Intel Speed Shift
+            $intelPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Processor"
+            New-ItemProperty -Path $intelPath -Name "Capabilities" -Value 0x0007e666 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+          }
+
+          # AMD Optimizations
+          if ($cpuName -match "AMD|RYZEN") {
+            Write-Host "Aplicando otimizacoes AMD..."
+            
+            # Desabilitar Core Parking para AMD
+            powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 0cc5b647-c1df-4637-891a-dec35c318583 100
+            powercfg /setactive SCHEME_CURRENT
+          }
+
+  # === Detect RAM and Optimize
+  - title: "Detectar e Otimizar RAM"
+    description: "Detecta RAM e aplica otimizacoes de memoria"
+    category: "Hardware"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Detectar RAM
+          $ram = Get-CimInstance Win32_PhysicalMemory | Measure-Object Capacity -Sum
+          $ramGB = [math]::Round($ram.Sum / 1GB, 2)
+          $ramSpeed = (Get-CimInstance Win32_PhysicalMemory | Select-Object -First 1).Speed
+
+          Write-Host "RAM Detectada: $ramGB GB @ $ramSpeed MHz"
+
+          # Otimizar para sistemas com muita RAM
+          if ($ramGB -ge 16) {
+            Write-Host "Sistema com muita RAM, otimizando..."
+            
+            # Desabilitar memory compression
+            Disable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue
+            
+            # Aumentar file system cache
+            Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "LargeSystemCache" -Value 1 -Force
+          }
+
+          # Otimizar para sistemas com pouca RAM
+          if ($ramGB -le 8) {
+            Write-Host "Sistema com pouca RAM, otimizando..."
+            
+            # Habilitar memory compression
+            Enable-MMAgent -MemoryCompression -ErrorAction SilentlyContinue
+            
+            # Reduzir file system cache
+            Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "LargeSystemCache" -Value 0 -Force
+          }
+
+  # === Detect Storage and Optimize
+  - title: "Detectar e Otimizar Armazenamento"
+    description: "Detecta tipo de disco e aplica otimizacoes"
+    category: "Hardware"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Detectar tipo de disco
+          $disks = Get-PhysicalDisk | Select-Object DeviceId, MediaType, FriendlyName, Size
+
+          foreach ($disk in $disks) {
+            $sizeGB = [math]::Round($disk.Size / 1GB, 2)
+            Write-Host "Disco $($disk.DeviceId): $($disk.FriendlyName) - $($disk.MediaType) - $sizeGB GB"
+
+            # SSD Optimizations
+            if ($disk.MediaType -eq "SSD") {
+              Write-Host "SSD detectado, aplicando otimizacoes..."
+              
+              # Desabilitar defrag automatico (SSD nao precisa)
+              Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Dfrg\BootOptimizeFunction" -Name "Enable" -Value "N" -Force
+              
+              # Habilitar TRIM
+              fsutil behavior set DisableDeleteNotify 0
+            }
+
+            # HDD Optimizations
+            if ($disk.MediaType -eq "HDD") {
+              Write-Host "HDD detectado, aplicando otimizacoes..."
+              
+              # Habilitar defrag automatico
+              Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Dfrg\BootOptimizeFunction" -Name "Enable" -Value "Y" -Force
+            }
+          }
+
+  # === Detect Network Adapter and Optimize
+  - title: "Detectar e Otimizar Rede"
+    description: "Detecta adaptador de rede e aplica otimizacoes"
+    category: "Hardware"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          # Detectar adaptadores de rede
+          $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"} | Select-Object Name, InterfaceDescription, LinkSpeed
+
+          foreach ($adapter in $adapters) {
+            Write-Host "Adaptador: $($adapter.Name) - $($adapter.InterfaceDescription) - $($adapter.LinkSpeed)"
+
+            # Desabilitar offloads para reduzir latencia
+            Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "IPv4 Checksum Offload" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+            Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "TCP Checksum Offload (IPv4)" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+            Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "Large Send Offload v2 (IPv4)" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+            Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "Large Send Offload v2 (IPv6)" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+
+            # Desabilitar power saving
+            Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "Energy Efficient Ethernet" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+            Set-NetAdapterAdvancedProperty -Name $adapter.Name -DisplayName "Power Saving Mode" -DisplayValue "Disabled" -ErrorAction SilentlyContinue
+          }
+
+  # === Generate System Report
+  - title: "Gerar Relatorio do Sistema"
+    description: "Gera relatorio detalhado do hardware"
+    category: "Hardware"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $report = @()
+          $report += "=== YOKAIOS HARDWARE REPORT ==="
+          $report += "Data: $(Get-Date)"
+          $report += ""
+
+          # CPU
+          $cpu = Get-WmiObject Win32_Processor | Select-Object -First 1
+          $report += "CPU: $($cpu.Name)"
+          $report += "Nucleos: $($cpu.NumberOfCores) | Threads: $($cpu.NumberOfLogicalProcessors)"
+          $report += ""
+
+          # RAM
+          $ram = Get-CimInstance Win32_PhysicalMemory | Measure-Object Capacity -Sum
+          $ramGB = [math]::Round($ram.Sum / 1GB, 2)
+          $report += "RAM: $ramGB GB"
+          $report += ""
+
+          # GPU
+          $gpu = Get-WmiObject Win32_VideoController | Select-Object -First 1
+          $report += "GPU: $($gpu.Name)"
+          $report += ""
+
+          # Storage
+          $disks = Get-PhysicalDisk | Select-Object DeviceId, MediaType, FriendlyName, Size
+          foreach ($disk in $disks) {
+            $sizeGB = [math]::Round($disk.Size / 1GB, 2)
+            $report += "Disco $($disk.DeviceId): $($disk.FriendlyName) - $($disk.MediaType) - $sizeGB GB"
+          }
+          $report += ""
+
+          # Network
+          $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"} | Select-Object Name, InterfaceDescription, LinkSpeed
+          foreach ($adapter in $adapters) {
+            $report += "Rede: $($adapter.Name) - $($adapter.InterfaceDescription) - $($adapter.LinkSpeed)"
+          }
+
+          # Save report
+          $reportPath = "C:\YokaiOS\Hardware_Report_$(Get-Date -Format 'yyyyMMdd_HHmmss').txt"
+          $report | Out-File -FilePath $reportPath -Encoding UTF8
+          Write-Host "Relatorio salvo em: $reportPath"
+
+  - !writeStatus {status: "Hardware detectado e otimizado!"}
