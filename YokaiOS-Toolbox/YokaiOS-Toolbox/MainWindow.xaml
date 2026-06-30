@@ -1,0 +1,109 @@
+<Window
+    x:Class="YokaiOS_Toolbox.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YokaiOS_Toolbox"
+    xmlns:pages="using:YokaiOS_Toolbox.Pages"
+    Title="YokaiOS Toolbox"
+    MinWidth="1100"
+    MinHeight="700"
+    RequestedTheme="Dark"
+    ExtendsContentIntoTitleBar="True">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop Kind="BaseAlt"/>
+    </Window.SystemBackdrop>
+
+    <Grid Background="{ThemeResource YokaiBgBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Background="{ThemeResource YokaiBg2Brush}" BorderBrush="{ThemeResource YokaiBorderBrush}" BorderThickness="0,0,1,0">
+            <Grid Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Logo Header -->
+                <StackPanel Grid.Row="0" Padding="24,28,24,20" Spacing="4">
+                    <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                        <Border Width="42" Height="42" CornerRadius="10" Background="{ThemeResource YokaiGradientPurple}">
+                            <TextBlock Text="Y" FontSize="22" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="YOKAI OS" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
+                            <TextBlock Text="Toolbox v2.0" FontSize="11" Foreground="{ThemeResource YokaiTextMutedBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Navigation -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Padding="12,0,12,8" Spacing="2">
+                        <TextBlock Text="PRINCIPAL" FontSize="11" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextMutedBrush}" Margin="12,8,12,4"/>
+                        
+                        <Button x:Name="NavDashboard" Content="&#xE80F;   Dashboard" Style="{StaticResource NavButtonStyle}" Tag="Dashboard" Click="NavButton_Click"/>
+                        <Button x:Name="NavGaming" Content="&#xE7FC;   Gaming" Style="{StaticResource NavButtonStyle}" Tag="Gaming" Click="NavButton_Click"/>
+                        <Button x:Name="NavPerformance" Content="&#xE9F5;   Performance" Style="{StaticResource NavButtonStyle}" Tag="Performance" Click="NavButton_Click"/>
+                        <Button x:Name="NavPrivacy" Content="&#xE72B;   Privacidade" Style="{StaticResource NavButtonStyle}" Tag="Privacy" Click="NavButton_Click"/>
+                        <Button x:Name="NavDebloat" Content="&#xE74D;   Debloat" Style="{StaticResource NavButtonStyle}" Tag="Debloat" Click="NavButton_Click"/>
+                        <Button x:Name="NavNetwork" Content="&#xE774;   Rede" Style="{StaticResource NavButtonStyle}" Tag="Network" Click="NavButton_Click"/>
+
+                        <TextBlock Text="SISTEMA" FontSize="11" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextMutedBrush}" Margin="12,16,12,4"/>
+                        
+                        <Button x:Name="NavServices" Content="&#xE7BA;   Servicos" Style="{StaticResource NavButtonStyle}" Tag="Services" Click="NavButton_Click"/>
+                        <Button x:Name="NavBenchmark" Content="&#xE9D9;   Benchmark" Style="{StaticResource NavButtonStyle}" Tag="Benchmark" Click="NavButton_Click"/>
+                        <Button x:Name="NavRestore" Content="&#xE777;   Restaurar" Style="{StaticResource NavButtonStyle}" Tag="Restore" Click="NavButton_Click"/>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Footer -->
+                <StackPanel Grid.Row="2" Padding="20,16" Spacing="8" BorderBrush="{ThemeResource YokaiBorderBrush}" BorderThickness="0,1,0,0">
+                    <TextBlock Text="v2.0.0" FontSize="11" Foreground="{ThemeResource YokaiTextMutedBrush}" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Content Area -->
+        <Grid Grid.Column="1" Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Title Bar Extension -->
+            <Border Grid.Row="0" Background="{ThemeResource YokaiBgBrush}" Padding="32,16,32,8">
+                <StackPanel>
+                    <TextBlock x:Name="PageTitle" Text="Dashboard" Style="{StaticResource YokaiTitleStyle}"/>
+                    <TextBlock x:Name="PageSubtitle" Text="Visao geral do sistema" Style="{StaticResource YokaiSubtitleStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Frame for Pages -->
+            <Frame Grid.Row="1" x:Name="ContentFrame" Padding="32,8,32,32"/>
+        </Grid>
+    </Grid>
+
+    <Window.Resources>
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource YokaiTextSecondaryBrush}"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="44"/>
+        </Style>
+    </Window.Resources>
+</Window>

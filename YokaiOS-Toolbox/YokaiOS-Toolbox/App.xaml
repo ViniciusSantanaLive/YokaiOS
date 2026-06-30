@@ -1,0 +1,123 @@
+<Application
+    x:Class="YokaiOS_Toolbox.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YokaiOS_Toolbox">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- YokaiOS Color Palette -->
+            <Color x:Key="YokaiPurple">#FF8B5CF6</Color>
+            <Color x:Key="YokaiPurpleDark">#FF6D46C8</Color>
+            <Color x:Key="YokaiPurpleLight">#FFA78BFA</Color>
+            <Color x:Key="YokaiPink">#FFEC4899</Color>
+            <Color x:Key="YokaiBlue">#FF3B82F6</Color>
+            <Color x:Key="YokaiGreen">#FF22C55E</Color>
+            <Color x:Key="YokaiRed">#FFEF4444</Color>
+            <Color x:Key="YokaiYellow">#FFEAB308</Color>
+            <Color x:Key="YokaiBg">#FF0C0C12</Color>
+            <Color x:Key="YokaiBg2">#FF12121C</Color>
+            <Color x:Key="YokaiCard">#FF181824</Color>
+            <Color x:Key="YokaiCardHover">#FF202030</Color>
+            <Color x:Key="YokaiTextPrimary">#FFF1F5F9</Color>
+            <Color x:Key="YokaiTextSecondary">#FF94A3B8</Color>
+            <Color x:Key="YokaiTextMuted">#FF475569</Color>
+            <Color x:Key="YokaiBorder">#FF2D2D3D</Color>
+
+            <!-- SolidColorBrushes -->
+            <SolidColorBrush x:Key="YokaiPurpleBrush" Color="{StaticResource YokaiPurple}"/>
+            <SolidColorBrush x:Key="YokaiPurpleDarkBrush" Color="{StaticResource YokaiPurpleDark}"/>
+            <SolidColorBrush x:Key="YokaiPinkBrush" Color="{StaticResource YokaiPink}"/>
+            <SolidColorBrush x:Key="YokaiBlueBrush" Color="{StaticResource YokaiBlue}"/>
+            <SolidColorBrush x:Key="YokaiGreenBrush" Color="{StaticResource YokaiGreen}"/>
+            <SolidColorBrush x:Key="YokaiRedBrush" Color="{StaticResource YokaiRed}"/>
+            <SolidColorBrush x:Key="YokaiBgBrush" Color="{StaticResource YokaiBg}"/>
+            <SolidColorBrush x:Key="YokaiBg2Brush" Color="{StaticResource YokaiBg2}"/>
+            <SolidColorBrush x:Key="YokaiCardBrush" Color="{StaticResource YokaiCard}"/>
+            <SolidColorBrush x:Key="YokaiCardHoverBrush" Color="{StaticResource YokaiCardHover}"/>
+            <SolidColorBrush x:Key="YokaiTextPrimaryBrush" Color="{StaticResource YokaiTextPrimary}"/>
+            <SolidColorBrush x:Key="YokaiTextSecondaryBrush" Color="{StaticResource YokaiTextSecondary}"/>
+            <SolidColorBrush x:Key="YokaiTextMutedBrush" Color="{StaticResource YokaiTextMuted}"/>
+            <SolidColorBrush x:Key="YokaiBorderBrush" Color="{StaticResource YokaiBorder}"/>
+
+            <!-- Gradient Brushes -->
+            <LinearGradientBrush x:Key="YokaiGradientPurple" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource YokaiPurple}" Offset="0"/>
+                <GradientStop Color="{StaticResource YokaiPink}" Offset="1"/>
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="YokaiGradientCard" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="{StaticResource YokaiCard}" Offset="0"/>
+                <GradientStop Color="{StaticResource YokaiBg2}" Offset="1"/>
+            </LinearGradientBrush>
+
+            <!-- Button Styles -->
+            <Style x:Key="YokaiButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource YokaiPurpleBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="16,10"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+
+            <Style x:Key="YokaiButtonSecondaryStyle" TargetType="Button" BasedOn="{StaticResource YokaiButtonStyle}">
+                <Setter Property="Background" Value="{StaticResource YokaiCardBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource YokaiTextPrimaryBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource YokaiBorderBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+
+            <Style x:Key="YokaiButtonDangerStyle" TargetType="Button" BasedOn="{StaticResource YokaiButtonStyle}">
+                <Setter Property="Background" Value="{StaticResource YokaiRedBrush}"/>
+            </Style>
+
+            <!-- Card Style -->
+            <Style x:Key="YokaiCardStyle" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource YokaiCardBrush}"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="Padding" Value="20"/>
+                <Setter Property="BorderBrush" Value="{StaticResource YokaiBorderBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+
+            <!-- TextBlock Styles -->
+            <Style x:Key="YokaiTitleStyle" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="28"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="{StaticResource YokaiTextPrimaryBrush}"/>
+            </Style>
+
+            <Style x:Key="YokaiSubtitleStyle" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Foreground" Value="{StaticResource YokaiTextSecondaryBrush}"/>
+            </Style>
+
+            <Style x:Key="YokaiBodyStyle" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Foreground" Value="{StaticResource YokaiTextPrimaryBrush}"/>
+            </Style>
+
+            <Style x:Key="YokaiCaptionStyle" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Foreground" Value="{StaticResource YokaiTextMutedBrush}"/>
+            </Style>
+
+            <!-- Toggle Switch Style -->
+            <Style x:Key="YokaiToggleStyle" TargetType="ToggleSwitch">
+                <Setter Property="OnContent" Value=""/>
+                <Setter Property="OffContent" Value=""/>
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,32 @@
+<Page x:Class="YokaiOS_Toolbox.Pages.PerformancePage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Background="Transparent" RequestedTheme="Dark">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="20">
+            <Border Style="{StaticResource YokaiCardStyle}">
+                <StackPanel Spacing="16">
+                    <StackPanel>
+                        <TextBlock Text="Performance" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
+                        <TextBlock Text="50+ servicos, 60+ tarefas, otimizacoes WinUtil" FontSize="13" Foreground="{ThemeResource YokaiTextSecondaryBrush}"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4">
+                        <ToggleSwitch Header="Desabilitar 50+ Servicos Desnecessarios" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Desabilitar 60+ Tarefas Agendadas" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Otimizar Memoria (Sem Compressao)" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Otimizar Disco NTFS" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Plano Ultimate Performance" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Desabilitar Paging Executive" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Desabilitar Background Apps" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="BCDedit Otimizado" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Desabilitar Mitigacoes de CPU" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="SvcHost Split Threshold" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Desabilitar Reserved Storage" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Consumer Features" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="End Task no Taskbar" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Menu Contexto Classico" OnContent="" OffContent="" IsOn="True"/>
+                        <ToggleSwitch Header="Modo Escuro" OnContent="" OffContent="" IsOn="True"/>
+                    </StackPanel>
+                    <Button Content="Aplicar Performance" Style="{StaticResource YokaiButtonStyle}" Click="Apply_Click"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

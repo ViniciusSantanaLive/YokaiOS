@@ -1,0 +1,118 @@
+<Page
+    x:Class="YokaiOS_Toolbox.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YokaiOS_Toolbox.Pages"
+    Background="Transparent"
+    RequestedTheme="Dark">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="20">
+
+            <!-- Stat Cards Row -->
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Processos -->
+                <Border Grid.Column="0" Style="{StaticResource YokaiCardStyle}">
+                    <StackPanel Spacing="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Ellipse Width="8" Height="8" Fill="{ThemeResource YokaiGreenBrush}"/>
+                            <TextBlock Text="Processos" FontSize="13" Foreground="{ThemeResource YokaiTextSecondaryBrush}"/>
+                        </StackPanel>
+                        <TextBlock x:Name="ProcessCount" Text="..." FontSize="32" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
+                        <TextBlock Text="em execucao" FontSize="12" Foreground="{ThemeResource YokaiTextMutedBrush}"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- RAM -->
+                <Border Grid.Column="1" Style="{StaticResource YokaiCardStyle}">
+                    <StackPanel Spacing="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Ellipse Width="8" Height="8" Fill="{ThemeResource YokaiBlueBrush}"/>
+                            <TextBlock Text="RAM" FontSize="13" Foreground="{ThemeResource YokaiTextSecondaryBrush}"/>
+                        </StackPanel>
+                        <TextBlock x:Name="RamUsage" Text="..." FontSize="32" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
+                        <TextBlock Text="em uso" FontSize="12" Foreground="{ThemeResource YokaiTextMutedBrush}"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- CPU -->
+                <Border Grid.Column="2" Style="{StaticResource YokaiCardStyle}">
+                    <StackPanel Spacing="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Ellipse Width="8" Height="8" Fill="{ThemeResource YokaiPurpleBrush}"/>
+                            <TextBlock Text="CPU" FontSize="13" Foreground="{ThemeResource YokaiTextSecondaryBrush}"/>
+                        </StackPanel>
+                        <TextBlock x:Name="CpuUsage" Text="..." FontSize="32" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
+                        <TextBlock Text="uso medio" FontSize="12" Foreground="{ThemeResource YokaiTextMutedBrush}"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Servicos -->
+                <Border Grid.Column="3" Style="{StaticResource YokaiCardStyle}">
+                    <StackPanel Spacing="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Ellipse Width="8" Height="8" Fill="{ThemeResource YokaiPinkBrush}"/>
+                            <TextBlock Text="Servicos" FontSize="13" Foreground="{ThemeResource YokaiTextSecondaryBrush}"/>
+                        </StackPanel>
+                        <TextBlock Text="50+" FontSize="32" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
+                        <TextBlock Text="desabilitados" FontSize="12" Foreground="{ThemeResource YokaiTextMutedBrush}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Quick Actions -->
+            <Border Style="{StaticResource YokaiCardStyle}">
+                <StackPanel Spacing="16">
+                    <StackPanel>
+                        <TextBlock Text="Acoes Rapidas" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
+                        <TextBlock Text="Execute as otimizacoes com um clique" FontSize="13" Foreground="{ThemeResource YokaiTextSecondaryBrush}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <Button Content="Aplicar Todas Otimizacoes" Style="{StaticResource YokaiButtonStyle}" Click="ApplyAll_Click"/>
+                        <Button Content="Executar Benchmark" Style="{StaticResource YokaiButtonSecondaryStyle}" Click="Benchmark_Click"/>
+                        <Button Content="Verificar Instalacao" Style="{StaticResource YokaiButtonSecondaryStyle}" Click="Verify_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- System Info -->
+            <Border Style="{StaticResource YokaiCardStyle}">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Informacoes do Sistema" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
+                    
+                    <Grid ColumnSpacing="32">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Spacing="4">
+                            <TextBlock Text="Computador" FontSize="12" Foreground="{ThemeResource YokaiTextMutedBrush}"/>
+                            <TextBlock x:Name="ComputerName" Text="..." FontSize="14" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock Text="Windows" FontSize="12" Foreground="{ThemeResource YokaiTextMutedBrush}"/>
+                            <TextBlock x:Name="WindowsVersion" Text="..." FontSize="14" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Spacing="4">
+                            <TextBlock Text="YokaiOS" FontSize="12" Foreground="{ThemeResource YokaiTextMutedBrush}"/>
+                            <TextBlock Text="v2.0.0" FontSize="14" FontWeight="SemiBold" Foreground="{ThemeResource YokaiPurpleBrush}"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
