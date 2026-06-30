@@ -1,0 +1,96 @@
+---
+title: Servicos Desabilitados (Expandido)
+description: Lista completa de 50+ servicos desabilitados para reduzir processos em idle
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Desabilitando servicos de telemetria..."}
+
+  # === Telemetria e Diagnostico
+  - !service: {name: 'DiagTrack', operation: change, startup: 4}
+  - !service: {name: 'dmwappushservice', operation: change, startup: 4}
+  - !service: {name: 'diagnosticshub.standardcollector.service', operation: change, startup: 4}
+  - !service: {name: 'WerSvc', operation: change, startup: 4}
+  - !service: {name: 'DPS', operation: change, startup: 4}
+  - !service: {name: 'WdiServiceHost', operation: change, startup: 4}
+  - !service: {name: 'WdiSystemHost', operation: change, startup: 4}
+  - !service: {name: 'PcaSvc', operation: change, startup: 4}
+  - !service: {name: 'wisvc', operation: change, startup: 4}
+
+  - !writeStatus {status: "Desabilitando servicos de busca e indexacao..."}
+
+  # === Busca e Indexacao
+  - !service: {name: 'WSearch', operation: change, startup: 4}
+  - !service: {name: 'SysMain', operation: change, startup: 4}
+
+  - !writeStatus {status: "Desabilitando servicos de atualizacao..."}
+
+  # === Atualizacao
+  - !service: {name: 'wuauserv', operation: change, startup: 4}
+  - !service: {name: 'DoSvc', operation: change, startup: 4}
+  - !service: {name: 'UsoSvc', operation: change, startup: 4}
+
+  - !writeStatus {status: "Desabilitando servicos de impressao e fax..."}
+
+  # === Impressao e Fax
+  - !service: {name: 'Spooler', operation: change, startup: 4}
+  - !service: {name: 'Fax', operation: change, startup: 4}
+
+  - !writeStatus {status: "Desabilitando servicos de rede..."}
+
+  # === Rede
+  - !service: {name: 'RemoteRegistry', operation: change, startup: 4}
+  - !service: {name: 'SSDPSRV', operation: change, startup: 4}
+  - !service: {name: 'iphlpsvc', operation: change, startup: 4}
+  - !service: {name: 'Ndu', operation: change, startup: 4}
+  - !service: {name: 'SharedAccess', operation: change, startup: 4}
+  - !service: {name: 'CscService', operation: change, startup: 4}
+  - !service: {name: 'NetTcpPortSharing', operation: change, startup: 4}
+
+  - !writeStatus {status: "Desabilitando servicos de entrada..."}
+
+  # === Entrada e Tablet
+  - !service: {name: 'TabletInputService', operation: change, startup: 4}
+  - !service: {name: 'TouchInputService', operation: change, startup: 4}
+
+  - !writeStatus {status: "Desabilitando servicos do Xbox..."}
+
+  # === Xbox e Gaming
+  - !service: {name: 'XblAuthManager', operation: change, startup: 4}
+  - !service: {name: 'XblGameSave', operation: change, startup: 4}
+  - !service: {name: 'XboxNetApiSvc', operation: change, startup: 4}
+  - !service: {name: 'XboxGipSvc', operation: change, startup: 4}
+
+  - !writeStatus {status: "Desabilitando servicos de seguranca..."}
+
+  # === Seguranca (opcional)
+  - !service: {name: 'WbioSrvc', operation: change, startup: 4}
+  - !service: {name: 'WpcMonSvc', operation: change, startup: 4}
+  - !service: {name: 'ScDeviceEnum', operation: change, startup: 4}
+
+  - !writeStatus {status: "Desabilitando servicos diversos..."}
+
+  # === Diversos
+  - !service: {name: 'RetailDemo', operation: change, startup: 4}
+  - !service: {name: 'WalletService', operation: change, startup: 4}
+  - !service: {name: 'MapsBroker', operation: change, startup: 4}
+  - !service: {name: 'SEMgrSvc', operation: change, startup: 4}
+  - !service: {name: 'PhoneSvc', operation: change, startup: 4}
+  - !service: {name: 'TapiSrv', operation: change, startup: 4}
+  - !service: {name: 'SensrSvc', operation: change, startup: 4}
+  - !service: {name: 'OneSyncSvc', operation: change, startup: 4}
+  - !service: {name: 'CDPSvc', operation: change, startup: 4}
+  - !service: {name: 'CDPUserSvc', operation: change, startup: 4}
+  - !service: {name: 'DusmSvc', operation: change, startup: 4}
+  - !service: {name: 'BitsCompactSvc', operation: change, startup: 4}
+  - !service: {name: 'TrkWks', operation: change, startup: 4}
+  - !service: {name: 'WMPNetworkSvc', operation: change, startup: 4}
+  - !service: {name: 'GraphicsPerfSvc', operation: change, startup: 4}
+  - !service: {name: 'StorSvc', operation: change, startup: 4}
+  - !service: {name: 'Wecsvc', operation: change, startup: 4}
+  - !service: {name: 'UCPD', operation: change, startup: 4}
+  - !service: {name: 'Telemetry', operation: change, startup: 4}
+  - !service: {name: 'lfsvc', operation: change, startup: 4}
+  - !service: {name: 'seclogon', operation: change, startup: 4}
+
+  - !writeStatus {status: "Servicos desabilitados com sucesso!"}

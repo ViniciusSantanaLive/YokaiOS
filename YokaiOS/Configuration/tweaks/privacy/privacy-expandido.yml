@@ -1,0 +1,290 @@
+---
+title: Privacidade Expandido
+description: Lista completa de 20+ otimizacoes de privacidade
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Aplicando otimizacoes de privacidade expandidas..."}
+
+  # === Speech Recognition
+  - title: "Desabilitar Reconhecimento de Fala Online"
+    description: "Para de enviar dados de voz para Microsoft"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy"
+        name: "HasAccepted"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Input Personalization
+  - title: "Desabilitar Personalizacao de Input"
+    description: "Para de coletar dados de escrita e manuscricao"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\InputPersonalization"
+        name: "RestrictImplicitInkCollection"
+        type: "REG_DWORD"
+        value: "1"
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\InputPersonalization"
+        name: "RestrictImplicitTextCollection"
+        type: "REG_DWORD"
+        value: "1"
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\InputPersonalization\\TrainedDataStore"
+        name: "HarvestContacts"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Typing Insights
+  - title: "Desabilitar Typing Insights"
+    description: "Para de analisar padroes de digitacao"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Input\\TIPC"
+        name: "Enabled"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === SmartScreen
+  - title: "Desabilitar SmartScreen"
+    description: "Desabilita verificacao de apps pela Microsoft"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+        name: "EnableSmartScreen"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === WiFi Sense
+  - title: "Desabilitar WiFi Sense"
+    description: "Para de compartilhar redes WiFi"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\PolicyManager\\default\\WiFi\\AllowWiFiHotSpotReporting"
+        name: "Value"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\PolicyManager\\default\\WiFi\\AllowAutoConnectToWiFiSenseHotspots"
+        name: "Value"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === App Diagnostics
+  - title: "Desabilitar Diagnostico de Apps"
+    description: "Apps nao podem acessar informacoes de diagnostico"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\appDiagnostics"
+        name: "Value"
+        type: "REG_SZ"
+        value: "Deny"
+
+  # === Feedback Frequency
+  - title: "Desabilitar Feedback"
+    description: "Para de pedir feedback do usuario"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Siuf\\Rules"
+        name: "NumberOfSIUFInPeriod"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Siuf\\Rules"
+        name: "PeriodInNanoSeconds"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Start Track Programs
+  - title: "Desabilitar Rastreamento de Programas"
+    description: "Para de rastrear apps abertos no historico"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "Start_TrackProgs"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Advertising ID
+  - title: "Desabilitar ID de Propaganda"
+    description: "Remove ID unico usado para propaganda direcionada"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo"
+        name: "Enabled"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Tailored Experiences
+  - title: "Desabilitar Experiencias Personalizadas"
+    description: "Para de usar dados diagnosticos para sugestoes"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy"
+        name: "TailoredExperiencesWithDiagnosticDataEnabled"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Handwriting Error Reports
+  - title: "Desabilitar Relatorios de Manuscricao"
+    description: "Para de enviar relatorios de erro de manuscricao"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\HandwritingErrorReports"
+        name: "PreventHandwritingErrorReports"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Location Tracking
+  - title: "Desabilitar Rastreamento de Localizacao"
+    description: "Desabilita servico de localizacao"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !service: {name: 'lfsvc', operation: change, startup: 4}
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location"
+        name: "Value"
+        type: "REG_SZ"
+        value: "Deny"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\Overrides\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}"
+        name: "SensorPermissionState"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKLM\\SYSTEM\\Maps"
+        name: "AutoUpdateEnabled"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Device Monitoring
+  - title: "Desabilitar Monitoramento de Dispositivos"
+    description: "Para de monitorar conectividade de dispositivos"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeviceAccess\\Global\\{2EEF81BE-33FA-4800-9670-1CD474972C3F}"
+        name: "Value"
+        type: "REG_SZ"
+        value: "Deny"
+
+  # === Cloud Search
+  - title: "Desabilitar Busca na Nuvem"
+    description: "Busca local apenas, sem resultados da web"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+        name: "ConnectedSearchUseWeb"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+        name: "DisableWebSearch"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Search History
+  - title: "Desabilitar Historico de Busca"
+    description: "Para de salvar historico de buscas"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SearchSettings"
+        name: "IsDeviceSearchHistoryEnabled"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Search Suggestions
+  - title: "Desabilitar Sugestoes de Busca"
+    description: "Remove sugestoes do menu iniciar"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer"
+        name: "DisableSearchBoxSuggestions"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Suggested Content
+  - title: "Desabilitar Conteudo Sugerido"
+    description: "Remove conteudo sugerido do Windows"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
+        name: "SubscribedContent-338388Enabled"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
+        name: "SubscribedContent-338389Enabled"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Whats New
+  - title: "Desabilitar Novidades do Windows"
+    description: "Remove notificacoes de novidades"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
+        name: "SubscribedContent-310093Enabled"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Sign In Options
+  - title: "Desabilitar Sugestoes de Login"
+    description: "Remove sugestoes de login na tela de bloqueio"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+        name: "DisableLockScreenAppNotifications"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Privacy Settings Experience
+  - title: "Desabilitar Experiencia de Privacidade"
+    description: "Para de mostrar tela de configuracao de privacidade"
+    category: "Privacy"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\OOBE"
+        name: "DisablePrivacyExperience"
+        type: "REG_DWORD"
+        value: "1"
+
+  - !writeStatus {status: "Privacidade expandida aplicada com sucesso!"}

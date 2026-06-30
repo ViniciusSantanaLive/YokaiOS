@@ -15,6 +15,7 @@
 
 # Performance Optimizations
 - !include tweaks/performance/disable-services.yml
+- !include tweaks/performance/disable-services-expandido.yml
 - !include tweaks/performance/disable-startup.yml
 - !include tweaks/performance/memory-optimization.yml
 - !include tweaks/performance/disk-optimization.yml
@@ -23,8 +24,10 @@
 - !include tweaks/performance/win32-priority.yml
 - !include tweaks/performance/disable-background-apps.yml
 - !include tweaks/performance/disable-scheduled-tasks.yml
+- !include tweaks/performance/disable-scheduled-tasks-expandido.yml
 - !include tweaks/performance/bcdedit-optimization.yml
 - !include tweaks/performance/disable-mitigations.yml
+- !include tweaks/performance/winutil-tweaks.yml
 
 # Privacy
 - !include tweaks/privacy/disable-telemetry.yml
@@ -33,6 +36,7 @@
 - !include tweaks/privacy/disable-cortana.yml
 - !include tweaks/privacy/disable-web-search.yml
 - !include tweaks/privacy/disable-advertising.yml
+- !include tweaks/privacy/privacy-expandido.yml
 
 # Debloat
 - !include tweaks/debloat/remove-bloatware.yml

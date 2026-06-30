@@ -1,0 +1,255 @@
+---
+title: WinUtil Tweaks
+description: Otimizacoes inspiradas no WinUtil do Chris Titus
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Aplicando tweaks do WinUtil..."}
+
+  # === Consumer Features
+  - title: "Desabilitar Consumer Features"
+    description: "Windows nao instala apps automaticamente da Store"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent"
+        name: "DisableWindowsConsumerFeatures"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Delivery Optimization
+  - title: "Desabilitar Delivery Optimization"
+    description: "Para de usar sua banda para enviar updates para outros PCs"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization"
+        name: "DODownloadMode"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Reserved Storage
+  - title: "Desabilitar Reserved Storage"
+    description: "Libera 7-10 GB que o Windows reserva para updates"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !cmd
+        command: "DISM /Online /Set-ReservedStorageState /State:Disabled"
+
+  # === Storage Sense
+  - title: "Desabilitar Storage Sense"
+    description: "Para de deletar arquivos temporarios automaticamente"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy"
+        name: "01"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === WPBT
+  - title: "Desabilitar WPBT"
+    description: "Impede que o fabricante execute programas no boot"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager"
+        name: "DisableWpbtExecution"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Notifications
+  - title: "Desabilitar Notificacoes"
+    description: "Desabilita centro de notificacoes e toast"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Policies\\Microsoft\\Windows\\Explorer"
+        name: "DisableNotificationCenter"
+        type: "REG_DWORD"
+        value: "1"
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PushNotifications"
+        name: "ToastEnabled"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === IPv6 Preferencial
+  - title: "IPv4 Preferencial"
+    description: "Define IPv4 como preferido em redes privadas"
+    category: "Network"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters"
+        name: "DisabledComponents"
+        type: "REG_DWORD"
+        value: "32"
+
+  # === Teredo
+  - title: "Desabilitar Teredo"
+    description: "Desabilita tunneling IPv6 que pode causar latencia"
+    category: "Network"
+    privilege: "Admin"
+    actions:
+      - !cmd
+        command: "netsh interface teredo set state disabled"
+
+  # === End Task on Taskbar
+  - title: "End Task no Taskbar"
+    description: "Permite finalizar tarefa com clique direto na barra"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\TaskbarDeveloperSettings"
+        name: "TaskbarEndTask"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Explorer Auto Discovery
+  - title: "Desabilitar Auto Discovery"
+    description: "Para de adivinhar tipo de pasta pelo conteudo"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $allFolders = "HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags\AllFolders\Shell"
+          if (!(Test-Path $allFolders)) { New-Item -Path $allFolders -Force }
+          New-ItemProperty -Path $allFolders -Name "FolderType" -Value "NotSpecified" -PropertyType String -Force
+
+  # === Razer Auto Install
+  - title: "Bloquear Razer Auto-Install"
+    description: "Bloqueia instalacao automatica de software Razer"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching"
+        name: "SearchOrderConfig"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Device Installer"
+        name: "DisableCoInstallers"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === SvcHost Split Threshold
+  - title: "SvcHost Split Threshold"
+    description: "Reduz processos svchost.baseado na RAM"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $Memory = (Get-CimInstance Win32_PhysicalMemory | Measure-Object Capacity -Sum).Sum / 1KB
+          Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name SvcHostSplitThresholdInKB -Value $Memory
+
+  # === Home and Gallery
+  - title: "Remover Home e Gallery"
+    description: "Remove Home e Gallery do Explorer, abre em Este PC"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Classes\\CLSID\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}"
+        name: "System.IsPinnedToNameSpaceTree"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKCU\\Software\\Classes\\CLSID\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}"
+        name: "System.IsPinnedToNameSpaceTree"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "LaunchTo"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Classic Right Click
+  - title: "Menu de Contexto Classico"
+    description: "Restaura o menu de contexto antigo do Windows 11"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: "New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}' -Name InprocServer32 -Value '' -Force"
+
+  # === Show File Extensions
+  - title: "Mostrar Extensoes de Arquivo"
+    description: "Mostra .exe, .png, etc no Explorer"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "HideFileExt"
+        type: "REG_DWORD"
+        value: "0"
+
+  # === Show Hidden Files
+  - title: "Mostrar Arquivos Ocultos"
+    description: "Revela arquivos ocultos no Explorer"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
+        name: "Hidden"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Verbose Logon
+  - title: "Logon Verbose"
+    description: "Mostra mensagens detalhadas durante boot/shutdown"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+        name: "VerboseStatus"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Detailed BSoD
+  - title: "BSoD Detalhado"
+    description: "Mostra mais informacoes em tela azul"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\CrashControl"
+        name: "DisplayParameters"
+        type: "REG_DWORD"
+        value: "1"
+      - !registry
+        path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\CrashControl"
+        name: "DisableEmoticon"
+        type: "REG_DWORD"
+        value: "1"
+
+  # === Dark Mode
+  - title: "Modo Escuro"
+    description: "Ativa tema escuro para sistema e apps"
+    category: "Performance"
+    privilege: "Admin"
+    actions:
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
+        name: "AppsUseLightTheme"
+        type: "REG_DWORD"
+        value: "0"
+      - !registry
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
+        name: "SystemUsesLightTheme"
+        type: "REG_DWORD"
+        value: "0"
