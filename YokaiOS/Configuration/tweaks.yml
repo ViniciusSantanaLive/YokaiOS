@@ -53,3 +53,6 @@
 - !include tweaks/network/tcp-optimization.yml
 - !include tweaks/network/disable-network-throttling.yml
 - !include tweaks/network/nagle-algorithm.yml
+
+# Toolbox Installation
+- !include tweaks/toolbox.yml

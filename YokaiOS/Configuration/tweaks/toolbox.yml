@@ -1,0 +1,91 @@
+---
+title: Instalar YokaiOS Toolbox
+description: Copia a toolbox para Program Files e cria atalhos
+privilege: Admin
+actions:
+
+  - !writeStatus {status: "Instalando YokaiOS Toolbox..."}
+
+  - title: "Copiar Toolbox para Program Files"
+    description: "Instala a toolbox em C:\Program Files\YokaiOS Toolbox"
+    category: "Toolbox"
+    privilege: "Admin"
+    option: "install-toolbox"
+    actions:
+      - !powershell
+        option: "install-toolbox"
+        command: |
+          $installPath = "$env:ProgramFiles\YokaiOS Toolbox"
+          $exeName = "YokaiOS-Toolbox.exe"
+          $sourcePath = ".\Executables\$exeName"
+
+          # Criar pasta
+          New-Item -ItemType Directory -Path $installPath -Force | Out-Null
+
+          # Copiar exe
+          if (Test-Path $sourcePath) {
+            Copy-Item -Path $sourcePath -Destination "$installPath\$exeName" -Force
+          }
+
+  - title: "Criar Atalho na Area de Trabalho"
+    description: "Cria atalho da toolbox na area de trabalho"
+    category: "Toolbox"
+    privilege: "Admin"
+    option: "install-toolbox"
+    actions:
+      - !powershell
+        option: "install-toolbox"
+        command: |
+          $installPath = "$env:ProgramFiles\YokaiOS Toolbox"
+          $exeName = "YokaiOS-Toolbox.exe"
+          $shell = New-Object -ComObject WScript.Shell
+
+          # Atalho desktop usuario
+          $shortcut = $shell.CreateShortcut("$env:USERPROFILE\Desktop\YokaiOS Toolbox.lnk")
+          $shortcut.TargetPath = "$installPath\$exeName"
+          $shortcut.WorkingDirectory = $installPath
+          $shortcut.Description = "YokaiOS Toolbox"
+          $shortcut.Save()
+
+          # Atalho desktop publico
+          $publicDesktop = "$env:PUBLIC\Desktop"
+          if (Test-Path $publicDesktop) {
+            $shortcut2 = $shell.CreateShortcut("$publicDesktop\YokaiOS Toolbox.lnk")
+            $shortcut2.TargetPath = "$installPath\$exeName"
+            $shortcut2.WorkingDirectory = $installPath
+            $shortcut2.Save()
+          }
+
+  - title: "Criar Atalho no Menu Iniciar"
+    description: "Cria atalho da toolbox no Menu Iniciar"
+    category: "Toolbox"
+    privilege: "Admin"
+    option: "install-toolbox"
+    actions:
+      - !powershell
+        option: "install-toolbox"
+        command: |
+          $installPath = "$env:ProgramFiles\YokaiOS Toolbox"
+          $exeName = "YokaiOS-Toolbox.exe"
+          $startMenu = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\YokaiOS"
+          New-Item -ItemType Directory -Path $startMenu -Force | Out-Null
+          $shell = New-Object -ComObject WScript.Shell
+          $shortcut = $shell.CreateShortcut("$startMenu\YokaiOS Toolbox.lnk")
+          $shortcut.TargetPath = "$installPath\$exeName"
+          $shortcut.WorkingDirectory = $installPath
+          $shortcut.Save()
+
+  - title: "Adicionar Toolbox ao Startup"
+    description: "Inicia a toolbox junto com o Windows"
+    category: "Toolbox"
+    privilege: "Admin"
+    option: "install-toolbox"
+    actions:
+      - !registry
+        option: "install-toolbox"
+        path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+        name: "YokaiOS Toolbox"
+        type: "REG_SZ"
+        value: "\"C:\\Program Files\\YokaiOS Toolbox\\YokaiOS-Toolbox.exe\" --minimized"
+
+  - !writeStatus {status: "YokaiOS Toolbox instalada!"}

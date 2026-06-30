@@ -386,6 +386,54 @@ $restoreScript | Out-File -FilePath "C:\YokaiOS\Scripts\Restore-Defaults.ps1" -E
 
 Write-Host "[+] YokaiOS folder created" -ForegroundColor Green
 
+# Install Toolbox
+Write-Host "`n[*] Phase 16: Installing YokaiOS Toolbox..." -ForegroundColor Yellow
+
+$toolboxSource = "$PSScriptRoot\YokaiOS-Toolbox.exe"
+$toolboxInstallPath = "$env:ProgramFiles\YokaiOS Toolbox"
+
+if (Test-Path $toolboxSource) {
+    # Create install directory
+    New-Item -ItemType Directory -Path $toolboxInstallPath -Force | Out-Null
+
+    # Copy toolbox
+    Copy-Item -Path $toolboxSource -Destination "$toolboxInstallPath\YokaiOS-Toolbox.exe" -Force
+
+    # Create desktop shortcut
+    $shell = New-Object -ComObject WScript.Shell
+    $shortcut = $shell.CreateShortcut("$env:USERPROFILE\Desktop\YokaiOS Toolbox.lnk")
+    $shortcut.TargetPath = "$toolboxInstallPath\YokaiOS-Toolbox.exe"
+    $shortcut.WorkingDirectory = $toolboxInstallPath
+    $shortcut.Description = "YokaiOS Toolbox"
+    $shortcut.Save()
+
+    # Create public desktop shortcut
+    $publicDesktop = "$env:PUBLIC\Desktop"
+    if (Test-Path $publicDesktop) {
+        $shortcut2 = $shell.CreateShortcut("$publicDesktop\YokaiOS Toolbox.lnk")
+        $shortcut2.TargetPath = "$toolboxInstallPath\YokaiOS-Toolbox.exe"
+        $shortcut2.WorkingDirectory = $toolboxInstallPath
+        $shortcut2.Save()
+    }
+
+    # Create Start Menu shortcut
+    $startMenu = "$env:ProgramData\Microsoft\Windows\Start Menu\Programs\YokaiOS"
+    New-Item -ItemType Directory -Path $startMenu -Force | Out-Null
+    $shortcut3 = $shell.CreateShortcut("$startMenu\YokaiOS Toolbox.lnk")
+    $shortcut3.TargetPath = "$toolboxInstallPath\YokaiOS-Toolbox.exe"
+    $shortcut3.WorkingDirectory = $toolboxInstallPath
+    $shortcut3.Save()
+
+    # Add to startup (optional, runs minimized)
+    Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "YokaiOS Toolbox" -Value "`"$toolboxInstallPath\YokaiOS-Toolbox.exe`" --minimized"
+
+    Write-Host "[+] Toolbox installed to $toolboxInstallPath" -ForegroundColor Green
+    Write-Host "[+] Shortcuts created on Desktop and Start Menu" -ForegroundColor Green
+} else {
+    Write-Host "[!] Toolbox exe not found at $toolboxSource" -ForegroundColor Yellow
+    Write-Host "[*] You can download it later from GitHub releases" -ForegroundColor Yellow
+}
+
 # Final message
 Write-Host @"
 
@@ -403,6 +451,9 @@ Write-Host @"
 ║  - 1-1.5 GB RAM usage at idle                                 ║
 ║  - Ultra-low latency                                          ║
 ║  - Maximum FPS boost                                          ║
+║                                                               ║
+║  Toolbox: C:\Program Files\YokaiOS Toolbox\                   ║
+║  (Atalho na area de trabalho e Menu Iniciar)                  ║
 ╚═══════════════════════════════════════════════════════════════╝
 
 "@ -ForegroundColor Cyan
