@@ -1,3 +1,2 @@
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-namespace YokaiOS_Toolbox.Pages { public sealed partial class NetworkPage : Page { public NetworkPage() { this.InitializeComponent(); } private async void Apply_Click(object sender, RoutedEventArgs e) { var d = new ContentDialog { Title = "Aplicar", Content = "Aplicar rede?", PrimaryButtonText = "Sim", SecondaryButtonText = "Nao", XamlRoot = this.XamlRoot }; if (await d.ShowAsync() == ContentDialogResult.Primary) { } } } }
+using System.Windows.Controls;
+namespace YokaiOS_Toolbox.Pages { public partial class NetworkPage : Page { public NetworkPage() { InitializeComponent(); } } }

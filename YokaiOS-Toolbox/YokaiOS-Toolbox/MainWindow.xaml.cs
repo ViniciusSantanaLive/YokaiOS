@@ -1,68 +1,37 @@
-using Microsoft.UI;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
-using YokaiOS_Toolbox.Pages;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace YokaiOS_Toolbox
 {
-    public sealed partial class MainWindow : Window
+    public partial class MainWindow : Window
     {
-        private Button? _currentNavButton;
+        private Button? _activeNav;
 
         public MainWindow()
         {
-            this.InitializeComponent();
-
-            // Set title bar
-            this.Title = "YokaiOS Toolbox";
-            this.AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
-
-            // Navigate to Dashboard
-            NavigateToPage("Dashboard");
-            SetActiveNavButton(NavDashboard);
+            InitializeComponent();
+            Navigate("Dashboard");
+            SetActiveNav(NavDashboard);
         }
 
-        private void NavButton_Click(object sender, RoutedEventArgs e)
+        private void Nav_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is string pageName)
+            if (sender is Button b && b.Tag is string page)
             {
-                NavigateToPage(pageName);
-                SetActiveNavButton(button);
+                Navigate(page);
+                SetActiveNav(b);
             }
         }
 
-        private void NavigateToPage(string pageName)
+        private void Navigate(string page)
         {
-            Page? page = pageName switch
-            {
-                "Dashboard" => new DashboardPage(),
-                "Gaming" => new GamingPage(),
-                "Performance" => new PerformancePage(),
-                "Privacy" => new PrivacyPage(),
-                "Debloat" => new DebloatPage(),
-                "Network" => new NetworkPage(),
-                "Services" => new ServicesPage(),
-                "Benchmark" => new BenchmarkPage(),
-                "Restore" => new RestorePage(),
-                _ => null
-            };
-
-            if (page != null)
-            {
-                ContentFrame.Content = page;
-                UpdateTitleBar(pageName);
-            }
-        }
-
-        private void UpdateTitleBar(string pageName)
-        {
-            var (title, subtitle) = pageName switch
+            var (title, sub) = page switch
             {
                 "Dashboard" => ("Dashboard", "Visao geral do sistema e acoes rapidas"),
                 "Gaming" => ("Gaming", "Otimizacoes para maximo desempenho em jogos"),
                 "Performance" => ("Performance", "50+ servicos, 60+ tarefas, otimizacoes WinUtil"),
-                "Privacy" => ("Privacidade", "20+ otimizacoes para eliminar telemetria e tracking"),
+                "Privacy" => ("Privacidade", "20+ otimizacoes para eliminar telemetria"),
                 "Debloat" => ("Debloat", "Remocao de bloatware e componentes desnecessarios"),
                 "Network" => ("Rede", "Otimizacoes de rede para baixa latencia"),
                 "Services" => ("Servicos", "Gerenciamento de 50+ servicos desabilitados"),
@@ -70,22 +39,21 @@ namespace YokaiOS_Toolbox
                 "Restore" => ("Restaurar", "Restaure configuracoes padrao do Windows"),
                 _ => ("YokaiOS", "")
             };
-
             PageTitle.Text = title;
-            PageSubtitle.Text = subtitle;
+            PageSubtitle.Text = sub;
+            ContentFrame.Navigate(new System.Uri($"Pages/{page}Page.xaml", System.UriKind.Relative));
         }
 
-        private void SetActiveNavButton(Button button)
+        private void SetActiveNav(Button btn)
         {
-            if (_currentNavButton != null)
+            if (_activeNav != null)
             {
-                _currentNavButton.Background = new SolidColorBrush(Colors.Transparent);
-                _currentNavButton.Foreground = (SolidColorBrush)Application.Current.Resources["YokaiTextSecondaryBrush"];
+                _activeNav.Background = Brushes.Transparent;
+                _activeNav.Foreground = (Brush)FindResource("YokaiText2");
             }
-
-            button.Background = (SolidColorBrush)Application.Current.Resources["YokaiCardBrush"];
-            button.Foreground = (SolidColorBrush)Application.Current.Resources["YokaiTextPrimaryBrush"];
-            _currentNavButton = button;
+            btn.Background = (Brush)FindResource("YokaiCard");
+            btn.Foreground = (Brush)FindResource("YokaiText");
+            _activeNav = btn;
         }
     }
 }

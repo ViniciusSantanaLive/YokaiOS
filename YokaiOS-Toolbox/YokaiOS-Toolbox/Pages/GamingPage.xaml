@@ -1,40 +1,21 @@
-<Page
-    x:Class="YokaiOS_Toolbox.Pages.GamingPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Background="Transparent"
-    RequestedTheme="Dark">
-
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="20">
-
-            <!-- Gaming Optimizations -->
-            <Border Style="{StaticResource YokaiCardStyle}">
-                <StackPanel Spacing="16">
-                    <StackPanel>
-                        <TextBlock Text="Otimizacoes Gaming" FontSize="18" FontWeight="SemiBold" Foreground="{ThemeResource YokaiTextPrimaryBrush}"/>
-                        <TextBlock Text="Configuracoes para maximo desempenho em jogos" FontSize="13" Foreground="{ThemeResource YokaiTextSecondaryBrush}"/>
-                    </StackPanel>
-
-                    <StackPanel Spacing="4">
-                        <ToggleSwitch x:Name="GameMode" Header="Desabilitar Game Mode" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="GameBar" Header="Desabilitar Game Bar e DVR" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="FSO" Header="Desabilitar Fullscreen Optimizations" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="GpuScheduling" Header="Otimizar GPU Scheduling (Hardware)" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="CpuPriority" Header="Otimizar CPU Priority (Win32Priority=38)" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="MMCS" Header="Otimizar MMCS (Multimedia Scheduler)" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="TimerResolution" Header="Timer Resolution 0.5ms" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="MouseAccel" Header="Desabilitar Aceleracao do Mouse" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="VisualEffects" Header="Desabilitar Efeitos Visuais" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="GpuPreemption" Header="Desabilitar Preempcao de GPU" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="RawMouse" Header="Input Raw do Mouse (1:1)" OnContent="" OffContent="" IsOn="True"/>
-                        <ToggleSwitch x:Name="FilterKeys" Header="Desabilitar Filter Keys" OnContent="" OffContent="" IsOn="True"/>
-                    </StackPanel>
-
-                    <Button Content="Aplicar Gaming" Style="{StaticResource YokaiButtonStyle}" Click="ApplyGaming_Click"/>
-                </StackPanel>
-            </Border>
-
-        </StackPanel>
-    </ScrollViewer>
+<Page x:Class="YokaiOS_Toolbox.Pages.GamingPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Background="Transparent">
+    <StackPanel>
+        <Border Style="{StaticResource CardBorder}">
+            <StackPanel>
+                <TextBlock Text="Otimizacoes Gaming" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource YokaiText}" Margin="0,0,0,4"/>
+                <TextBlock Text="Configuracoes para maximo desempenho em jogos" FontSize="13" Foreground="{StaticResource YokaiText2}" Margin="0,0,0,16"/>
+                <CheckBox Content="Desabilitar Game Mode" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
+                <CheckBox Content="Desabilitar Game Bar e DVR" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
+                <CheckBox Content="Desabilitar Fullscreen Optimizations" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
+                <CheckBox Content="Otimizar GPU Scheduling (Hardware)" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
+                <CheckBox Content="Otimizar CPU Priority (Win32Priority=38)" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
+                <CheckBox Content="Otimizar MMCS (Multimedia Scheduler)" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
+                <CheckBox Content="Timer Resolution 0.5ms" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
+                <CheckBox Content="Desabilitar Aceleracao do Mouse" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
+                <CheckBox Content="Desabilitar Efeitos Visuais" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
+                <CheckBox Content="Input Raw do Mouse (1:1)" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,16"/>
+                <Button Content="Aplicar Gaming" Style="{StaticResource PrimaryBtn}"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
 </Page>

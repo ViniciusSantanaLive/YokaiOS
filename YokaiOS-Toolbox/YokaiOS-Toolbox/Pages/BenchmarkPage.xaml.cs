@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using System.Diagnostics;
-namespace YokaiOS_Toolbox.Pages { public sealed partial class BenchmarkPage : Page { public BenchmarkPage() { this.InitializeComponent(); } private void RunBenchmark_Click(object sender, RoutedEventArgs e) { var sb = new System.Text.StringBuilder(); sb.AppendLine("=== YOKAIOS BENCHMARK ==="); sb.AppendLine($"Data: {DateTime.Now}"); sb.AppendLine(); sb.AppendLine($"[CPU] Uso: ..."); sb.AppendLine($"[RAM] Processos: {Process.GetProcesses().Length}"); sb.AppendLine($"[SVC] Servicos: ..."); BenchmarkOutput.Text = sb.ToString(); } } }
+using System.Windows;
+using System.Windows.Controls;
+namespace YokaiOS_Toolbox.Pages { public partial class BenchmarkPage : Page { public BenchmarkPage() { InitializeComponent(); } private void Run_Click(object sender, RoutedEventArgs e) { Output.Text = $"=== YOKAIOS BENCHMARK ===\nData: {System.DateTime.Now}\n\n[CPU] Processos: {Process.GetProcesses().Length}\n[SVC] Servicos: ..."; } } }

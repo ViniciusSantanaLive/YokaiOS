@@ -1,0 +1,7 @@
+C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS-Toolbox\publish\YokaiOS-Toolbox.pdb
+C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS-Toolbox\publish\D3DCompiler_47_cor3.dll
+C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS-Toolbox\publish\PenImc_cor3.dll
+C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS-Toolbox\publish\PresentationNative_cor3.dll
+C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS-Toolbox\publish\vcruntime140_cor3.dll
+C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS-Toolbox\publish\wpfgfx_cor3.dll
+C:\Users\Administrador\OneDrive - VAIP\Documentos\Hive\YokaiOS\YokaiOS-Toolbox\publish\YokaiOS-Toolbox.exe
