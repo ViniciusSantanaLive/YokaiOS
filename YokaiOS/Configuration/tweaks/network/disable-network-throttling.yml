@@ -1,5 +1,4 @@
 # Disable Network Throttling
-<<<<<<< C:\Users\ADMINI~1\AppData\Local\Temp\hive-merge-lnOAsH\ours
 # REDIRECTED: All network tweaks consolidated into tcp-optimization.yml
 # This file kept for backward compatibility only
 
@@ -10,9 +9,3 @@
   privilege: "Admin"
   actions:
     - !writeStatus {status: "Network throttling already handled by tcp-optimization.yml"}
-=======
-# All settings consolidated into tcp-optimization.yml
-
----
-- !include tweaks/network/tcp-optimization.yml
->>>>>>> C:\Users\ADMINI~1\AppData\Local\Temp\hive-merge-lnOAsH\theirs

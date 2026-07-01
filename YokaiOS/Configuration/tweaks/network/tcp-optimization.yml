@@ -78,24 +78,8 @@
       type: "REG_DWORD"
       value: "0"
 
-<<<<<<< C:\Users\ADMINI~1\AppData\Local\Temp\hive-merge-wAN6GA\ours
 - title: "Set Cloudflare DNS"
   description: "Use Cloudflare DNS (1.1.1.1) for low latency"
-=======
-- title: "Disable QoS Bandwidth Limit"
-  description: "Remove QoS bandwidth reservation"
-  category: "Network"
-  privilege: "Admin"
-  actions:
-    - !registry
-      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched"
-      name: "NonBestEffortLimit"
-      type: "REG_DWORD"
-      value: "0"
-
-- title: "Optimize DNS"
-  description: "Set DNS to Cloudflare for low latency"
->>>>>>> C:\Users\ADMINI~1\AppData\Local\Temp\hive-merge-wAN6GA\theirs
   category: "Network"
   privilege: "Admin"
   actions:

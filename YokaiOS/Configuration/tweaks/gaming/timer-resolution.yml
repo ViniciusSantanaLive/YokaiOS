@@ -24,12 +24,3 @@
       command: "bcdedit /set disabledynamictick yes"
     - !cmd
       command: "bcdedit /set useplatformtick yes"
-
-- title: "Install Timer Resolution Tool"
-  description: "SetTimerResolution.exe for manual control"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !file
-      source: "Executables/Tools/SetTimerResolution.exe"
-      destination: "C:\\YokaiOS\\Tools\\SetTimerResolution.exe"

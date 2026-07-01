@@ -10,7 +10,7 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $RootDir = Split-Path -Parent $ScriptDir
 
 if ([string]::IsNullOrEmpty($OutputPath)) {
-    $OutputPath = Join-Path (Split-Path -Parent $RootDir) "YokaiOS-v1.1.0.apbx"
+    $OutputPath = Join-Path (Split-Path -Parent $RootDir) "YokaiOS-v2.0.0.apbx"
 }
 
 Write-Host @"
