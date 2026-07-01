@@ -22,6 +22,7 @@ const Icons = {
   ram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="6" y2="12.01"/><line x1="10" y1="12" x2="10" y2="12.01"/><line x1="14" y1="12" x2="14" y2="12.01"/><line x1="18" y1="12" x2="18" y2="12.01"/></svg>`,
   activity: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
   settings: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+  disk: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>`,
   minimize: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
   maximize: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="1"/></svg>`,
   close: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
@@ -47,7 +48,27 @@ interface SystemStats {
 let currentPage = 'dashboard';
 let systemInfo: SystemInfo | null = null;
 let systemStats: SystemStats | null = null;
-let isNavigating = false;
+let isApplying = false;
+let isoConfig = {
+  iso_source: 'download',
+  iso_path: '',
+  remove_edge: true,
+  remove_onedrive: true,
+  remove_copilot: true,
+  remove_bloatware: true,
+  remove_widgets: true,
+  remove_xbox: false,
+  disable_defender: true,
+  disable_updates: true,
+  apply_gaming: true,
+  apply_privacy: true,
+  bypass_requirements: true,
+  username: 'User',
+  password: '',
+  output_path: 'C:\\YokaiOS\\ISOs\\YokaiOS-v2.0.iso',
+  flash_to_usb: false,
+  usb_drive: '',
+};
 
 const app = document.getElementById('app')!;
 
@@ -101,6 +122,7 @@ function renderSidebar(): string {
   ];
 
   const sys = [
+    { id: 'createiso', icon: Icons.disk, label: 'Create ISO' },
     { id: 'services', icon: Icons.settings, label: 'Servicos' },
     { id: 'benchmark', icon: Icons.benchmark, label: 'Benchmark' },
     { id: 'restore', icon: Icons.restore, label: 'Restaurar' },
@@ -153,6 +175,7 @@ function renderPage(page: string): string {
     privacy: renderPrivacy,
     debloat: renderDebloat,
     network: renderNetwork,
+    createiso: renderCreateISO,
     services: renderServices,
     benchmark: renderBenchmark,
     restore: renderRestore,
@@ -183,7 +206,7 @@ function renderDashboard(): string {
           <div class="stat-icon">${Icons.ram}</div>
           <div class="stat-label">RAM</div>
           <div class="stat-value">${s ? s.ram_used.toFixed(1) : '...'} GB</div>
-          <div class="stat-change">em uso</div>
+          <div class="stat-change">${s ? (s.ram_used / s.ram_total * 100).toFixed(0) + '%' : '...'} uso</div>
         </div>
         <div class="stat">
           <div class="stat-icon">${Icons.cpu}</div>
@@ -194,7 +217,7 @@ function renderDashboard(): string {
         <div class="stat">
           <div class="stat-icon">${Icons.settings}</div>
           <div class="stat-label">Servicos</div>
-          <div class="stat-value">${s?.disabled_services ?? '50+'}</div>
+          <div class="stat-value">${s?.disabled_services ?? '...'}</div>
           <div class="stat-change">desabilitados</div>
         </div>
       </div>
@@ -208,7 +231,7 @@ function renderDashboard(): string {
         <div class="btn-group">
           <button class="btn btn-primary" id="btn-apply-all">${Icons.rocket} Aplicar Tudo</button>
           <button class="btn btn-secondary" id="btn-go-bench">${Icons.benchmark} Benchmark</button>
-          <button class="btn btn-secondary" id="btn-verify">${Icons.check} Verificar</button>
+          <button class="btn btn-secondary" id="btn-go-createiso">${Icons.disk} Criar ISO</button>
         </div>
       </div>
       <div class="card">
@@ -293,6 +316,155 @@ function renderNetwork(): string {
   return renderTweakPage('Rede', 'Otimizacoes de rede para baixa latencia', tweaks, 'btn-apply-network', 'Aplicar Rede');
 }
 
+function renderCreateISO(): string {
+  return `
+    <div class="fade-in">
+      <div class="page-header">
+        <h1 class="page-title">Create ISO</h1>
+        <p class="page-subtitle">Crie uma ISO do Windows 11 ja otimizada com YokaiOS</p>
+        <div class="page-divider"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Passo 1: ISO do Windows</div>
+            <div class="card-subtitle">Selecione a origem da ISO do Windows 11</div>
+          </div>
+          <span class="toggle-badge badge-info">1/4</span>
+        </div>
+        <div class="iso-source-group">
+          <label class="iso-radio-item ${isoConfig.iso_source === 'download' ? 'active' : ''}">
+            <input type="radio" name="iso_source" value="download" ${isoConfig.iso_source === 'download' ? 'checked' : ''}>
+            <div class="iso-radio-content">
+              <div class="iso-radio-title">Baixar ISO automaticamente</div>
+              <div class="iso-radio-desc">Baixa a ISO oficial do Windows 11 da Microsoft</div>
+            </div>
+          </label>
+          <label class="iso-radio-item ${isoConfig.iso_source === 'local' ? 'active' : ''}">
+            <input type="radio" name="iso_source" value="local" ${isoConfig.iso_source === 'local' ? 'checked' : ''}>
+            <div class="iso-radio-content">
+              <div class="iso-radio-title">Usar ISO existente</div>
+              <div class="iso-radio-desc">Selecione uma ISO ja baixada no seu computador</div>
+            </div>
+          </label>
+        </div>
+        <div id="iso-path-section" style="display:${isoConfig.iso_source === 'local' ? 'block' : 'none'}; margin-top: 12px;">
+          <div class="iso-file-picker">
+            <input type="text" class="iso-input" id="iso-path" placeholder="C:\\Users\\...\\Win11.iso" value="${isoConfig.iso_path}" readonly>
+            <button class="btn btn-secondary" id="btn-browse-iso">Selecionar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Passo 2: Configuracoes</div>
+            <div class="card-subtitle">Escolha o que remover e aplicar na ISO</div>
+          </div>
+          <span class="toggle-badge badge-info">2/4</span>
+        </div>
+        <div class="iso-options-grid">
+          ${[
+            { key: 'remove_edge', title: 'Remover Microsoft Edge', desc: 'Remove o navegador Edge da imagem' },
+            { key: 'remove_onedrive', title: 'Remover OneDrive', desc: 'Remove o cloud storage da Microsoft' },
+            { key: 'remove_copilot', title: 'Remover Copilot e IA', desc: 'Remove assistente de IA e Recall' },
+            { key: 'remove_bloatware', title: 'Remover Bloatware', desc: 'Remove 30+ apps pre-instalados' },
+            { key: 'remove_widgets', title: 'Remover Widgets', desc: 'Remove painel de widgets' },
+            { key: 'remove_xbox', title: 'Remover Xbox Apps', desc: 'Remove apps Xbox (mantem Game Bar)' },
+            { key: 'disable_defender', title: 'Desabilitar Defender', desc: 'Desabilita Windows Defender na imagem' },
+            { key: 'disable_updates', title: 'Desabilitar Updates', desc: 'Desabilita atualizacoes automaticas' },
+            { key: 'apply_gaming', title: 'Aplicar Gaming Tweaks', desc: 'GPU, CPU, MMCS, Timer Resolution' },
+            { key: 'apply_privacy', title: 'Aplicar Privacidade', desc: 'Telemetria, Tracking, Advertising' },
+            { key: 'bypass_requirements', title: 'Bypass Requisitos Win11', desc: 'TPM 2.0, Secure Boot, RAM, CPU' },
+          ].map(t => `
+            <div class="toggle-item iso-toggle" data-config="${t.key}">
+              <div class="toggle ${isoConfig[t.key as keyof typeof isoConfig] ? 'checked' : ''}">${Icons.check}</div>
+              <div class="toggle-content">
+                <div class="toggle-title">${t.title}</div>
+                <div class="toggle-desc">${t.desc}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Passo 3: Usuario</div>
+            <div class="card-subtitle">Configure o usuario padrao da instalacao</div>
+          </div>
+          <span class="toggle-badge badge-info">3/4</span>
+        </div>
+        <div class="iso-user-form">
+          <div class="iso-form-group">
+            <label class="iso-label">Nome de Usuario</label>
+            <input type="text" class="iso-input" id="iso-username" placeholder="User" value="${isoConfig.username}">
+          </div>
+          <div class="iso-form-group">
+            <label class="iso-label">Senha (opcional)</label>
+            <input type="password" class="iso-input" id="iso-password" placeholder="Deixe vazio sem senha" value="${isoConfig.password}">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Passo 4: Saida</div>
+            <div class="card-subtitle">Escolha onde salvar ou gravar a ISO</div>
+          </div>
+          <span class="toggle-badge badge-info">4/4</span>
+        </div>
+        <div class="iso-output-section">
+          <div class="iso-form-group">
+            <label class="iso-label">Caminho da ISO</label>
+            <div class="iso-file-picker">
+              <input type="text" class="iso-input" id="iso-output" value="${isoConfig.output_path}" readonly>
+              <button class="btn btn-secondary" id="btn-browse-output">Salvar como</button>
+            </div>
+          </div>
+          <div class="iso-divider"></div>
+          <div class="toggle-item iso-toggle-usb" data-config="flash_to_usb">
+            <div class="toggle ${isoConfig.flash_to_usb ? 'checked' : ''}">${Icons.check}</div>
+            <div class="toggle-content">
+              <div class="toggle-title">Gravar direto em USB</div>
+              <div class="toggle-desc">Apos criar a ISO, grava automaticamente em um pendrive USB</div>
+            </div>
+          </div>
+          <div id="usb-section" style="display:${isoConfig.flash_to_usb ? 'block' : 'none'}; margin-top: 12px;">
+            <div class="iso-form-group">
+              <label class="iso-label">Drive USB</label>
+              <select class="iso-select" id="iso-usb-drive">
+                <option value="">Selecione um USB...</option>
+              </select>
+            </div>
+            <button class="btn btn-secondary" id="btn-refresh-usb" style="margin-top:8px;">Atualizar lista de USBs</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <button class="btn btn-primary btn-lg" id="btn-create-iso">${Icons.rocket} Criar ISO YokaiOS</button>
+      </div>
+
+      <div class="card" id="iso-progress-card" style="display:none;">
+        <div class="card-header">
+          <div class="card-title">Progresso</div>
+          <span class="toggle-badge badge-info" id="iso-step-badge">0/8</span>
+        </div>
+        <div class="iso-progress-bar-container">
+          <div class="iso-progress-bar" id="iso-progress-bar" style="width: 0%"></div>
+        </div>
+        <div class="iso-progress-message" id="iso-progress-message">Aguardando inicio...</div>
+        <div class="terminal iso-log" id="iso-log"></div>
+      </div>
+    </div>
+  `;
+}
+
 function renderTweakPage(title: string, subtitle: string, tweaks: Array<{id: string, title: string, desc: string, badge: string}>, btnId: string, btnLabel: string): string {
   return `
     <div class="fade-in">
@@ -307,7 +479,7 @@ function renderTweakPage(title: string, subtitle: string, tweaks: Array<{id: str
           <span class="toggle-badge badge-info">${tweaks.length} opcoes</span>
         </div>
         ${tweaks.map(t => `
-          <div class="toggle-item" data-tweak="${t.id}">
+          <div class="toggle-item tweak-toggle" data-tweak="${t.id}">
             <div class="toggle checked">${Icons.check}</div>
             <div class="toggle-content">
               <div class="toggle-title">${t.title}</div>
@@ -336,12 +508,32 @@ function renderServices(): string {
     { name: 'Fax', desc: 'Fax' },
     { name: 'RemoteRegistry', desc: 'Registro Remoto' },
     { name: 'WerSvc', desc: 'Relatorio de Erros' },
+    { name: 'DPS', desc: 'Diagnostic Policy Service' },
+    { name: 'PcaSvc', desc: 'Program Compatibility Assistant' },
+    { name: 'seclogon', desc: 'Secondary Logon' },
+    { name: 'SSDPSRV', desc: 'SSDP Discovery' },
+    { name: 'RetailDemo', desc: 'Retail Demo Service' },
+    { name: 'WalletService', desc: 'Wallet Service' },
+    { name: 'MapsBroker', desc: 'Downloaded Maps Manager' },
+    { name: 'iphlpsvc', desc: 'IP Helper' },
+    { name: 'XblAuthManager', desc: 'Xbox Live Auth Manager' },
+    { name: 'XblGameSave', desc: 'Xbox Live Game Save' },
+    { name: 'XboxNetApiSvc', desc: 'Xbox Live Networking' },
+    { name: 'XboxGipSvc', desc: 'Xbox Accessory Management' },
+    { name: 'lfsvc', desc: 'Geolocation Service' },
+    { name: 'WbioSrvc', desc: 'Windows Biometric Service' },
+    { name: 'WpcMonSvc', desc: 'Parental Controls' },
+    { name: 'UCPD', desc: 'UserChoice Protection Driver' },
+    { name: 'wisvc', desc: 'Windows Insider Service' },
+    { name: 'WdiServiceHost', desc: 'Diagnostic Service Host' },
+    { name: 'WdiSystemHost', desc: 'Diagnostic System Host' },
+    { name: 'Wecsvc', desc: 'Windows Event Collector' },
   ];
   return `
     <div class="fade-in">
       <div class="page-header">
         <h1 class="page-title">Servicos</h1>
-        <p class="page-subtitle">50+ servicos desabilitados</p>
+        <p class="page-subtitle">${services.length}+ servicos desabilitados pelo YokaiOS</p>
         <div class="page-divider"></div>
       </div>
       <div class="card">
@@ -366,7 +558,7 @@ function renderBenchmark(): string {
     <div class="fade-in">
       <div class="page-header">
         <h1 class="page-title">Benchmark</h1>
-        <p class="page-subtitle">Compare performance antes e depois</p>
+        <p class="page-subtitle">Metricas reais do sistema em tempo real</p>
         <div class="page-divider"></div>
       </div>
       <div class="card">
@@ -403,7 +595,7 @@ function renderRestore(): string {
 
 // ==================== EVENTS ====================
 function bindEvents() {
-  // Navigation - instant, no lag
+  // Navigation
   document.querySelectorAll('.nav-item').forEach(el => {
     el.addEventListener('click', (e) => {
       const page = (e.currentTarget as HTMLElement).dataset.page;
@@ -429,13 +621,95 @@ function bindEvents() {
 }
 
 function bindPageEvents() {
-  // Toggles
-  document.querySelectorAll('.toggle-item').forEach(el => {
+  // Generic tweak toggles (gaming, performance, etc) - NOT ISO toggles
+  document.querySelectorAll('.tweak-toggle').forEach(el => {
     el.addEventListener('click', () => {
       const toggle = el.querySelector('.toggle');
       toggle?.classList.toggle('checked');
     });
   });
+
+  // ISO Config Toggles - separate handler, no double-fire
+  document.querySelectorAll('.iso-toggle').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const configKey = (el as HTMLElement).dataset.config as keyof typeof isoConfig;
+      if (configKey) {
+        (isoConfig as any)[configKey] = !(isoConfig as any)[configKey];
+        const toggle = el.querySelector('.toggle');
+        toggle?.classList.toggle('checked');
+      }
+    });
+  });
+
+  // USB Toggle
+  document.querySelectorAll('.iso-toggle-usb').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      isoConfig.flash_to_usb = !isoConfig.flash_to_usb;
+      const toggle = el.querySelector('.toggle');
+      toggle?.classList.toggle('checked');
+      const usbSection = document.getElementById('usb-section');
+      if (usbSection) usbSection.style.display = isoConfig.flash_to_usb ? 'block' : 'none';
+      if (isoConfig.flash_to_usb) loadUSBDrives();
+    });
+  });
+
+  // ISO Source Radio
+  document.querySelectorAll('input[name="iso_source"]').forEach(el => {
+    el.addEventListener('change', (e) => {
+      isoConfig.iso_source = (e.target as HTMLInputElement).value;
+      const pathSection = document.getElementById('iso-path-section');
+      if (pathSection) pathSection.style.display = isoConfig.iso_source === 'local' ? 'block' : 'none';
+      document.querySelectorAll('.iso-radio-item').forEach(item => item.classList.remove('active'));
+      (e.target as HTMLElement).closest('.iso-radio-item')?.classList.add('active');
+    });
+  });
+
+  // Browse ISO button - opens file dialog via PowerShell
+  document.getElementById('btn-browse-iso')?.addEventListener('click', async () => {
+    try {
+      const path = await invoke<string>('open_file_dialog', { filter: 'ISO Files (*.iso)|*.iso|All Files (*.*)|*.*' });
+      if (path) {
+        isoConfig.iso_path = path;
+        const input = document.getElementById('iso-path') as HTMLInputElement;
+        if (input) input.value = path;
+      }
+    } catch (e) {
+      // Fallback: prompt
+      const path = prompt('Caminho da ISO do Windows 11:', isoConfig.iso_path);
+      if (path) {
+        isoConfig.iso_path = path;
+        const input = document.getElementById('iso-path') as HTMLInputElement;
+        if (input) input.value = path;
+      }
+    }
+  });
+
+  // Browse Output button
+  document.getElementById('btn-browse-output')?.addEventListener('click', async () => {
+    try {
+      const path = await invoke<string>('save_file_dialog', { filter: 'ISO Files (*.iso)|*.iso', default_name: 'YokaiOS-v2.0.iso' });
+      if (path) {
+        isoConfig.output_path = path.endsWith('.iso') ? path : path + '.iso';
+        const input = document.getElementById('iso-output') as HTMLInputElement;
+        if (input) input.value = isoConfig.output_path;
+      }
+    } catch (e) {
+      const path = prompt('Caminho para salvar a ISO:', isoConfig.output_path);
+      if (path) {
+        isoConfig.output_path = path.endsWith('.iso') ? path : path + '.iso';
+        const input = document.getElementById('iso-output') as HTMLInputElement;
+        if (input) input.value = isoConfig.output_path;
+      }
+    }
+  });
+
+  // Refresh USB drives
+  document.getElementById('btn-refresh-usb')?.addEventListener('click', loadUSBDrives);
+
+  // Create ISO button
+  document.getElementById('btn-create-iso')?.addEventListener('click', startISOCreation);
 
   // Action buttons
   document.getElementById('btn-apply-all')?.addEventListener('click', () => applyAction('apply_all'));
@@ -446,6 +720,7 @@ function bindPageEvents() {
   document.getElementById('btn-apply-network')?.addEventListener('click', () => applyAction('apply_network_optimizations'));
   document.getElementById('btn-restore')?.addEventListener('click', () => applyAction('restore_defaults'));
   document.getElementById('btn-go-bench')?.addEventListener('click', () => { currentPage = 'benchmark'; renderApp(); });
+  document.getElementById('btn-go-createiso')?.addEventListener('click', () => { currentPage = 'createiso'; renderApp(); });
   document.getElementById('btn-run-bench')?.addEventListener('click', runBenchmark);
 }
 
@@ -457,42 +732,244 @@ async function loadSystemInfo() {
 async function loadSystemStats() {
   try {
     systemStats = await invoke('get_system_stats');
+    // Only update stat values, don't re-render entire page (avoids flicker)
     if (currentPage === 'dashboard') {
-      const content = document.getElementById('content');
-      if (content) content.innerHTML = renderDashboard();
-      bindPageEvents();
+      const statValues = document.querySelectorAll('.stat-value');
+      if (statValues.length >= 4 && systemStats) {
+        statValues[0].textContent = String(systemStats.process_count);
+        statValues[1].textContent = systemStats.ram_used.toFixed(1) + ' GB';
+        statValues[2].textContent = systemStats.cpu_usage.toFixed(0) + '%';
+        statValues[3].textContent = String(systemStats.disabled_services);
+      }
+      const statChanges = document.querySelectorAll('.stat-change');
+      if (statChanges.length >= 2 && systemStats) {
+        statChanges[1].textContent = (systemStats.ram_used / systemStats.ram_total * 100).toFixed(0) + '% uso';
+      }
     }
   } catch (e) { console.error(e); }
 }
 
-async function applyAction(action: string) {
-  if (confirm('Aplicar otimizacoes?')) {
+async function loadUSBDrives() {
+  try {
+    const drivesJson = await invoke<string>('get_usb_drives');
+    const select = document.getElementById('iso-usb-drive') as HTMLSelectElement;
+    if (!select) return;
+    select.innerHTML = '<option value="">Selecione um USB...</option>';
     try {
-      if (action === 'apply_all') {
-        await invoke('apply_gaming_optimizations');
-        await invoke('apply_performance_optimizations');
-        await invoke('apply_privacy_optimizations');
-        await invoke('apply_network_optimizations');
-      } else {
-        await invoke(action);
+      const drives = JSON.parse(drivesJson[0] || '[]');
+      const driveList = Array.isArray(drives) ? drives : [drives];
+      for (const d of driveList) {
+        if (d && d.Number !== undefined) {
+          const opt = document.createElement('option');
+          opt.value = String(d.Number);
+          opt.textContent = `Disco ${d.Number} - ${d.FriendlyName || 'USB'} (${d.SizeGB || '?'} GB)`;
+          select.appendChild(opt);
+        }
       }
-      alert('Otimizacoes aplicadas! Reinicie o computador.');
-    } catch (e) { alert('Erro: ' + e); }
+    } catch { /* no USB found */ }
+  } catch (e) { console.error('Erro ao listar USBs:', e); }
+}
+
+async function applyAction(action: string) {
+  if (isApplying) return;
+  if (!confirm('Aplicar otimizacoes?')) return;
+
+  isApplying = true;
+  const btn = document.querySelector(`[id^="btn-apply"], [id="btn-restore"]`) as HTMLButtonElement;
+  if (btn) { btn.disabled = true; btn.textContent = 'Aplicando...'; }
+
+  try {
+    if (action === 'apply_all') {
+      await invoke('apply_gaming_optimizations');
+      await invoke('apply_performance_optimizations');
+      await invoke('apply_privacy_optimizations');
+      await invoke('apply_network_optimizations');
+    } else {
+      await invoke(action);
+    }
+    alert('Otimizacoes aplicadas com sucesso! Reinicie o computador.');
+  } catch (e) { alert('Erro: ' + e); }
+  finally {
+    isApplying = false;
+    if (btn) { btn.disabled = false; btn.textContent = 'Aplicar'; }
   }
 }
 
 async function runBenchmark() {
   const output = document.getElementById('bench-output');
+  const btn = document.getElementById('btn-run-bench') as HTMLButtonElement;
   if (!output) return;
-  output.innerHTML = '<span class="terminal-accent">=== YOKAIOS BENCHMARK ===</span>\n\nColetando metricas...';
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Executando...'; }
+  output.innerHTML = '<span class="terminal-accent">=== YOKAIOS BENCHMARK ===</span>\n\nColetando metricas...\n';
+
   try {
-    const s = await invoke<SystemStats>('get_system_stats');
-    output.innerHTML += `\n<span class="terminal-success">[CPU]</span> Uso: ${s.cpu_usage.toFixed(1)}%`;
-    output.innerHTML += `\n<span class="terminal-success">[RAM]</span> Uso: ${s.ram_used.toFixed(1)} GB / ${s.ram_total.toFixed(1)} GB`;
-    output.innerHTML += `\n<span class="terminal-success">[PROC]</span> Processos: ${s.process_count}`;
-    output.innerHTML += `\n<span class="terminal-success">[SVC]</span> Desabilitados: ${s.disabled_services}`;
+    // Collect multiple samples for CPU accuracy
+    const samples: Array<{cpu: number, ram: number, proc: number}> = [];
+    for (let i = 0; i < 3; i++) {
+      const s = await invoke<SystemStats>('get_system_stats');
+      samples.push({ cpu: s.cpu_usage, ram: s.ram_used, proc: s.process_count });
+      if (i < 2) await new Promise(r => setTimeout(r, 1000));
+    }
+
+    const avgCpu = samples.reduce((a, b) => a + b.cpu, 0) / samples.length;
+    const avgRam = samples[1].ram; // Use middle sample
+    const procCount = samples[2].proc;
+
+    output.innerHTML += `<span class="terminal-success">[CPU]</span> Uso: ${avgCpu.toFixed(1)}% (media de 3 amostras)`;
+    output.innerHTML += `\n<span class="terminal-success">[RAM]</span> Uso: ${avgRam.toFixed(2)} GB`;
+
+    // Get network latency
+    try {
+      const latency = await invoke<string>('run_powershell', { command: `(Test-Connection -ComputerName 1.1.1.1 -Count 4 | Measure-Object -Property Latency -Average).Average` });
+      const lat = parseFloat(latency.trim());
+      if (!isNaN(lat)) {
+        output.innerHTML += `\n<span class="terminal-success">[PING]</span> Latencia: ${lat.toFixed(0)}ms (Cloudflare)`;
+      }
+    } catch { output.innerHTML += `\n<span class="terminal-success">[PING]</span> N/A`; }
+
+    // Disk free space
+    try {
+      const diskJson = await invoke<string>('run_powershell', { command: `Get-PSDrive C | Select-Object @{N='FreeGB';E={[math]::Round($_.Free/1GB,1)}}, @{N='UsedGB';E={[math]::Round($_.Used/1GB,1)}} | ConvertTo-Json` });
+      const disk = JSON.parse(diskJson.trim());
+      output.innerHTML += `\n<span class="terminal-success">[DISK]</span> C: ${disk.FreeGB} GB livre / ${disk.UsedGB} GB usado`;
+    } catch { output.innerHTML += `\n<span class="terminal-success">[DISK]</span> N/A`; }
+
+    // Services count
+    try {
+      const svcCount = await invoke<string>('run_powershell', { command: `(Get-Service | Where-Object {$_.StartType -eq 'Disabled'}).Count` });
+      output.innerHTML += `\n<span class="terminal-success">[SVC]</span> ${svcCount.trim()} servicos desabilitados`;
+    } catch { /* skip */ }
+
+    // Process count
+    output.innerHTML += `\n<span class="terminal-success">[PROC]</span> ${procCount} processos ativos`;
+
+    // Uptime
+    try {
+      const uptime = await invoke<string>('run_powershell', { command: `(Get-CimInstance Win32_OperatingSystem).LastBootUpTime.ToString('yyyy-MM-dd HH:mm:ss')` });
+      output.innerHTML += `\n<span class="terminal-success">[UPTIME]</span> Ultimo boot: ${uptime.trim()}`;
+    } catch { /* skip */ }
+
     output.innerHTML += `\n\n<span class="terminal-accent">=== CONCLUIDO ===</span>`;
-  } catch (e) { output.innerHTML += `\n<span style="color:var(--danger)">Erro: ${e}</span>`; }
+  } catch (e) {
+    output.innerHTML += `\n<span style="color:var(--danger)">Erro: ${e}</span>`;
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = `${Icons.zap} Executar Benchmark`; }
+  }
+}
+
+async function startISOCreation() {
+  if (isApplying) return;
+
+  // Verifica admin
+  try {
+    const isAdmin = await invoke<boolean>('check_admin');
+    if (!isAdmin) {
+      if (confirm('Criar ISO precisa de privilegios de Administrador.\n\nDeseja reabrir como Administrador?')) {
+        await invoke('request_elevation');
+        alert('A Toolbox sera reaberta como Administrador.\nFeche esta janela e use a nova.');
+      }
+      return;
+    }
+  } catch (e) { console.error(e); }
+
+  // Collect config from form
+  const usernameEl = document.getElementById('iso-username') as HTMLInputElement;
+  const passwordEl = document.getElementById('iso-password') as HTMLInputElement;
+  const outputEl = document.getElementById('iso-output') as HTMLInputElement;
+  const isoPathEl = document.getElementById('iso-path') as HTMLInputElement;
+  const usbDriveEl = document.getElementById('iso-usb-drive') as HTMLSelectElement;
+
+  if (usernameEl) isoConfig.username = usernameEl.value;
+  if (passwordEl) isoConfig.password = passwordEl.value;
+  if (outputEl) isoConfig.output_path = outputEl.value;
+  if (isoPathEl) isoConfig.iso_path = isoPathEl.value;
+  if (usbDriveEl) isoConfig.usb_drive = usbDriveEl.value;
+
+  if (isoConfig.iso_source === 'local' && !isoConfig.iso_path) {
+    alert('Selecione uma ISO do Windows 11');
+    return;
+  }
+
+  if (!confirm('Criar ISO YokaiOS? Isso pode levar varios minutos.')) return;
+
+  isApplying = true;
+  const createBtn = document.getElementById('btn-create-iso') as HTMLButtonElement;
+  if (createBtn) { createBtn.disabled = true; createBtn.textContent = 'Criando...'; }
+
+  const progressCard = document.getElementById('iso-progress-card');
+  if (progressCard) progressCard.style.display = 'block';
+  const progressBar = document.getElementById('iso-progress-bar');
+  const progressMsg = document.getElementById('iso-progress-message');
+  const progressLog = document.getElementById('iso-log');
+  const stepBadge = document.getElementById('iso-step-badge');
+
+  function updateProgress(step: number, total: number, msg: string, pct: number, status: string) {
+    if (progressBar) progressBar.style.width = `${pct}%`;
+    if (progressMsg) progressMsg.textContent = msg;
+    if (stepBadge) stepBadge.textContent = `${step}/${total}`;
+    if (progressLog) {
+      const color = status === 'completed' ? 'var(--success)' : status === 'error' ? 'var(--danger)' : 'var(--accent)';
+      progressLog.innerHTML += `\n<span style="color:${color}">[${step}/${total}] ${msg}</span>`;
+      progressLog.scrollTop = progressLog.scrollHeight;
+    }
+  }
+
+  const workDir = 'C:\\YokaiOS\\ISO_Work';
+  const wimMountDir = 'C:\\YokaiOS\\WIM_Mount';
+
+  // Limpa residuos de execucoes anteriores
+  try { await invoke('cleanup_iso_work'); } catch {}
+
+  try {
+    let isoPath = isoConfig.iso_path;
+    if (isoConfig.iso_source === 'download') {
+      updateProgress(1, 8, 'Baixando ISO do Windows 11 (pode levar 10-30 min)...', 5, 'downloading');
+      isoPath = await invoke<string>('download_windows_iso', { outputPath: 'C:\\YokaiOS\\ISOs\\Win11-source.iso' });
+      updateProgress(1, 8, 'Download concluido!', 15, 'downloaded');
+    }
+
+    updateProgress(2, 8, 'Extraindo conteúdo da ISO...', 18, 'extracting');
+    await invoke('extract_iso', { isoPath, workDir });
+    updateProgress(2, 8, 'ISO extraída com sucesso!', 25, 'extracted');
+
+    updateProgress(3, 8, 'Montando imagem Windows (install.wim)...', 28, 'mounting');
+    await invoke('mount_wim', { isoWorkDir: workDir, wimMountDir });
+    updateProgress(3, 8, 'Imagem montada!', 32, 'mounted');
+
+    updateProgress(4, 8, 'Injetando YokaiOS Playbook...', 35, 'injecting');
+    const injectResult = await invoke<string>('inject_playbook', { wimMountDir, isoWorkDir: workDir, config: isoConfig });
+    updateProgress(7, 8, injectResult, 70, 'injected');
+
+    updateProgress(7, 8, 'Salvando alterações na imagem...', 72, 'committing');
+    await invoke('unmount_wim', { wimMountDir, commit: true });
+    updateProgress(7, 8, 'Alterações salvas!', 75, 'committed');
+
+    updateProgress(8, 8, 'Criando ISO bootável com oscdimg...', 80, 'building');
+    const outputPath = await invoke<string>('build_iso', { isoWorkDir: workDir, outputPath: isoConfig.output_path });
+    updateProgress(8, 8, `ISO criada: ${outputPath}`, 95, 'built');
+
+    if (isoConfig.flash_to_usb && isoConfig.usb_drive) {
+      updateProgress(8, 8, `Gravando no USB ${isoConfig.usb_drive}...`, 97, 'flashing');
+      await invoke('flash_iso_to_usb', { isoPath: outputPath, usbDrive: isoConfig.usb_drive });
+      updateProgress(8, 8, 'USB gravado com sucesso!', 100, 'completed');
+    }
+
+    // Cleanup final
+    try { await invoke('cleanup_iso_work'); } catch {}
+
+    updateProgress(8, 8, `ISO YokaiOS criada com sucesso! ${outputPath}`, 100, 'completed');
+    alert(`ISO YokaiOS criada com sucesso!\n${outputPath}`);
+
+  } catch (e) {
+    // Cleanup completo em caso de erro
+    try { await invoke('cleanup_iso_work'); } catch {}
+    updateProgress(0, 8, `Erro: ${e}`, 0, 'error');
+    alert(`Erro ao criar ISO: ${e}`);
+  } finally {
+    isApplying = false;
+    if (createBtn) { createBtn.disabled = false; createBtn.textContent = `${Icons.rocket} Criar ISO YokaiOS`; }
+  }
 }
 
 // ==================== START ====================

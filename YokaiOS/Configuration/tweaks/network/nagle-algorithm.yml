@@ -1,38 +1,18 @@
 # Nagle's Algorithm
-# Disable Nagle's algorithm for lower latency
+<<<<<<< C:\Users\ADMINI~1\AppData\Local\Temp\hive-merge-u7jgHM\ours
+# REDIRECTED: All network tweaks consolidated into tcp-optimization.yml
+# This file kept for backward compatibility only
 
 ---
-- title: "Disable Nagle's Algorithm"
-  description: "Reduce TCP packet batching for lower latency"
+- title: "Nagle Algorithm - Consolidated"
+  description: "Nagle disable is now in tcp-optimization.yml"
   category: "Network"
   privilege: "Admin"
   actions:
-    - !powershell
-      command: |
-        # Get all network adapters
-        $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
-        foreach ($adapter in $adapters) {
-          $interfaceGuid = $adapter.InterfaceGuid
-          $regPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\$interfaceGuid"
-          if (Test-Path $regPath) {
-            Set-ItemProperty -Path $regPath -Name "TcpAckFrequency" -Value 1 -Type DWord -Force
-            Set-ItemProperty -Path $regPath -Name "TCPNoDelay" -Value 1 -Type DWord -Force
-            Set-ItemProperty -Path $regPath -Name "TcpDelAckTicks" -Value 0 -Type DWord -Force
-          }
-        }
+    - !writeStatus {status: "Nagle algorithm already handled by tcp-optimization.yml"}
+=======
+# All settings consolidated into tcp-optimization.yml
 
-- title: "Set TCP Acknowledgment Frequency"
-  description: "Send ACK immediately instead of batching"
-  category: "Network"
-  privilege: "Admin"
-  actions:
-    - !registry
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
-      name: "TcpDelAckTicks"
-      type: "REG_DWORD"
-      value: "0"
-    - !registry
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
-      name: "TcpMaxDataRetransmissions"
-      type: "REG_DWORD"
-      value: "5"
+---
+- !include tweaks/network/tcp-optimization.yml
+>>>>>>> C:\Users\ADMINI~1\AppData\Local\Temp\hive-merge-u7jgHM\theirs

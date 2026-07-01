@@ -1,33 +1,11 @@
 # DNS Optimization
-# Configures DNS for low latency gaming
+# REDIRECTED: All network tweaks consolidated into tcp-optimization.yml
+# This file kept for backward compatibility only
 
 ---
-- title: "Set Cloudflare DNS"
-  description: "Use Cloudflare DNS (1.1.1.1) for low latency"
+- title: "DNS Optimization - Consolidated"
+  description: "DNS optimization is now in tcp-optimization.yml"
   category: "Network"
   privilege: "Admin"
   actions:
-    - !powershell
-      command: |
-        $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
-        foreach ($adapter in $adapters) {
-          Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ServerAddresses ("1.1.1.1","1.0.0.1")
-        }
-
-- title: "Flush DNS Cache"
-  description: "Clear DNS resolver cache"
-  category: "Network"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "ipconfig /flushdns"
-
-- title: "Disable DNS Cache"
-  description: "Disable DNS caching for fresh lookups"
-  category: "Network"
-  privilege: "Admin"
-  actions:
-    - !service
-      name: "Dnscache"
-      startup_type: "disabled"
-      state: "stopped"
+    - !writeStatus {status: "DNS optimization already handled by tcp-optimization.yml"}

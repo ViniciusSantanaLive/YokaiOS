@@ -1,52 +1,18 @@
 # Disable Network Throttling
-# Removes Windows network throttling mechanisms
+<<<<<<< C:\Users\ADMINI~1\AppData\Local\Temp\hive-merge-lnOAsH\ours
+# REDIRECTED: All network tweaks consolidated into tcp-optimization.yml
+# This file kept for backward compatibility only
 
 ---
-- title: "Disable Network Throttling Index"
-  description: "Remove Windows network throttling"
+- title: "Network Throttling - Consolidated"
+  description: "All network optimizations are now in tcp-optimization.yml"
   category: "Network"
   privilege: "Admin"
   actions:
-    - !registry
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
-      name: "NetworkThrottlingIndex"
-      type: "REG_DWORD"
-      value: "4294967295"
+    - !writeStatus {status: "Network throttling already handled by tcp-optimization.yml"}
+=======
+# All settings consolidated into tcp-optimization.yml
 
-- title: "Set System Responsiveness"
-  description: "Minimize system responsiveness for gaming"
-  category: "Network"
-  privilege: "Admin"
-  actions:
-    - !registry
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
-      name: "SystemResponsiveness"
-      type: "REG_DWORD"
-      value: "0"
-
-- title: "Disable Bandwidth Limit"
-  description: "Remove QoS bandwidth reservation"
-  category: "Network"
-  privilege: "Admin"
-  actions:
-    - !registry
-      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched"
-      name: "NonBestEffortLimit"
-      type: "REG_DWORD"
-      value: "0"
-
-- title: "Disable AutoTuning"
-  description: "Disable TCP window auto-tuning"
-  category: "Network"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "netsh int tcp set global autotuninglevel=disabled"
-
-- title: "Disable TCP Timestamps"
-  description: "Remove TCP timestamp overhead"
-  category: "Network"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "netsh int tcp set global timestamps=disabled"
+---
+- !include tweaks/network/tcp-optimization.yml
+>>>>>>> C:\Users\ADMINI~1\AppData\Local\Temp\hive-merge-lnOAsH\theirs

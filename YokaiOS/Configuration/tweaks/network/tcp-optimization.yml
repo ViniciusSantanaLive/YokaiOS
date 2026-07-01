@@ -1,5 +1,6 @@
-# Network Optimization
-# Optimizes network settings for low latency gaming
+# Network Optimization (Master)
+# Consolidated network optimizations for low-latency gaming
+# This file replaces: disable-network-throttling.yml, nagle-algorithm.yml, dns-optimization.yml
 
 ---
 - title: "Disable Nagle's Algorithm"
@@ -7,24 +8,31 @@
   category: "Network"
   privilege: "Admin"
   actions:
-    - !registry
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces"
-      name: "TcpAckFrequency"
-      type: "REG_DWORD"
-      value: "1"
-    - !registry
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces"
-      name: "TCPNoDelay"
-      type: "REG_DWORD"
-      value: "1"
+    - !powershell
+      command: |
+        $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
+        foreach ($adapter in $adapters) {
+          $interfaceGuid = $adapter.InterfaceGuid
+          $regPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\$interfaceGuid"
+          if (Test-Path $regPath) {
+            Set-ItemProperty -Path $regPath -Name "TcpAckFrequency" -Value 1 -Type DWord -Force
+            Set-ItemProperty -Path $regPath -Name "TCPNoDelay" -Value 1 -Type DWord -Force
+            Set-ItemProperty -Path $regPath -Name "TcpDelAckTicks" -Value 0 -Type DWord -Force
+          }
+        }
     - !registry
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
       name: "TcpDelAckTicks"
       type: "REG_DWORD"
       value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
+      name: "TcpMaxDataRetransmissions"
+      type: "REG_DWORD"
+      value: "5"
 
-- title: "Optimize TCP Settings"
-  description: "Configure TCP for low latency"
+- title: "Optimize TCP Global Settings"
+  description: "Configure TCP for low latency via netsh"
   category: "Network"
   privilege: "Admin"
   actions:
@@ -64,9 +72,30 @@
       name: "SystemResponsiveness"
       type: "REG_DWORD"
       value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched"
+      name: "NonBestEffortLimit"
+      type: "REG_DWORD"
+      value: "0"
+
+<<<<<<< C:\Users\ADMINI~1\AppData\Local\Temp\hive-merge-wAN6GA\ours
+- title: "Set Cloudflare DNS"
+  description: "Use Cloudflare DNS (1.1.1.1) for low latency"
+=======
+- title: "Disable QoS Bandwidth Limit"
+  description: "Remove QoS bandwidth reservation"
+  category: "Network"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched"
+      name: "NonBestEffortLimit"
+      type: "REG_DWORD"
+      value: "0"
 
 - title: "Optimize DNS"
   description: "Set DNS to Cloudflare for low latency"
+>>>>>>> C:\Users\ADMINI~1\AppData\Local\Temp\hive-merge-wAN6GA\theirs
   category: "Network"
   privilege: "Admin"
   actions:
@@ -76,6 +105,8 @@
         foreach ($adapter in $adapters) {
           Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ServerAddresses ("1.1.1.1","1.0.0.1")
         }
+    - !cmd
+      command: "ipconfig /flushdns"
 
 - title: "Disable Network Power Saving"
   description: "Prevent network adapter from power saving"

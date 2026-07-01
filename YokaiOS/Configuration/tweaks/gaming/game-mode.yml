@@ -1,9 +1,10 @@
-# Game Mode Optimization
-# Configures Windows Game Mode for maximum performance
+# Game Mode & Game Bar
+# Consolidated: disables Game Mode, Game Bar, and Game DVR
+# Replaces: game-mode.yml, disable-game-bar.yml
 
 ---
 - title: "Disable Game Mode"
-  description: "Game Mode can cause stuttering; disable it for consistent performance"
+  description: "Disable Windows Game Mode to prevent stuttering"
   category: "Gaming"
   privilege: "Admin"
   actions:
@@ -19,7 +20,7 @@
       value: "0"
 
 - title: "Disable Game Bar"
-  description: "Remove Game Bar overlay to reduce overhead"
+  description: "Completely disable Xbox Game Bar"
   category: "Gaming"
   privilege: "Admin"
   actions:
@@ -38,19 +39,50 @@
       name: "GameDVR_Enabled"
       type: "REG_DWORD"
       value: "0"
-
-- title: "Disable Game DVR"
-  description: "Prevent background recording that consumes resources"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
     - !registry
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR"
       name: "AppCaptureEnabled"
       type: "REG_DWORD"
       value: "0"
+
+- title: "Remove Game Bar Packages"
+  description: "Uninstall Xbox Game Bar overlay packages"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        Get-AppxPackage Microsoft.XboxGameOverlay | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+        Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+        Get-AppxPackage Microsoft.Xbox.TCUI | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+
+- title: "Disable Fullscreen Optimizations"
+  description: "Force exclusive fullscreen for lower input lag"
+  category: "Gaming"
+  privilege: "Admin"
+  actions:
     - !registry
-      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR"
-      name: "AllowGameDVR"
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_FSEBehaviorMode"
+      type: "REG_DWORD"
+      value: "2"
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_HonorUserFSEBehaviorMode"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_FSEBehavior"
+      type: "REG_DWORD"
+      value: "2"
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_DXGIHonorFSEWindowsCompatible"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKCU\\System\\GameConfigStore"
+      name: "GameDVR_EFSEFeatureFlags"
       type: "REG_DWORD"
       value: "0"

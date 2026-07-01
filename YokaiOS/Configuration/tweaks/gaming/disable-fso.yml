@@ -1,45 +1,11 @@
 # Disable Fullscreen Optimizations
-# Forces exclusive fullscreen for better gaming performance
+# REDIRECTED: Consolidated into game-mode.yml
+# This file kept for backward compatibility only
 
 ---
-- title: "Disable Fullscreen Optimizations Globally"
-  description: "Force games to use exclusive fullscreen mode"
+- title: "FSO - Consolidated"
+  description: "Fullscreen Optimizations now in game-mode.yml"
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
-      path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_FSEBehaviorMode"
-      type: "REG_DWORD"
-      value: "2"
-    - !registry
-      path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_HonorUserFSEBehaviorMode"
-      type: "REG_DWORD"
-      value: "1"
-    - !registry
-      path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_FSEBehavior"
-      type: "REG_DWORD"
-      value: "2"
-    - !registry
-      path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_DXGIHonorFSEWindowsCompatible"
-      type: "REG_DWORD"
-      value: "1"
-    - !registry
-      path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_EFSEFeatureFlags"
-      type: "REG_DWORD"
-      value: "0"
-
-- title: "Disable Flip Model"
-  description: "Disable flip model for lower latency"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !registry
-      path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_FSEBehaviorMode"
-      type: "REG_DWORD"
-      value: "2"
+    - !writeStatus {status: "FSO already handled by game-mode.yml"}

@@ -1,10 +1,11 @@
-# GPU Optimization for Gaming
-# Reduces GPU overhead and improves frame delivery
+# GPU Optimization (Master)
+# Consolidated GPU optimizations for gaming
+# Replaces: gpu-optimization.yml, gpu-driver-optimization.yml
 
 ---
-- title: "Optimize GPU Scheduling"
-  description: "Enable hardware-accelerated GPU scheduling"
-  category: "Gaming"
+- title: "Enable Hardware-Accelerated GPU Scheduling"
+  description: "Enable HAGS for lower latency"
+  category: "GPU"
   privilege: "Admin"
   actions:
     - !registry
@@ -15,7 +16,7 @@
 
 - title: "Disable GPU Preemption"
   description: "Prevent GPU from preempting rendering tasks"
-  category: "Gaming"
+  category: "GPU"
   privilege: "Admin"
   actions:
     - !registry
@@ -24,9 +25,20 @@
       type: "REG_DWORD"
       value: "0"
 
-- title: "Optimize GPU Priority"
-  description: "Set GPU priority for foreground applications"
-  category: "Gaming"
+- title: "Disable Multi-Plane Overlay"
+  description: "Disable MPO to reduce stuttering"
+  category: "GPU"
+  privilege: "Admin"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm"
+      name: "OverlayTestMode"
+      type: "REG_DWORD"
+      value: "5"
+
+- title: "MMCS GPU Priority for Gaming"
+  description: "Set maximum GPU priority for games"
+  category: "GPU"
   privilege: "Admin"
   actions:
     - !registry
@@ -50,23 +62,68 @@
       type: "REG_SZ"
       value: "High"
 
-- title: "Disable GPU Power Saving"
-  description: "Prevent GPU from downclocking during gaming"
-  category: "Gaming"
+- title: "NVIDIA PowerMizer - Force Max Performance"
+  description: "Force NVIDIA GPU to maximum clock speeds"
+  category: "GPU"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        # Detect NVIDIA GPU and apply PowerMizer settings
+        $gpuPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0000"
+        if (Test-Path $gpuPath) {
+          New-ItemProperty -Path $gpuPath -Name "PerfLevelSrc" -Value 0x2222 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+          New-ItemProperty -Path $gpuPath -Name "PowerMizerEnable" -Value 1 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+          New-ItemProperty -Path $gpuPath -Name "PowerMizerLevel" -Value 1 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+          New-ItemProperty -Path $gpuPath -Name "PowerMizerLevelAC" -Value 1 -PropertyType DWord -Force -ErrorAction SilentlyContinue
+        }
+
+- title: "Disable GPU Interrupt Priority"
+  description: "Set GPU interrupt priority for better performance"
+  category: "GPU"
   privilege: "Admin"
   actions:
     - !registry
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000"
-      name: "PerfLevelSrc"
-      type: "REG_DWORD"
-      value: "0x2222"
-    - !registry
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000"
-      name: "PowerMizerEnable"
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
+      name: "IRQ8Priority"
       type: "REG_DWORD"
       value: "1"
-    - !registry
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}\\0000"
-      name: "PowerMizerLevel"
-      type: "REG_DWORD"
-      value: "1"
+
+- title: "Disable NVIDIA Telemetry Services"
+  description: "Disable NVIDIA telemetry and streaming services"
+  category: "GPU"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "NvTelemetryContainer"
+      startup_type: "disabled"
+      state: "stopped"
+    - !service
+      name: "NvStreamSvc"
+      startup_type: "disabled"
+      state: "stopped"
+
+- title: "Disable NVIDIA Scheduled Tasks"
+  description: "Disable NVIDIA telemetry scheduled tasks"
+  category: "GPU"
+  privilege: "Admin"
+  actions:
+    - !powershell
+      command: |
+        Get-ScheduledTask -TaskName "NvDriverUpdateCheck*" -ErrorAction SilentlyContinue | Disable-ScheduledTask -ErrorAction SilentlyContinue
+        Get-ScheduledTask -TaskName "NVIDIA GeForce Experience SelfUpdate*" -ErrorAction SilentlyContinue | Disable-ScheduledTask -ErrorAction SilentlyContinue
+        Get-ScheduledTask -TaskName "NvTmRep*" -ErrorAction SilentlyContinue | Disable-ScheduledTask -ErrorAction SilentlyContinue
+
+- title: "Disable AMD Telemetry Services"
+  description: "Disable AMD telemetry services"
+  category: "GPU"
+  privilege: "Admin"
+  actions:
+    - !service
+      name: "AMDCrashDefenderService"
+      startup_type: "disabled"
+      state: "stopped"
+    - !service
+      name: "AMDExternalEventsUtility"
+      startup_type: "disabled"
+      state: "stopped"

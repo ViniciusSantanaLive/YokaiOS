@@ -1,7 +1,15 @@
 # Disable Mitigations
-# Disable CPU security mitigations for performance
+# CPU security mitigations - balanced for gaming + anti-cheat compatibility
+# Follows ReviOS approach: disable heavy mitigations, keep critical ones for anti-cheats
 
 ---
+# === Anti-Cheat Compatibility Notes ===
+# YokaiOS keeps the following for anti-cheat compatibility:
+#   - CFG (Control Flow Guard) - Required by Vanguard (Valorant)
+#   - ASLR (Address Space Layout Randomization) - Required by osu!
+#   - DEP (Data Execution Prevention) - Required by most anti-cheats
+# These are NOT disabled to prevent bans and maintain game compatibility.
+
 - title: "Disable Spectre Mitigations"
   description: "Disable Spectre mitigations for better performance"
   category: "Performance"
@@ -18,19 +26,8 @@
       type: "REG_DWORD"
       value: "3"
 
-- title: "Disable Meltdown Mitigations"
-  description: "Disable Meltdown mitigations for better performance"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registry
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      name: "EnableCfg"
-      type: "REG_DWORD"
-      value: "0"
-
 - title: "Disable SEHOP"
-  description: "Disable Structured Exception Handling Overwrite Protection"
+  description: "Disable Structured Exception Handling Overwrite Protection for performance"
   category: "Performance"
   privilege: "Admin"
   actions:
@@ -40,27 +37,8 @@
       type: "REG_DWORD"
       value: "1"
 
-- title: "Disable ASLR"
-  description: "Disable Address Space Layout Randomization"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registry
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      name: "MoveImages"
-      type: "REG_DWORD"
-      value: "0"
-
-- title: "Disable DEP"
-  description: "Disable Data Execution Prevention"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "bcdedit /set nx AlwaysOff"
-
-- title: "Disable Core Isolation"
-  description: "Disable Virtualization-Based Security"
+- title: "Disable Core Isolation (VBS/HVCI)"
+  description: "Disable Virtualization-Based Security for gaming performance"
   category: "Performance"
   privilege: "Admin"
   actions:
@@ -79,3 +57,9 @@
       name: "Enabled"
       type: "REG_DWORD"
       value: "0"
+
+# === KEPT FOR ANTI-CHEAT COMPATIBILITY ===
+# ASLR is NOT disabled (MoveImages stays at default 1)
+# DEP is NOT disabled (bcdedit /set nx AlwaysOff is NOT applied)
+# CFG is NOT disabled (required by Vanguard/Valorant)
+# These mitigations have minimal performance impact but are critical for anti-cheat systems.

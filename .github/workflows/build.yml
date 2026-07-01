@@ -1,0 +1,84 @@
+name: Build YokaiOS Playbook
+
+on:
+  push:
+    branches: [main, develop]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate YAML
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install yq
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/mikefarah/yq/releases/latest/download/yq_windows_amd64.exe" -OutFile "yq.exe"
+          Move-Item yq.exe "C:\Windows\System32\yq.exe"
+      
+      - name: Validate YAML syntax
+        run: |
+          $files = Get-ChildItem -Path "YokaiOS\Configuration" -Filter "*.yml" -Recurse
+          $errors = @()
+          foreach ($file in $files) {
+            try {
+              yq eval "." $file.FullName 2>&1 | Out-Null
+              Write-Host "OK: $($file.Name)"
+            } catch {
+              $errors += $file.FullName
+              Write-Host "ERROR: $($file.Name) - $_"
+            }
+          }
+          if ($errors.Count -gt 0) {
+            Write-Host "`nValidation failed for $($errors.Count) files"
+            exit 1
+          }
+          Write-Host "`nAll YAML files are valid!"
+
+  build:
+    name: Build Playbook
+    runs-on: windows-latest
+    needs: validate
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build .apbx
+        run: |
+          cd YokaiOS
+          powershell -ExecutionPolicy Bypass -File "Executables\Build-Playbook.ps1"
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: YokaiOS-playbook
+          path: YokaiOS/*.apbx
+          retention-days: 30
+
+  release:
+    name: Create Release
+    runs-on: windows-latest
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: YokaiOS-playbook
+          path: ./release
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./release/*.apbx
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

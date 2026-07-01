@@ -1,26 +1,23 @@
 # YokaiOS Master Tweaks Configuration
 # This file orchestrates all tweaks for the playbook
+# Consolidated: removed redundant includes, single source of truth per category
 
 ---
 # Software Installation (Browser)
 - !include tweaks/software.yml
 
-# Gaming Optimizations
+# Gaming Optimizations (consolidated)
 - !include tweaks/gaming/gpu-optimization.yml
-- !include tweaks/gaming/gpu-driver-optimization.yml
 - !include tweaks/gaming/cpu-scheduling.yml
 - !include tweaks/gaming/cpu-deep-optimization.yml
 - !include tweaks/gaming/game-mode.yml
-- !include tweaks/gaming/disable-game-bar.yml
-- !include tweaks/gaming/disable-fso.yml
 - !include tweaks/gaming/timer-resolution.yml
 - !include tweaks/gaming/keyboard-mouse-latency.yml
 - !include tweaks/gaming/visual-effects.yml
 - !include tweaks/gaming/mmcs-optimization.yml
 - !include tweaks/gaming/hardware-detection.yml
 
-# Performance Optimizations
-- !include tweaks/performance/disable-services.yml
+# Performance Optimizations (consolidated: use expanded versions only)
 - !include tweaks/performance/disable-services-expandido.yml
 - !include tweaks/performance/disable-startup.yml
 - !include tweaks/performance/memory-optimization.yml
@@ -29,20 +26,14 @@
 - !include tweaks/performance/disable-paging.yml
 - !include tweaks/performance/win32-priority.yml
 - !include tweaks/performance/disable-background-apps.yml
-- !include tweaks/performance/disable-scheduled-tasks.yml
 - !include tweaks/performance/disable-scheduled-tasks-expandido.yml
 - !include tweaks/performance/bcdedit-optimization.yml
 - !include tweaks/performance/disable-mitigations.yml
 - !include tweaks/performance/winutil-tweaks.yml
 
-# Privacy
-- !include tweaks/privacy/disable-telemetry.yml
-- !include tweaks/privacy/disable-tracking.yml
-- !include tweaks/privacy/disable-activity-feed.yml
-- !include tweaks/privacy/disable-cortana.yml
-- !include tweaks/privacy/disable-web-search.yml
-- !include tweaks/privacy/disable-advertising.yml
+# Privacy (consolidated: use expanded version only)
 - !include tweaks/privacy/privacy-expandido.yml
+- !include tweaks/privacy/disable-telemetry.yml
 
 # Quality of Life
 - !include tweaks/qol/explorer.yml
@@ -63,11 +54,8 @@
 - !include tweaks/debloat/disable-copilot.yml
 - !include tweaks/debloat/disable-ai-copilot.yml
 
-# Network Optimization
-- !include tweaks/network/dns-optimization.yml
+# Network Optimization (consolidated)
 - !include tweaks/network/tcp-optimization.yml
-- !include tweaks/network/disable-network-throttling.yml
-- !include tweaks/network/nagle-algorithm.yml
 
 # Toolbox Installation
 - !include tweaks/toolbox.yml
