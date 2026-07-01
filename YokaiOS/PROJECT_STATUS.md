@@ -24,6 +24,7 @@ O YokaiOS esta completo, com correcoes criticas aplicadas e pronto para distribu
 - CI/CD com GitHub Actions
 - README profissional com comparacao
 - Toolbox unificada (Tauri apenas)
+- Toolbox cria ISO customizada do Win11 (debloat offline + bypass de TPM/Secure Boot/RAM)
 - Restore-Defaults.ps1 completo
 
 ## Estrutura Final
@@ -33,7 +34,7 @@ YokaiOS/
 ├── playbook.conf                    # Configuracao principal
 ├── README.md                        # Documentacao profissional
 ├── Configuration/
-│   ├── tweaks.yml                  # Master tweaks (consolidado)
+│   ├── custom.yml                  # Entry point do AME (orquestra tweaks via !task)
 │   └── tweaks/
 │       ├── gaming/                 # 9 arquivos (consolidado)
 │       ├── performance/            # 12 arquivos (consolidado)
@@ -70,10 +71,11 @@ YokaiOS/
 
 ## Proximos Passos
 
-1. **ISO Injection** - Feature do ReviOS para fresh install
-2. **Game Profiles** - Perfis por jogo (Valorant, CS2, Fortnite)
-3. **Auto-updater** - Verificar novas versoes automaticamente
-4. **Comunidade** - Discord, YouTube, parcerias com streamers
+1. **Validar em VM/hardware real** - Testar o playbook e a ISO gerada (bypass) ponta a ponta
+2. **Benchmarks publicos** - FPS/latencia/RAM antes e depois, com fontes
+3. **Game Profiles** - Perfis por jogo (Valorant, CS2, Fortnite)
+4. **Auto-updater** - Verificar novas versoes automaticamente
+5. **Comunidade** - Discord, YouTube, parcerias com streamers
 
 ---
 

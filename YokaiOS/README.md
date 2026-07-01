@@ -120,7 +120,7 @@ O YokaiOS e um playbook do Windows 11 criado para gamers que exigem o **maximo d
 ### Metodo 1: AME Wizard (Recomendado)
 
 1. Baixe e instale o [AME Wizard](https://ameliorated.io/)
-2. Baixe o arquivo `YokaiOS-v1.1.0.apbx` na aba de Releases
+2. Baixe o arquivo `YokaiOS-v2.0.0.apbx` na aba de Releases
 3. Abra o AME Wizard e carregue o playbook
 4. Selecione as opcoes desejadas (navegador, Defender, updates, etc.)
 5. Siga o assistente de instalacao
@@ -183,7 +183,7 @@ powershell -ExecutionPolicy Bypass -File "C:\YokaiOS\Restore-Defaults.ps1"
 YokaiOS/
 ├── playbook.conf                    # Configuracao principal do playbook
 ├── Configuration/
-│   ├── tweaks.yml                  # Arquivo master de tweaks
+│   ├── custom.yml                  # Entry point do AME (orquestra os tweaks via !task)
 │   └── tweaks/
 │       ├── gaming/                 # 12 arquivos de otimizacao gaming
 │       │   ├── gpu-optimization.yml
@@ -312,7 +312,15 @@ Contribuicoes sao bem-vindas! Para contribuir:
 
 ## Changelog
 
-### v1.1.0 (Atual)
+### v2.0.0 (Atual)
+- Playbook validado e funcional no AME Wizard (entry point `custom.yml`, sintaxe `!registryValue`/`!task`)
+- Toolbox unificada em Tauri (Rust + TypeScript); versao C# WPF removida
+- Toolbox cria ISO customizada do Win11 com debloat offline + bypass de TPM/Secure Boot/RAM (instala em VM/hardware nao suportado)
+- Consolidacao de arquivos (rede, GPU, gaming, servicos, tarefas, privacy)
+- Restore-Defaults.ps1 completo (50+ servicos, 60+ tarefas, rede, privacy, CPU, UI)
+- CI/CD com GitHub Actions
+
+### v1.1.0
 - Servicos expandidos: 50+ desabilitados
 - Tarefas expandidas: 60+ desabilitadas
 - WinUtil tweaks: 20 otimizacoes do Chris Titus
