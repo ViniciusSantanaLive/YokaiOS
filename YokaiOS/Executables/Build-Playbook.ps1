@@ -73,8 +73,26 @@ try {
     
     Write-Host "[*] Using 7-Zip for 7z encryption..." -ForegroundColor Yellow
     
-    # Create encrypted 7z archive (AME Wizard requires 7z format, not ZIP)
-    & $7zPath a -t7z -p$password -mhe=on $OutputPath "$sourcePath\*" | Out-Null
+    # Create temp folder structure
+    $tempFolder = Join-Path $env:TEMP "YokaiOS-Playbook-Build"
+    if (Test-Path $tempFolder) {
+        Remove-Item $tempFolder -Recurse -Force
+    }
+    New-Item -ItemType Directory -Path $tempFolder -Force | Out-Null
+    
+    # Copy files to temp folder (maintaining structure)
+    Write-Host "[*] Copying files..." -ForegroundColor Yellow
+    Copy-Item -Path "$sourcePath\playbook.conf" -Destination $tempFolder -Force
+    Copy-Item -Path "$sourcePath\Configuration" -Destination $tempFolder -Recurse -Force
+    Copy-Item -Path "$sourcePath\Executables" -Destination $tempFolder -Recurse -Force
+    Copy-Item -Path "$sourcePath\Images" -Destination $tempFolder -Recurse -Force
+    
+    # Create encrypted 7z archive
+    Write-Host "[*] Creating encrypted archive..." -ForegroundColor Yellow
+    & $7zPath a -t7z -p$password -mhe=on $OutputPath "$tempFolder\*" | Out-Null
+    
+    # Cleanup temp folder
+    Remove-Item $tempFolder -Recurse -Force -ErrorAction SilentlyContinue
     
     if (-not (Test-Path $OutputPath)) {
         Write-Host "[!] Failed to create .apbx file" -ForegroundColor Red
@@ -90,7 +108,7 @@ try {
 ╠═══════════════════════════════════════════════════════════════╣
 ║  Output: $OutputPath
 ║  Size:   $([math]::Round($fileSize, 2)) MB
-║  Format: 7z (encrypted)
+║  Format: 7z (encrypted with password)
 ║                                                               ║
 ║  To install:                                                  ║
 ║  1. Open AME Wizard                                          ║
