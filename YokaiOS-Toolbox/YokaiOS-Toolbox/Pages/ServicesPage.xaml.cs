@@ -1,2 +1,0 @@
-using System.Windows.Controls;
-namespace YokaiOS_Toolbox.Pages { public partial class ServicesPage : Page { public ServicesPage() { InitializeComponent(); var svcs = new[] { "DiagTrack - Telemetria", "dmwappushservice - WAP Push", "SysMain - Superfetch", "WSearch - Indexador", "wuauserv - Windows Update", "DoSvc - Delivery Optimization", "Spooler - Impressora", "Fax - Fax", "RemoteRegistry - Registro Remoto", "WerSvc - Relatorio de Erros", "XblAuthManager - Xbox Auth", "lfsvc - Location Service" }; foreach (var s in svcs) SvcList.Items.Add(s); } } }
