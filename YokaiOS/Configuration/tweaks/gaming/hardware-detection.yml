@@ -4,7 +4,7 @@ description: Detecta hardware e aplica otimizacoes especificas
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Detectando hardware..."}
+  - !writeStatus: {status: "Detectando hardware..."}
 
   # === Detect GPU and Apply Specific Optimizations
   - title: "Detectar e Otimizar GPU"
@@ -252,4 +252,4 @@ actions:
           $report | Out-File -FilePath $reportPath -Encoding UTF8
           Write-Host "Relatorio salvo em: $reportPath"
 
-  - !writeStatus {status: "Hardware detectado e otimizado!"}
+  - !writeStatus: {status: "Hardware detectado e otimizado!"}

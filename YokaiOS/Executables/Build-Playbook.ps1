@@ -33,7 +33,7 @@ if (-not (Test-Path $sourcePath)) {
 # Verify required files
 $requiredFiles = @(
     "playbook.conf",
-    "Configuration\tweaks.yml",
+    "Configuration\custom.yml",
     "Executables\Install-YokaiOS.ps1"
 )
 
@@ -42,6 +42,33 @@ foreach ($file in $requiredFiles) {
     if (-not (Test-Path $filePath)) {
         Write-Host "[!] Required file not found: $file" -ForegroundColor Red
         exit 1
+    }
+}
+
+# Build the Tauri Toolbox first, so the .apbx always ships the latest exe.
+# (Sem este passo o build empacota um exe possivelmente desatualizado.)
+$toolboxSrc = Join-Path (Split-Path -Parent $RootDir) "YokaiOS-Toolbox-Tauri"
+$toolboxExeOut = Join-Path $toolboxSrc "src-tauri\target\release\yokaios-toolbox.exe"
+$toolboxExeDest = Join-Path $sourcePath "Executables\YokaiOS-Toolbox.exe"
+
+if (Test-Path $toolboxSrc) {
+    $hasTauri = $false
+    try { & cargo tauri --version *> $null; $hasTauri = ($LASTEXITCODE -eq 0) } catch { $hasTauri = $false }
+
+    if ($hasTauri) {
+        Write-Host "[*] Building Tauri Toolbox (cargo tauri build)..." -ForegroundColor Yellow
+        Push-Location $toolboxSrc
+        & cargo tauri build
+        $buildOk = ($LASTEXITCODE -eq 0)
+        Pop-Location
+        if ($buildOk -and (Test-Path $toolboxExeOut)) {
+            Copy-Item -Path $toolboxExeOut -Destination $toolboxExeDest -Force
+            Write-Host "[*] Toolbox atualizada e copiada para Executables\" -ForegroundColor Green
+        } else {
+            Write-Host "[!] Build da Toolbox falhou - usando o exe existente em Executables\" -ForegroundColor Yellow
+        }
+    } else {
+        Write-Host "[!] tauri-cli nao encontrado - pulando build da Toolbox (usando exe existente)" -ForegroundColor Yellow
     }
 }
 
@@ -89,7 +116,10 @@ try {
     
     # Create encrypted 7z archive
     Write-Host "[*] Creating encrypted archive..." -ForegroundColor Yellow
-    & $7zPath a -t7z -p$password -mhe=on $OutputPath "$tempFolder\*" | Out-Null
+    # NOTE: o argumento de senha DEVE ir entre aspas ("-p$password"). Sem as aspas,
+    # o PowerShell 5.1 mangla o parametro nativo e o 7-Zip gera um .apbx que NAO
+    # decripta com a senha -> o AME rejeita o playbook. (Auditoria 01/07/2026)
+    & $7zPath a -t7z "-p$password" $OutputPath "$tempFolder\*" | Out-Null
     
     # Cleanup temp folder
     Remove-Item $tempFolder -Recurse -Force -ErrorAction SilentlyContinue

@@ -4,16 +4,19 @@ description: Remove o Microsoft Edge do sistema
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Removendo Microsoft Edge..."}
+  - !writeStatus: {status: "Removendo Microsoft Edge..."}
 
   - title: "Finalizar processos do Edge"
     description: "Fecha todos os processos do Edge antes de remover"
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !taskKill: {name: "MicrosoftEdgeUpdate", errorAction: Ignore}
-      - !taskKill: {name: "msedge", errorAction: Ignore}
-      - !taskKill: {name: "MicrosoftEdge*", errorAction: Ignore}
+      - !powershell
+        command: "Stop-Process -Name MicrosoftEdgeUpdate -Force -ErrorAction SilentlyContinue"
+      - !powershell
+        command: "Stop-Process -Name msedge -Force -ErrorAction SilentlyContinue"
+      - !powershell
+        command: "Stop-Process -Name 'MicrosoftEdge*' -Force -ErrorAction SilentlyContinue"
 
   - title: "Desinstalar Edge"
     description: "Usa o desinstalador oficial do Edge"
@@ -44,10 +47,10 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\EdgeUpdate"
-        name: "DoNotUpdateToEdgeWithChromium"
+        value: "DoNotUpdateToEdgeWithChromium"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
-  - !writeStatus {status: "Edge removido!"}
+  - !writeStatus: {status: "Edge removido!"}

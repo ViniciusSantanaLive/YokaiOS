@@ -7,39 +7,39 @@
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications"
-      name: "GlobalUserDisabled"
+      value: "GlobalUserDisabled"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy"
-      name: "LetAppsRunInBackground"
+      value: "LetAppsRunInBackground"
       type: "REG_DWORD"
-      value: "2"
+      data: "2"
 
 - title: "Disable Background Activity for Specific Apps"
   description: "Disable background activity for common apps"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.WindowsCalculator_8wekyb3d8bbwe"
-      name: "Disabled"
+      value: "Disabled"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.Windows.Photos_8wekyb3d8bbwe"
-      name: "Disabled"
+      value: "Disabled"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.SkypeApp_kzf8qxf38zg5c"
-      name: "Disabled"
+      value: "Disabled"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe"
-      name: "Disabled"
+      value: "Disabled"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"

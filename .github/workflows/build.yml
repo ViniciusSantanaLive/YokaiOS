@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: YokaiOS-playbook
-          path: YokaiOS/*.apbx
+          path: "*.apbx"
           retention-days: 30
 
   release:

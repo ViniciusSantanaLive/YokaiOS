@@ -1,11 +1,49 @@
-# Disable Fullscreen Optimizations
-# REDIRECTED: Consolidated into game-mode.yml
-# This file kept for backward compatibility only
-
 ---
-- title: "FSO - Consolidated"
-  description: "Fullscreen Optimizations now in game-mode.yml"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !writeStatus {status: "FSO already handled by game-mode.yml"}
+title: "Desativar Fullscreen Optimizations (FSO)"
+description: "Desativa FSO para forcar modo exclusivo e reduzir input lag"
+privilege: "Admin"
+actions:
+
+  - !writeStatus: {status: "Desativando Fullscreen Optimizations..."}
+
+  - title: "Desativar FSO via GameConfigStore"
+    description: "Configura GameConfigStore para desativar Fullscreen Optimizations"
+    privilege: "Admin"
+    actions:
+      - !registryValue:
+          path: 'HKCU\System\GameConfigStore'
+          value: "GameDVR_FSEBehavior"
+          type: "REG_DWORD"
+          data: "2"
+      - !registryValue:
+          path: 'HKCU\System\GameConfigStore'
+          value: "GameDVR_FSEBehaviorMode"
+          type: "REG_DWORD"
+          data: "2"
+      - !registryValue:
+          path: 'HKCU\System\GameConfigStore'
+          value: "GameDVR_HonorUserFSEBehaviorMode"
+          type: "REG_DWORD"
+          data: "1"
+      - !registryValue:
+          path: 'HKCU\System\GameConfigStore'
+          value: "GameDVR_DXGIHonorFSEWindowsCompatible"
+          type: "REG_DWORD"
+          data: "1"
+      - !registryValue:
+          path: 'HKCU\System\GameConfigStore'
+          value: "GameDVR_EFSEFeatureFlags"
+          type: "REG_DWORD"
+          data: "0"
+
+  - title: "Desativar FSO via DirectX UserGpuPreferences"
+    description: "Impede upgrade automatico de exclusive fullscreen para FSO no DirectX"
+    privilege: "Admin"
+    actions:
+      - !registryValue:
+          path: 'HKCU\SOFTWARE\Microsoft\DirectX\UserGpuPreferences'
+          value: "DirectXUserGlobalSettings"
+          type: "REG_SZ"
+          data: "SwapEffectUpgradeEnable=0;"
+
+  - !writeStatus: {status: "Fullscreen Optimizations desativadas!"}

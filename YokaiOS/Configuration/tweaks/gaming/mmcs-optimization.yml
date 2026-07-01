@@ -7,105 +7,105 @@
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
-      name: "NetworkThrottlingIndex"
+      value: "NetworkThrottlingIndex"
       type: "REG_DWORD"
-      value: "10"
-    - !registry
+      data: "10"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
-      name: "SystemResponsiveness"
+      value: "SystemResponsiveness"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "GPU Priority"
+      value: "GPU Priority"
       type: "REG_DWORD"
-      value: "8"
-    - !registry
+      data: "8"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "Priority"
+      value: "Priority"
       type: "REG_DWORD"
-      value: "6"
-    - !registry
+      data: "6"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "Scheduling Category"
+      value: "Scheduling Category"
       type: "REG_SZ"
-      value: "High"
-    - !registry
+      data: "High"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "SFIO Priority"
+      value: "SFIO Priority"
       type: "REG_SZ"
-      value: "High"
-    - !registry
+      data: "High"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "Background Only"
+      value: "Background Only"
       type: "REG_SZ"
-      value: "False"
-    - !registry
+      data: "False"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "Clock Rate"
+      value: "Clock Rate"
       type: "REG_DWORD"
-      value: "10000"
-    - !registry
+      data: "10000"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "Affinity"
+      value: "Affinity"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "BackgroundPriority"
+      value: "BackgroundPriority"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Optimize Audio Tasks"
   description: "Configure audio tasks for low latency"
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
-      name: "GPU Priority"
+      value: "GPU Priority"
       type: "REG_DWORD"
-      value: "8"
-    - !registry
+      data: "8"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
-      name: "Priority"
+      value: "Priority"
       type: "REG_DWORD"
-      value: "6"
-    - !registry
+      data: "6"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
-      name: "Scheduling Category"
+      value: "Scheduling Category"
       type: "REG_SZ"
-      value: "High"
-    - !registry
+      data: "High"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
-      name: "SFIO Priority"
+      value: "SFIO Priority"
       type: "REG_SZ"
-      value: "High"
+      data: "High"
 
 - title: "Optimize Playback Tasks"
   description: "Configure playback tasks for smooth video"
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
-      name: "GPU Priority"
+      value: "GPU Priority"
       type: "REG_DWORD"
-      value: "8"
-    - !registry
+      data: "8"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
-      name: "Priority"
+      value: "Priority"
       type: "REG_DWORD"
-      value: "6"
-    - !registry
+      data: "6"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
-      name: "Scheduling Category"
+      value: "Scheduling Category"
       type: "REG_SZ"
-      value: "High"
-    - !registry
+      data: "High"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
-      name: "SFIO Priority"
+      value: "SFIO Priority"
       type: "REG_SZ"
-      value: "High"
+      data: "High"

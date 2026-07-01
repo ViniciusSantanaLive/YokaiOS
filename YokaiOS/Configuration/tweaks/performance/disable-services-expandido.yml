@@ -4,7 +4,7 @@ description: Lista completa de 50+ servicos desabilitados para reduzir processos
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Desabilitando servicos de telemetria..."}
+  - !writeStatus: {status: "Desabilitando servicos de telemetria..."}
 
   # === Telemetria e Diagnostico
   - !service: {name: 'DiagTrack', operation: change, startup: 4}
@@ -17,26 +17,26 @@ actions:
   - !service: {name: 'PcaSvc', operation: change, startup: 4}
   - !service: {name: 'wisvc', operation: change, startup: 4}
 
-  - !writeStatus {status: "Desabilitando servicos de busca e indexacao..."}
+  - !writeStatus: {status: "Desabilitando servicos de busca e indexacao..."}
 
   # === Busca e Indexacao
   - !service: {name: 'WSearch', operation: change, startup: 4}
   - !service: {name: 'SysMain', operation: change, startup: 4}
 
-  - !writeStatus {status: "Desabilitando servicos de atualizacao..."}
+  - !writeStatus: {status: "Desabilitando servicos de atualizacao..."}
 
   # === Atualizacao
   - !service: {name: 'wuauserv', operation: change, startup: 4}
   - !service: {name: 'DoSvc', operation: change, startup: 4}
   - !service: {name: 'UsoSvc', operation: change, startup: 4}
 
-  - !writeStatus {status: "Desabilitando servicos de impressao e fax..."}
+  - !writeStatus: {status: "Desabilitando servicos de impressao e fax..."}
 
   # === Impressao e Fax
   - !service: {name: 'Spooler', operation: change, startup: 4}
   - !service: {name: 'Fax', operation: change, startup: 4}
 
-  - !writeStatus {status: "Desabilitando servicos de rede..."}
+  - !writeStatus: {status: "Desabilitando servicos de rede..."}
 
   # === Rede
   - !service: {name: 'RemoteRegistry', operation: change, startup: 4}
@@ -47,13 +47,13 @@ actions:
   - !service: {name: 'CscService', operation: change, startup: 4}
   - !service: {name: 'NetTcpPortSharing', operation: change, startup: 4}
 
-  - !writeStatus {status: "Desabilitando servicos de entrada..."}
+  - !writeStatus: {status: "Desabilitando servicos de entrada..."}
 
   # === Entrada e Tablet
   - !service: {name: 'TabletInputService', operation: change, startup: 4}
   - !service: {name: 'TouchInputService', operation: change, startup: 4}
 
-  - !writeStatus {status: "Desabilitando servicos do Xbox..."}
+  - !writeStatus: {status: "Desabilitando servicos do Xbox..."}
 
   # === Xbox e Gaming
   - !service: {name: 'XblAuthManager', operation: change, startup: 4}
@@ -61,14 +61,14 @@ actions:
   - !service: {name: 'XboxNetApiSvc', operation: change, startup: 4}
   - !service: {name: 'XboxGipSvc', operation: change, startup: 4}
 
-  - !writeStatus {status: "Desabilitando servicos de seguranca..."}
+  - !writeStatus: {status: "Desabilitando servicos de seguranca..."}
 
   # === Seguranca (opcional)
   - !service: {name: 'WbioSrvc', operation: change, startup: 4}
   - !service: {name: 'WpcMonSvc', operation: change, startup: 4}
   - !service: {name: 'ScDeviceEnum', operation: change, startup: 4}
 
-  - !writeStatus {status: "Desabilitando servicos diversos..."}
+  - !writeStatus: {status: "Desabilitando servicos diversos..."}
 
   # === Diversos
   - !service: {name: 'RetailDemo', operation: change, startup: 4}
@@ -93,4 +93,4 @@ actions:
   - !service: {name: 'lfsvc', operation: change, startup: 4}
   - !service: {name: 'seclogon', operation: change, startup: 4}
 
-  - !writeStatus {status: "Servicos desabilitados com sucesso!"}
+  - !writeStatus: {status: "Servicos desabilitados com sucesso!"}

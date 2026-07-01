@@ -7,22 +7,22 @@
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
-      name: "Win32PrioritySeparation"
+      value: "Win32PrioritySeparation"
       type: "REG_DWORD"
-      value: "38"
+      data: "38"
 
 - title: "Disable CPU Core Parking"
   description: "Prevent CPU cores from sleeping during gaming"
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\0cc5b647-c1df-4637-891a-dec35c318583"
-      name: "Attributes"
+      value: "Attributes"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Dynamic Tick"
   description: "Prevent CPU from entering low-power states"
@@ -47,8 +47,8 @@
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
-      name: "IRQ8Priority"
+      value: "IRQ8Priority"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"

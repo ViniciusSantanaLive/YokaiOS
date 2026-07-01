@@ -10,16 +10,16 @@
   actions:
     - !cmd
       command: "powercfg /hibernate off"
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power"
-      name: "HibernateEnabled"
+      value: "HibernateEnabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power"
-      name: "HiberbootEnabled"
+      value: "HiberbootEnabled"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Keep Hibernate Enabled"
   description: "Keep hibernation and Fast Startup enabled"
@@ -29,13 +29,13 @@
   actions:
     - !cmd
       command: "powercfg /hibernate on"
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power"
-      name: "HibernateEnabled"
+      value: "HibernateEnabled"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power"
-      name: "HiberbootEnabled"
+      value: "HiberbootEnabled"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"

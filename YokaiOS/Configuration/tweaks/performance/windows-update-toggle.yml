@@ -8,25 +8,19 @@
   privilege: "Admin"
   option: "updates-disable"
   actions:
-    - !service
-      name: "wuauserv"
-      startup_type: "disabled"
-    - !service
-      name: "UsoSvc"
-      startup_type: "disabled"
-    - !service
-      name: "DoSvc"
-      startup_type: "disabled"
-    - !registry
+    - !service: {name: 'wuauserv', operation: change, startup: 4}
+    - !service: {name: 'UsoSvc', operation: change, startup: 4}
+    - !service: {name: 'DoSvc', operation: change, startup: 4}
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
-      name: "NoAutoUpdate"
+      value: "NoAutoUpdate"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
-      name: "AUOptions"
+      value: "AUOptions"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Notify Only About Updates"
   description: "Show notifications but don't auto-install"
@@ -34,19 +28,17 @@
   privilege: "Admin"
   option: "updates-notify"
   actions:
-    - !service
-      name: "wuauserv"
-      startup_type: "manual"
-    - !registry
+    - !service: {name: 'wuauserv', operation: change, startup: 3}
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
-      name: "NoAutoUpdate"
+      value: "NoAutoUpdate"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
-      name: "AUOptions"
+      value: "AUOptions"
       type: "REG_DWORD"
-      value: "2"
+      data: "2"
 
 - title: "Keep Windows Update Default"
   description: "Keep automatic updates enabled"
@@ -54,16 +46,14 @@
   privilege: "Admin"
   option: "updates-default"
   actions:
-    - !service
-      name: "wuauserv"
-      startup_type: "automatic"
-    - !registry
+    - !service: {name: 'wuauserv', operation: change, startup: 2}
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
-      name: "NoAutoUpdate"
+      value: "NoAutoUpdate"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
-      name: "AUOptions"
+      value: "AUOptions"
       type: "REG_DWORD"
-      value: "4"
+      data: "4"

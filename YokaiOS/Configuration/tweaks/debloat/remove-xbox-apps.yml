@@ -4,7 +4,7 @@ description: Remove aplicativos Xbox (exceto Game Bar overlay para captura)
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Removendo Xbox Apps..."}
+  - !writeStatus: {status: "Removendo Xbox Apps..."}
 
   - title: "Remover pacotes Xbox"
     description: "Remove apps Xbox do sistema"
@@ -42,15 +42,15 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR"
-        name: "AppCaptureEnabled"
+        value: "AppCaptureEnabled"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR"
-        name: "AllowGameDVR"
+        value: "AllowGameDVR"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
-  - !writeStatus {status: "Xbox Apps removidas!"}
+  - !writeStatus: {status: "Xbox Apps removidas!"}

@@ -7,57 +7,57 @@
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
-      name: "NtfsDisableLastAccessUpdate"
+      value: "NtfsDisableLastAccessUpdate"
       type: "REG_DWORD"
-      value: "80000003"
+      data: "80000003"
 
 - title: "Disable 8.3 Name Creation"
   description: "Disables legacy short filename creation"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
-      name: "NtfsDisable8dot3NameCreation"
+      value: "NtfsDisable8dot3NameCreation"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Optimize NTFS Memory Usage"
   description: "Configure NTFS paged pool memory"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
-      name: "NtfsPagedPoolSize"
+      value: "NtfsPagedPoolSize"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
-      name: "NtfsNonPagedPoolSize"
+      value: "NtfsNonPagedPoolSize"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Bandwidth Limit"
   description: "Remove network bandwidth reservation"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched"
-      name: "NonBestEffortLimit"
+      value: "NonBestEffortLimit"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Background Disk Defragmentation"
   description: "Prevent background defrag during gaming"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Dfrg\\BootOptimizeFunction"
-      name: "Enable"
+      value: "Enable"
       type: "REG_SZ"
-      value: "N"
+      data: "N"

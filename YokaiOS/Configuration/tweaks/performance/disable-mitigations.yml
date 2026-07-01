@@ -16,16 +16,16 @@
   privilege: "Admin"
   option: "mitigations-disable"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      name: "FeatureSettingsOverride"
+      value: "FeatureSettingsOverride"
       type: "REG_DWORD"
-      value: "3"
-    - !registry
+      data: "3"
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      name: "FeatureSettingsOverrideMask"
+      value: "FeatureSettingsOverrideMask"
       type: "REG_DWORD"
-      value: "3"
+      data: "3"
 
 - title: "Disable SEHOP"
   description: "Disable Structured Exception Handling Overwrite Protection for performance"
@@ -33,11 +33,11 @@
   privilege: "Admin"
   option: "mitigations-disable"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
-      name: "DisableExceptionChainValidation"
+      value: "DisableExceptionChainValidation"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Disable Core Isolation (VBS/HVCI)"
   description: "Disable Virtualization-Based Security for gaming performance"
@@ -45,21 +45,21 @@
   privilege: "Admin"
   option: "mitigations-disable"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
-      name: "EnableVirtualizationBasedSecurity"
+      value: "EnableVirtualizationBasedSecurity"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
-      name: "RequirePlatformSecurityFeatures"
+      value: "RequirePlatformSecurityFeatures"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity"
-      name: "Enabled"
+      value: "Enabled"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Keep Mitigations Default"
   description: "Keep CPU security mitigations enabled (default)"
@@ -67,21 +67,21 @@
   privilege: "Admin"
   option: "mitigations-default"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      name: "FeatureSettingsOverride"
+      value: "FeatureSettingsOverride"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      name: "FeatureSettingsOverrideMask"
+      value: "FeatureSettingsOverrideMask"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
-      name: "EnableVirtualizationBasedSecurity"
+      value: "EnableVirtualizationBasedSecurity"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 # === KEPT FOR ANTI-CHEAT COMPATIBILITY ===
 # ASLR is NOT disabled (MoveImages stays at default 1)

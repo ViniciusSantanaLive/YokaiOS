@@ -4,7 +4,7 @@ description: Otimizacoes do File Explorer para melhor experiencia
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Configurando Explorer..."}
+  - !writeStatus: {status: "Configurando Explorer..."}
 
   # === Remover Home e Gallery
   - title: "Remover Home do Explorer"
@@ -12,27 +12,27 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Classes\\CLSID\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}"
-        name: "System.IsPinnedToNameSpaceTree"
+        value: "System.IsPinnedToNameSpaceTree"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "LaunchTo"
+        value: "LaunchTo"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   - title: "Remover Gallery do Explorer"
     description: "Remove Gallery do Explorer"
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Classes\\CLSID\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}"
-        name: "System.IsPinnedToNameSpaceTree"
+        value: "System.IsPinnedToNameSpaceTree"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Auto Folder Discovery
   - title: "Desabilitar Auto Folder Discovery"
@@ -56,11 +56,11 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "HideFileExt"
+        value: "HideFileExt"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Mostrar Arquivos Ocultos
   - title: "Mostrar Arquivos Ocultos"
@@ -68,11 +68,11 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "Hidden"
+        value: "Hidden"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Desabilitar Checkboxes
   - title: "Desabilitar Checkboxes no Explorer"
@@ -80,11 +80,11 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "AutoCheckSelect"
+        value: "AutoCheckSelect"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Navigation Pane
   - title: "Desabilitar Network no Navigation Pane"
@@ -92,11 +92,11 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Classes\\CLSID\\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}"
-        name: "System.IsPinnedToNameSpaceTree"
+        value: "System.IsPinnedToNameSpaceTree"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Abrir Explorer em Este PC
   - title: "Abrir Explorer em Este PC"
@@ -104,11 +104,11 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "LaunchTo"
+        value: "LaunchTo"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Desabilitar Quick Access Recent Files
   - title: "Desabilitar Arquivos Recentes"
@@ -116,11 +116,11 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer"
-        name: "ShowRecent"
+        value: "ShowRecent"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Quick Access Frequent Folders
   - title: "Desabilitar Pastas Frequentes"
@@ -128,11 +128,11 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer"
-        name: "ShowFrequent"
+        value: "ShowFrequent"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Melhorar Qualidade de Wallpaper
   - title: "Melhorar Qualidade de Wallpaper"
@@ -140,11 +140,11 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Control Panel\\Desktop"
-        name: "JPEGImportQuality"
+        value: "JPEGImportQuality"
         type: "REG_DWORD"
-        value: "100"
+        data: "100"
 
   # === Desabilitar Thumbnail Cache
   - title: "Desabilitar Thumbnail Cache"
@@ -152,11 +152,11 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "DisableThumbnailCache"
+        value: "DisableThumbnailCache"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Long Paths
   - title: "Habilitar Long Paths"
@@ -164,10 +164,10 @@ actions:
     category: "Explorer"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
-        name: "LongPathsEnabled"
+        value: "LongPathsEnabled"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
-  - !writeStatus {status: "Explorer configurado!"}
+  - !writeStatus: {status: "Explorer configurado!"}

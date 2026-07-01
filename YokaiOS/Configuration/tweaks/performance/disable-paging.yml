@@ -7,30 +7,30 @@
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      name: "DisablePagingExecutive"
+      value: "DisablePagingExecutive"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Disable Large System Cache"
   description: "Prioritize applications over system cache"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      name: "LargeSystemCache"
+      value: "LargeSystemCache"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Optimize IoPageLockLimit"
   description: "Set optimal I/O page lock limit"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      name: "IoPageLockLimit"
+      value: "IoPageLockLimit"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"

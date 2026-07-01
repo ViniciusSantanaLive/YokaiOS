@@ -7,21 +7,21 @@
   category: "Debloat"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
-      name: "TurnOffWindowsCopilot"
+      value: "TurnOffWindowsCopilot"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
-      name: "TurnOffWindowsCopilot"
+      value: "TurnOffWindowsCopilot"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-      name: "ShowCopilotButton"
+      value: "ShowCopilotButton"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
     - !powershell
       command: "Get-AppxPackage *Microsoft.Windows.Ai.Copilot.Provider* | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
 
@@ -30,11 +30,11 @@
   category: "Debloat"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI"
-      name: "DisableAIDataAnalysis"
+      value: "DisableAIDataAnalysis"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
     - !powershell
       command: "Get-AppxPackage *Microsoft.Windows.Recall* | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
 
@@ -43,16 +43,16 @@
   category: "Debloat"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI"
-      name: "DisableWindowsAI"
+      value: "DisableWindowsAI"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WindowsAI"
-      name: "DisableWindowsAI"
+      value: "DisableWindowsAI"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Remove AI Components from WinSxS"
   description: "Remove AI system components"

@@ -7,39 +7,39 @@
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer"
-      name: "DisableSearchBoxSuggestions"
+      value: "DisableSearchBoxSuggestions"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-      name: "ConnectedSearchUseWeb"
+      value: "ConnectedSearchUseWeb"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-      name: "DisableWebSearch"
+      value: "DisableWebSearch"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search"
-      name: "BingSearchEnabled"
+      value: "BingSearchEnabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search"
-      name: "CortanaConsent"
+      value: "CortanaConsent"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Search Highlights"
   description: "Remove search highlights and suggestions"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SearchSettings"
-      name: "IsDynamicSearchBoxEnabled"
+      value: "IsDynamicSearchBoxEnabled"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"

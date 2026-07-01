@@ -4,33 +4,33 @@ description: Remove a Cortana completamente do sistema
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Removendo Cortana..."}
+  - !writeStatus: {status: "Removendo Cortana..."}
 
   - title: "Desabilitar Cortana via registro"
     description: "Desabilita a Cortana via politicas de grupo"
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-        name: "AllowCortana"
+        value: "AllowCortana"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-        name: "DisableWebSearch"
+        value: "DisableWebSearch"
         type: "REG_DWORD"
-        value: "1"
-      - !registry
+        data: "1"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-        name: "AllowSearchToUseLocation"
+        value: "AllowSearchToUseLocation"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-        name: "ConnectedSearchUseWeb"
+        value: "ConnectedSearchUseWeb"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   - title: "Remover pacote da Cortana"
     description: "Remove o app da Cortana"
@@ -52,4 +52,4 @@ actions:
           Disable-ScheduledTask -TaskName "Consolidator" -TaskPath "\Microsoft\Windows\Customer Experience Improvement Program\" -ErrorAction SilentlyContinue
           Disable-ScheduledTask -TaskName "UsbCeip" -TaskPath "\Microsoft\Windows\Customer Experience Improvement Program\" -ErrorAction SilentlyContinue
 
-  - !writeStatus {status: "Cortana removida!"}
+  - !writeStatus: {status: "Cortana removida!"}

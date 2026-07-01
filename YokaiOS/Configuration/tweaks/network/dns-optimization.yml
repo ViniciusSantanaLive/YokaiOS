@@ -8,4 +8,4 @@
   category: "Network"
   privilege: "Admin"
   actions:
-    - !writeStatus {status: "DNS optimization already handled by tcp-optimization.yml"}
+    - !writeStatus: {status: "DNS optimization already handled by tcp-optimization.yml"}

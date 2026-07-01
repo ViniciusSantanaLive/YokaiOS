@@ -8,4 +8,4 @@
   category: "Network"
   privilege: "Admin"
   actions:
-    - !writeStatus {status: "Network throttling already handled by tcp-optimization.yml"}
+    - !writeStatus: {status: "Network throttling already handled by tcp-optimization.yml"}

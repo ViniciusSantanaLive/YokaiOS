@@ -4,7 +4,7 @@ description: Melhorias gerais de usabilidade
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Aplicando QoL tweaks..."}
+  - !writeStatus: {status: "Aplicando QoL tweaks..."}
 
   # === Desabilitar Aero Shake
   - title: "Desabilitar Aero Shake"
@@ -12,11 +12,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "DisallowShaking"
+        value: "DisallowShaking"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Desabilitar Menu Delay
   - title: "Desabilitar Menu Delay"
@@ -24,11 +24,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Control Panel\\Desktop"
-        name: "MenuShowDelay"
+        value: "MenuShowDelay"
         type: "REG_SZ"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Mouse Hover Time
   - title: "Reduzir Mouse Hover Time"
@@ -36,11 +36,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Control Panel\\Mouse"
-        name: "MouseHoverTime"
+        value: "MouseHoverTime"
         type: "REG_SZ"
-        value: "100"
+        data: "100"
 
   # === Desabilitar Windows Tips
   - title: "Desabilitar Windows Tips"
@@ -48,16 +48,16 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "SoftLandingEnabled"
+        value: "SoftLandingEnabled"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "ShowSyncProviderNotifications"
+        value: "ShowSyncProviderNotifications"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Windows Spotlight
   - title: "Desabilitar Windows Spotlight"
@@ -65,21 +65,21 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "RotatingLockScreenEnabled"
+        value: "RotatingLockScreenEnabled"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "RotatingLockScreenOverlayEnabled"
+        value: "RotatingLockScreenOverlayEnabled"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "SubscribedContent-338387Enabled"
+        value: "SubscribedContent-338387Enabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Lock Screen Tips
   - title: "Desabilitar Lock Screen Tips"
@@ -87,11 +87,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "RotatingLockScreenEnabled"
+        value: "RotatingLockScreenEnabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Suggestions in Start
   - title: "Desabilitar Sugestoes no Start"
@@ -99,21 +99,21 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "SystemPaneSuggestionsEnabled"
+        value: "SystemPaneSuggestionsEnabled"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "SubscribedContent-338388Enabled"
+        value: "SubscribedContent-338388Enabled"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "SubscribedContent-338389Enabled"
+        value: "SubscribedContent-338389Enabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar App Suggestions
   - title: "Desabilitar App Suggestions"
@@ -121,11 +121,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "SilentInstalledAppsEnabled"
+        value: "SilentInstalledAppsEnabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Online Speech Recognition
   - title: "Desabilitar Online Speech Recognition"
@@ -133,11 +133,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy"
-        name: "HasAccepted"
+        value: "HasAccepted"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Typing Insights
   - title: "Desabilitar Typing Insights"
@@ -145,11 +145,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Input\\TIPC"
-        name: "Enabled"
+        value: "Enabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar App Launch Tracking
   - title: "Desabilitar App Launch Tracking"
@@ -157,11 +157,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "Start_TrackProgs"
+        value: "Start_TrackProgs"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Verbose Boot Messages
   - title: "Mensagens Detalhadas no Boot"
@@ -169,11 +169,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
-        name: "VerboseStatus"
+        value: "VerboseStatus"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === BSoD Detalhado
   - title: "BSoD Detalhado"
@@ -181,16 +181,16 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\CrashControl"
-        name: "DisplayParameters"
+        value: "DisplayParameters"
         type: "REG_DWORD"
-        value: "1"
-      - !registry
+        data: "1"
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\CrashControl"
-        name: "DisableEmoticon"
+        value: "DisableEmoticon"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Desabilitar WPBT
   - title: "Desabilitar WPBT"
@@ -198,11 +198,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager"
-        name: "DisableWpbtExecution"
+        value: "DisableWpbtExecution"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Desabilitar Consumer Features
   - title: "Desabilitar Consumer Features"
@@ -210,11 +210,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent"
-        name: "DisableWindowsConsumerFeatures"
+        value: "DisableWindowsConsumerFeatures"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Desabilitar Tailored Experiences
   - title: "Desabilitar Tailored Experiences"
@@ -222,11 +222,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy"
-        name: "TailoredExperiencesWithDiagnosticDataEnabled"
+        value: "TailoredExperiencesWithDiagnosticDataEnabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Advertising ID
   - title: "Desabilitar Advertising ID"
@@ -234,11 +234,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo"
-        name: "Enabled"
+        value: "Enabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Modo Escuro
   - title: "Ativar Modo Escuro"
@@ -246,16 +246,16 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
-        name: "AppsUseLightTheme"
+        value: "AppsUseLightTheme"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
-        name: "SystemUsesLightTheme"
+        value: "SystemUsesLightTheme"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Transparency
   - title: "Desabilitar Transparencia"
@@ -263,11 +263,11 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
-        name: "EnableTransparency"
+        value: "EnableTransparency"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Game Bar
   - title: "Desabilitar Game Bar"
@@ -275,21 +275,21 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\GameBar"
-        name: "UseNexusForGameBarEnabled"
+        value: "UseNexusForGameBarEnabled"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\GameBar"
-        name: "AutoGameModeEnabled"
+        value: "AutoGameModeEnabled"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR"
-        name: "AllowGameDVR"
+        value: "AllowGameDVR"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Hibernation
   - title: "Desabilitar Hibernacao"
@@ -299,16 +299,16 @@ actions:
     actions:
       - !powershell
         command: "powercfg /hibernate off"
-      - !registry
+      - !registryValue
         path: "HKLM\\System\\CurrentControlSet\\Control\\Session Manager\\Power"
-        name: "HibernateEnabled"
+        value: "HibernateEnabled"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FlyoutMenuSettings"
-        name: "ShowHibernateOption"
+        value: "ShowHibernateOption"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Activity History
   - title: "Desabilitar Activity History"
@@ -316,15 +316,15 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
-        name: "EnableActivityFeed"
+        value: "EnableActivityFeed"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
-        name: "PublishUserActivities"
+        value: "PublishUserActivities"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
-  - !writeStatus {status: "QoL tweaks aplicados!"}
+  - !writeStatus: {status: "QoL tweaks aplicados!"}

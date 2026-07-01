@@ -8,4 +8,4 @@
   category: "Network"
   privilege: "Admin"
   actions:
-    - !writeStatus {status: "Nagle algorithm already handled by tcp-optimization.yml"}
+    - !writeStatus: {status: "Nagle algorithm already handled by tcp-optimization.yml"}

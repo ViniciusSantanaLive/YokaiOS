@@ -1,0 +1,38 @@
+---
+title: "Remover Microsoft Teams"
+description: "Remove Microsoft Teams e Chat do Windows 11 via AppX e registro"
+privilege: "Admin"
+actions:
+
+  - !writeStatus: {status: "Removendo Microsoft Teams..."}
+
+  - title: "Remover pacotes Teams via AppX"
+    description: "Remove Microsoft Teams e MSTeams provisionados"
+    privilege: "Admin"
+    actions:
+      - !powershell
+        command: |
+          $teamsPackages = @("MicrosoftTeams", "MSTeams", "Microsoft.Teams")
+          foreach ($pkg in $teamsPackages) {
+            Get-AppxPackage -Name $pkg -AllUsers -ErrorAction SilentlyContinue | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+          }
+          Get-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue |
+            Where-Object { $_.PackageName -like "*Teams*" -or $_.PackageName -like "*MSTeams*" } |
+            Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
+
+  - title: "Desabilitar icone Chat da taskbar"
+    description: "Remove o Chat (Teams integrado) da barra de tarefas via registro"
+    privilege: "Admin"
+    actions:
+      - !registryValue:
+          path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Chat'
+          value: "ChatIcon"
+          type: "REG_DWORD"
+          data: "3"
+      - !registryValue:
+          path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+          value: "TaskbarMn"
+          type: "REG_DWORD"
+          data: "0"
+
+  - !writeStatus: {status: "Microsoft Teams removido!"}

@@ -4,16 +4,19 @@ description: Remove o Microsoft OneDrive do sistema
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Removendo OneDrive..."}
+  - !writeStatus: {status: "Removendo OneDrive..."}
 
   - title: "Finalizar processos do OneDrive"
     description: "Fecha todos os processos do OneDrive"
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !taskKill: {name: "OneDriveStandaloneUpdater", errorAction: Ignore}
-      - !taskKill: {name: "OneDriveSetup", errorAction: Ignore}
-      - !taskKill: {name: "OneDrive*", errorAction: Ignore}
+      - !powershell
+        command: "Stop-Process -Name OneDriveStandaloneUpdater -Force -ErrorAction SilentlyContinue"
+      - !powershell
+        command: "Stop-Process -Name OneDriveSetup -Force -ErrorAction SilentlyContinue"
+      - !powershell
+        command: "Stop-Process -Name 'OneDrive*' -Force -ErrorAction SilentlyContinue"
 
   - title: "Desinstalar OneDrive"
     description: "Usa o desinstalador do OneDrive"
@@ -51,10 +54,10 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive"
-        name: "DisableFileSyncNGSC"
+        value: "DisableFileSyncNGSC"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
-  - !writeStatus {status: "OneDrive removido!"}
+  - !writeStatus: {status: "OneDrive removido!"}

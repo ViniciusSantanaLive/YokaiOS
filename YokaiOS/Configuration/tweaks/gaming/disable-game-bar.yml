@@ -8,4 +8,4 @@
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !writeStatus {status: "Game Bar already handled by game-mode.yml"}
+    - !writeStatus: {status: "Game Bar already handled by game-mode.yml"}

@@ -8,42 +8,42 @@
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\GameBar"
-      name: "AllowAutoGameMode"
+      value: "AllowAutoGameMode"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\GameBar"
-      name: "AutoGameModeEnabled"
+      value: "AutoGameModeEnabled"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Game Bar"
   description: "Completely disable Xbox Game Bar"
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\GameBar"
-      name: "UseNexusForGameBarEnabled"
+      value: "UseNexusForGameBarEnabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR"
-      name: "AllowGameDVR"
+      value: "AllowGameDVR"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_Enabled"
+      value: "GameDVR_Enabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR"
-      name: "AppCaptureEnabled"
+      value: "AppCaptureEnabled"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Remove Game Bar Packages"
   description: "Uninstall Xbox Game Bar overlay packages"
@@ -61,28 +61,28 @@
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_FSEBehaviorMode"
+      value: "GameDVR_FSEBehaviorMode"
       type: "REG_DWORD"
-      value: "2"
-    - !registry
+      data: "2"
+    - !registryValue
       path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_HonorUserFSEBehaviorMode"
+      value: "GameDVR_HonorUserFSEBehaviorMode"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_FSEBehavior"
+      value: "GameDVR_FSEBehavior"
       type: "REG_DWORD"
-      value: "2"
-    - !registry
+      data: "2"
+    - !registryValue
       path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_DXGIHonorFSEWindowsCompatible"
+      value: "GameDVR_DXGIHonorFSEWindowsCompatible"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKCU\\System\\GameConfigStore"
-      name: "GameDVR_EFSEFeatureFlags"
+      value: "GameDVR_EFSEFeatureFlags"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"

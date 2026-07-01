@@ -8,29 +8,27 @@
   privilege: "Admin"
   option: "defender-disable"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender"
-      name: "DisableAntiSpyware"
+      value: "DisableAntiSpyware"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
-      name: "DisableRealtimeMonitoring"
+      value: "DisableRealtimeMonitoring"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
-      name: "DisableBehaviorMonitoring"
+      value: "DisableBehaviorMonitoring"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
-      name: "DisableScanOnRealtimeEnable"
+      value: "DisableScanOnRealtimeEnable"
       type: "REG_DWORD"
-      value: "1"
-    - !service
-      name: "WinDefend"
-      startup_type: "disabled"
+      data: "1"
+    - !service: {name: 'WinDefend', operation: change, startup: 4}
 
 - title: "Keep Windows Defender Enabled"
   description: "Keep Windows Defender active (default)"
@@ -38,11 +36,9 @@
   privilege: "Admin"
   option: "defender-enable"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender"
-      name: "DisableAntiSpyware"
+      value: "DisableAntiSpyware"
       type: "REG_DWORD"
-      value: "0"
-    - !service
-      name: "WinDefend"
-      startup_type: "automatic"
+      data: "0"
+    - !service: {name: 'WinDefend', operation: change, startup: 2}

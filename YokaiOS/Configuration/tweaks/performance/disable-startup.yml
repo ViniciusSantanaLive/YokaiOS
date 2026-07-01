@@ -7,11 +7,11 @@
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-      name: "OneDrive"
+      value: "OneDrive"
       type: "REG_SZ"
-      value: ""
+      data: ""
     - !cmd
       command: "reg delete \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\" /v OneDrive /f 2>nul"
 
@@ -20,46 +20,46 @@
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-      name: "com.squirrel.Teams.Teams"
+      value: "com.squirrel.Teams.Teams"
       type: "REG_SZ"
-      value: ""
+      data: ""
 
 - title: "Disable Skype AutoStart"
   description: "Prevent Skype from starting automatically"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-      name: "Skype for Desktop"
+      value: "Skype for Desktop"
       type: "REG_SZ"
-      value: ""
+      data: ""
 
 - title: "Disable Edge AutoStart"
   description: "Prevent Microsoft Edge from starting automatically"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-      name: "Microsoft Edge"
+      value: "Microsoft Edge"
       type: "REG_SZ"
-      value: ""
-    - !registry
+      data: ""
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main"
-      name: "AllowPrelaunch"
+      value: "AllowPrelaunch"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Cortana AutoStart"
   description: "Prevent Cortana from starting automatically"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-      name: "Cortana"
+      value: "Cortana"
       type: "REG_SZ"
-      value: ""
+      data: ""

@@ -4,7 +4,7 @@ description: Otimizacoes avancadas de CPU para gaming extremo
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Otimizando CPU profundamente..."}
+  - !writeStatus: {status: "Otimizando CPU profundamente..."}
 
   # === Disable CPU C-States
   - title: "Desabilitar CPU C-States"
@@ -48,11 +48,11 @@ actions:
     category: "CPU"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
-        name: "Win32PrioritySeparation"
+        value: "Win32PrioritySeparation"
         type: "REG_DWORD"
-        value: "38"
+        data: "38"
 
   # === Disable Dynamic Tick
   - title: "Desabilitar Dynamic Tick"
@@ -80,16 +80,16 @@ actions:
     category: "CPU"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-        name: "FeatureSettingsOverride"
+        value: "FeatureSettingsOverride"
         type: "REG_DWORD"
-        value: "3"
-      - !registry
+        data: "3"
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-        name: "FeatureSettingsOverrideMask"
+        value: "FeatureSettingsOverrideMask"
         type: "REG_DWORD"
-        value: "3"
+        data: "3"
 
   # === Enable TSX (Intel)
   - title: "Habilitar TSX (Intel)"
@@ -108,16 +108,16 @@ actions:
     category: "CPU"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
-        name: "DisableExceptionChainValidation"
+        value: "DisableExceptionChainValidation"
         type: "REG_DWORD"
-        value: "1"
-      - !registry
+        data: "1"
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
-        name: "KernelSEHOPEnabled"
+        value: "KernelSEHOPEnabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === MMCSS CPU Priority
   - title: "MMCS CPU Priority para Gaming"
@@ -125,25 +125,25 @@ actions:
     category: "CPU"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-        name: "GPU Priority"
+        value: "GPU Priority"
         type: "REG_DWORD"
-        value: "8"
-      - !registry
+        data: "8"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-        name: "Priority"
+        value: "Priority"
         type: "REG_DWORD"
-        value: "6"
-      - !registry
+        data: "6"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-        name: "Scheduling Category"
+        value: "Scheduling Category"
         type: "REG_SZ"
-        value: "High"
-      - !registry
+        data: "High"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-        name: "SFIO Priority"
+        value: "SFIO Priority"
         type: "REG_SZ"
-        value: "High"
+        data: "High"
 
-  - !writeStatus {status: "CPU otimizada!"}
+  - !writeStatus: {status: "CPU otimizada!"}

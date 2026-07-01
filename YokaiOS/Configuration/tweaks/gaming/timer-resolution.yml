@@ -7,11 +7,11 @@
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
-      name: "GlobalTimerResolutionRequests"
+      value: "GlobalTimerResolutionRequests"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
     - !cmd
       command: "bcdedit /set tscsyncpolicy enhanced"
 

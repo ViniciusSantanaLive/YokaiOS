@@ -4,7 +4,7 @@ description: Hardening de seguranca que nao impacta performance
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Aplicando security hardening..."}
+  - !writeStatus: {status: "Aplicando security hardening..."}
 
   # === Disable Remote Access
   - title: "Desabilitar Acesso Remoto"
@@ -17,11 +17,11 @@ actions:
       - !service: {name: 'SessionEnv', operation: change, startup: 4}
       - !service: {name: 'TermService', operation: change, startup: 4}
       - !service: {name: 'UmRdpService', operation: change, startup: 4}
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server"
-        name: "fDenyTSConnections"
+        value: "fDenyTSConnections"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Disable SMBv1
   - title: "Desabilitar SMBv1"
@@ -53,11 +53,11 @@ actions:
     category: "Security"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\DNSClient"
-        name: "EnableMulticast"
+        value: "EnableMulticast"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Disable WPBT
   - title: "Desabilitar WPBT"
@@ -65,11 +65,11 @@ actions:
     category: "Security"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager"
-        name: "DisableWpbtExecution"
+        value: "DisableWpbtExecution"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Disable AutoPlay
   - title: "Desabilitar AutoPlay"
@@ -77,16 +77,16 @@ actions:
     category: "Security"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\AutoplayHandlers"
-        name: "DisableAutoplay"
+        value: "DisableAutoplay"
         type: "REG_DWORD"
-        value: "1"
-      - !registry
+        data: "1"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
-        name: "NoDriveTypeAutoRun"
+        value: "NoDriveTypeAutoRun"
         type: "REG_DWORD"
-        value: "255"
+        data: "255"
 
   # === Disable AutoRun
   - title: "Desabilitar AutoRun"
@@ -94,11 +94,11 @@ actions:
     category: "Security"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
-        name: "NoAutorun"
+        value: "NoAutorun"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Disable Windows Script Host
   - title: "Desabilitar Windows Script Host"
@@ -106,11 +106,11 @@ actions:
     category: "Security"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows Script Host\\Settings"
-        name: "Enabled"
+        value: "Enabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Disable Remote Assistance
   - title: "Desabilitar Remote Assistance"
@@ -118,11 +118,11 @@ actions:
     category: "Security"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance"
-        name: "fAllowToGetHelp"
+        value: "fAllowToGetHelp"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Disable Windows Remote Management
   - title: "Desabilitar WinRM"
@@ -138,16 +138,16 @@ actions:
     category: "Security"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa"
-        name: "restrictanonymous"
+        value: "restrictanonymous"
         type: "REG_DWORD"
-        value: "1"
-      - !registry
+        data: "1"
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa"
-        name: "restrictanonymoussam"
+        value: "restrictanonymoussam"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Disable Cortana Online
   - title: "Desabilitar Cortana Online"
@@ -155,16 +155,16 @@ actions:
     category: "Security"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-        name: "AllowCortana"
+        value: "AllowCortana"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-        name: "DisableWebSearch"
+        value: "DisableWebSearch"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Disable Telemetry
   - title: "Desabilitar Telemetria"
@@ -174,10 +174,10 @@ actions:
     actions:
       - !service: {name: 'DiagTrack', operation: change, startup: 4}
       - !service: {name: 'dmwappushservice', operation: change, startup: 4}
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection"
-        name: "AllowTelemetry"
+        value: "AllowTelemetry"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
-  - !writeStatus {status: "Security hardening aplicado!"}
+  - !writeStatus: {status: "Security hardening aplicado!"}

@@ -7,34 +7,34 @@
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
-      name: "EnableActivityFeed"
+      value: "EnableActivityFeed"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
-      name: "PublishUserActivities"
+      value: "PublishUserActivities"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
-      name: "UploadUserActivities"
+      value: "UploadUserActivities"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Timeline"
   description: "Remove Timeline from task view"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "SubscribedContent-353694Enabled"
+      value: "SubscribedContent-353694Enabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "SubscribedContent-353696Enabled"
+      value: "SubscribedContent-353696Enabled"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"

@@ -8,59 +8,59 @@
   category: "GPU"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers"
-      name: "HwSchMode"
+      value: "HwSchMode"
       type: "REG_DWORD"
-      value: "2"
+      data: "2"
 
 - title: "Disable GPU Preemption"
   description: "Prevent GPU from preempting rendering tasks"
   category: "GPU"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers\\Scheduler"
-      name: "EnablePreemption"
+      value: "EnablePreemption"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Multi-Plane Overlay"
   description: "Disable MPO to reduce stuttering"
   category: "GPU"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\Dwm"
-      name: "OverlayTestMode"
+      value: "OverlayTestMode"
       type: "REG_DWORD"
-      value: "5"
+      data: "5"
 
 - title: "MMCS GPU Priority for Gaming"
   description: "Set maximum GPU priority for games"
   category: "GPU"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "GPU Priority"
+      value: "GPU Priority"
       type: "REG_DWORD"
-      value: "8"
-    - !registry
+      data: "8"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "Priority"
+      value: "Priority"
       type: "REG_DWORD"
-      value: "6"
-    - !registry
+      data: "6"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "Scheduling Category"
+      value: "Scheduling Category"
       type: "REG_SZ"
-      value: "High"
-    - !registry
+      data: "High"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      name: "SFIO Priority"
+      value: "SFIO Priority"
       type: "REG_SZ"
-      value: "High"
+      data: "High"
 
 - title: "NVIDIA PowerMizer - Force Max Performance"
   description: "Force NVIDIA GPU to maximum clock speeds"
@@ -83,11 +83,11 @@
   category: "GPU"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
-      name: "IRQ8Priority"
+      value: "IRQ8Priority"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Disable NVIDIA Telemetry Services"
   description: "Disable NVIDIA telemetry and streaming services"

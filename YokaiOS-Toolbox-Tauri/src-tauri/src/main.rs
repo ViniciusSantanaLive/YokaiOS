@@ -859,6 +859,21 @@ fn create_autounattend_xml(config: &IsoConfig) -> String {
         format!("<AutoLogon><Enabled>true</Enabled><Username>{}</Username><Password><Value>{}</Value><PlainText>true</PlainText></Password><LogonCount>1</LogonCount></AutoLogon>", username, password)
     };
 
+    // Bypass de hardware NO PASSO windowsPE: e aqui (registro do WinPE de setup)
+    // que o appraiser do Win11 le o LabConfig numa instalacao LIMPA (boot pela ISO).
+    // Gravar so na hive SYSTEM da imagem instalada (inject_playbook) so vale em upgrade.
+    let bypass_run = if config.bypass_requirements {
+        r#"<RunSynchronous>
+        <RunSynchronousCommand wcm:action="add"><Order>1</Order><Path>cmd /c "reg add HKLM\System\Setup\LabConfig /v BypassTPMCheck /t REG_DWORD /d 1 /f"</Path></RunSynchronousCommand>
+        <RunSynchronousCommand wcm:action="add"><Order>2</Order><Path>cmd /c "reg add HKLM\System\Setup\LabConfig /v BypassSecureBootCheck /t REG_DWORD /d 1 /f"</Path></RunSynchronousCommand>
+        <RunSynchronousCommand wcm:action="add"><Order>3</Order><Path>cmd /c "reg add HKLM\System\Setup\LabConfig /v BypassRAMCheck /t REG_DWORD /d 1 /f"</Path></RunSynchronousCommand>
+        <RunSynchronousCommand wcm:action="add"><Order>4</Order><Path>cmd /c "reg add HKLM\System\Setup\LabConfig /v BypassStorageCheck /t REG_DWORD /d 1 /f"</Path></RunSynchronousCommand>
+        <RunSynchronousCommand wcm:action="add"><Order>5</Order><Path>cmd /c "reg add HKLM\System\Setup\LabConfig /v BypassCPUCheck /t REG_DWORD /d 1 /f"</Path></RunSynchronousCommand>
+      </RunSynchronous>"#
+    } else {
+        ""
+    };
+
     // BypassNRO robusto: registry direto + comando no specialize
     format!(r#"<?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend">
@@ -901,6 +916,7 @@ fn create_autounattend_xml(config: &IsoConfig) -> String {
           <InstallTo><DiskID>0</DiskID><PartitionID>3</PartitionID></InstallTo>
         </OSImage>
       </ImageInstall>
+      {bypass_run}
       <UserData>
         <ProductKey><Key></Key><WillShowUI>Never</WillShowUI></ProductKey>
         <AcceptEula>true</AcceptEula>
@@ -983,7 +999,7 @@ fn create_autounattend_xml(config: &IsoConfig) -> String {
       </FirstLogonCommands>
     </component>
   </settings>
-</unattend>"#, username = username, password_xml = password_xml, auto_logon = auto_logon)
+</unattend>"#, username = username, password_xml = password_xml, auto_logon = auto_logon, bypass_run = bypass_run)
 }
 
 #[tauri::command]

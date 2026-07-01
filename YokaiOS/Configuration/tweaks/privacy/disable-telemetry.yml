@@ -21,67 +21,67 @@
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection"
-      name: "AllowTelemetry"
+      value: "AllowTelemetry"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection"
-      name: "AllowTelemetry"
+      value: "AllowTelemetry"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppCompat"
-      name: "AITEnable"
+      value: "AITEnable"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Customer Experience Improvement Program"
   description: "Disable CEIP data collection"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\SQMClient\\Windows"
-      name: "CEIPEnable"
+      value: "CEIPEnable"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\SQMClient\\Windows"
-      name: "CEIPEnable"
+      value: "CEIPEnable"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Application Impact Telemetry"
   description: "Disable application telemetry"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppCompat"
-      name: "AITEnable"
+      value: "AITEnable"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Inventory Collector"
   description: "Disable system inventory collection"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppCompat"
-      name: "DisableInventory"
+      value: "DisableInventory"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Disable Steps Recorder"
   description: "Disable Windows Steps Recorder"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppCompat"
-      name: "DisableUAR"
+      value: "DisableUAR"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"

@@ -8,4 +8,4 @@
   category: "GPU"
   privilege: "Admin"
   actions:
-    - !writeStatus {status: "GPU driver optimizations already handled by gpu-optimization.yml"}
+    - !writeStatus: {status: "GPU driver optimizations already handled by gpu-optimization.yml"}

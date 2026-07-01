@@ -20,16 +20,16 @@
             Set-ItemProperty -Path $regPath -Name "TcpDelAckTicks" -Value 0 -Type DWord -Force
           }
         }
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
-      name: "TcpDelAckTicks"
+      value: "TcpDelAckTicks"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
-      name: "TcpMaxDataRetransmissions"
+      value: "TcpMaxDataRetransmissions"
       type: "REG_DWORD"
-      value: "5"
+      data: "5"
 
 - title: "Optimize TCP Global Settings"
   description: "Configure TCP for low latency via netsh"
@@ -62,21 +62,21 @@
   category: "Network"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
-      name: "NetworkThrottlingIndex"
+      value: "NetworkThrottlingIndex"
       type: "REG_DWORD"
-      value: "4294967295"
-    - !registry
+      data: "4294967295"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
-      name: "SystemResponsiveness"
+      value: "SystemResponsiveness"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched"
-      name: "NonBestEffortLimit"
+      value: "NonBestEffortLimit"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Set Cloudflare DNS"
   description: "Use Cloudflare DNS (1.1.1.1) for low latency"

@@ -7,82 +7,82 @@
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo"
-      name: "Enabled"
+      value: "Enabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo"
-      name: "DisabledByGroupPolicy"
+      value: "DisabledByGroupPolicy"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Disable Location Tracking"
   description: "Disable Windows location services"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors"
-      name: "DisableLocation"
+      value: "DisableLocation"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors"
-      name: "DisableWindowsLocationProvider"
+      value: "DisableWindowsLocationProvider"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Disable Sensor Access"
   description: "Disable sensor access for apps"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors"
-      name: "DisableSensors"
+      value: "DisableSensors"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Disable Input Personalization"
   description: "Disable typing and inking data collection"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\InputPersonalization"
-      name: "RestrictImplicitInkCollection"
+      value: "RestrictImplicitInkCollection"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\InputPersonalization"
-      name: "RestrictImplicitTextCollection"
+      value: "RestrictImplicitTextCollection"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\InputPersonalization\\TrainedDataStore"
-      name: "HarvestContacts"
+      value: "HarvestContacts"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Activity History"
   description: "Disable activity timeline and history"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
-      name: "EnableActivityFeed"
+      value: "EnableActivityFeed"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
-      name: "PublishUserActivities"
+      value: "PublishUserActivities"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
-      name: "UploadUserActivities"
+      value: "UploadUserActivities"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"

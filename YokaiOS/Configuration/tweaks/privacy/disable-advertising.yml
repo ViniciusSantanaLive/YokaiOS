@@ -7,82 +7,82 @@
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "SystemPaneSuggestionsEnabled"
+      value: "SystemPaneSuggestionsEnabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "SubscribedContent-338388Enabled"
+      value: "SubscribedContent-338388Enabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "SubscribedContent-338389Enabled"
+      value: "SubscribedContent-338389Enabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "SubscribedContent-310093Enabled"
+      value: "SubscribedContent-310093Enabled"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Lock Screen Tips"
   description: "Remove tips and tricks from lock screen"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "RotatingLockScreenEnabled"
+      value: "RotatingLockScreenEnabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "RotatingLockScreenOverlayEnabled"
+      value: "RotatingLockScreenOverlayEnabled"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Windows Spotlight"
   description: "Remove Windows Spotlight ads and suggestions"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "RotatingLockScreenEnabled"
+      value: "RotatingLockScreenEnabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "SubscribedContent-338387Enabled"
+      value: "SubscribedContent-338387Enabled"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Disable Tailored Experiences"
   description: "Disable personalized ads and recommendations"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent"
-      name: "DisableTailoredExperiencesWithDiagnosticData"
+      value: "DisableTailoredExperiencesWithDiagnosticData"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Disable App Suggestions"
   description: "Remove app suggestions from Settings"
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "SilentInstalledAppsEnabled"
+      value: "SilentInstalledAppsEnabled"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-      name: "SoftLandingEnabled"
+      value: "SoftLandingEnabled"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"

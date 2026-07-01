@@ -4,7 +4,7 @@ description: Otimizacoes do menu de contexto
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Configurando Context Menu..."}
+  - !writeStatus: {status: "Configurando Context Menu..."}
 
   # === Menu de Contexto Classico
   - title: "Restaurar Menu de Contexto Classico"
@@ -21,11 +21,11 @@ actions:
     category: "Context Menu"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Shell Extensions\\Blocked"
-        name: "{7AD84985-87B4-4a15-B36C-9D3F5271D4C0}"
+        value: "{7AD84985-87B4-4a15-B36C-9D3F5271D4C0}"
         type: "REG_SZ"
-        value: ""
+        data: ""
 
   # === Remover Share
   - title: "Remover Share do Context Menu"
@@ -33,11 +33,11 @@ actions:
     category: "Context Menu"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Shell Extensions\\Blocked"
-        name: "{E2BF9676-5F8F-435C-97EB-11607A5BEDF7}"
+        value: "{E2BF9676-5F8F-435C-97EB-11607A5BEDF7}"
         type: "REG_SZ"
-        value: ""
+        data: ""
 
   # === Remover Give Access To
   - title: "Remover Give Access To"
@@ -68,11 +68,11 @@ actions:
     category: "Context Menu"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Shell Extensions\\Blocked"
-        name: "{596AB062-B4D2-4215-9F74-E9109B0A8153}"
+        value: "{596AB062-B4D2-4215-9F74-E9109B0A8153}"
         type: "REG_SZ"
-        value: ""
+        data: ""
 
   # === Adicionar Take Ownership
   - title: "Adicionar Take Ownership"
@@ -118,4 +118,4 @@ actions:
           New-Item -Path "$regPath\command" -Force -ErrorAction SilentlyContinue
           Set-ItemProperty -Path "$regPath\command" -Name "(Default)" -Value "powershell.exe -noexit -command Set-Location '%1'"
 
-  - !writeStatus {status: "Context Menu configurado!"}
+  - !writeStatus: {status: "Context Menu configurado!"}

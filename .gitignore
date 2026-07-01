@@ -36,6 +36,11 @@ Desktop.ini
 # Pastas extraidas
 extracted/
 
+# Material de referencia (nao faz parte do YokaiOS)
+PrivacyCore.apbx
+PrivacyCore-extracted/
+tools/
+
 # Arquivos de backup
 Revi-PB-26.04/
 AtlasPlaybook*/

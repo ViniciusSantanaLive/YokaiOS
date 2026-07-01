@@ -4,7 +4,7 @@ description: Lista completa de 20+ otimizacoes de privacidade
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Aplicando otimizacoes de privacidade expandidas..."}
+  - !writeStatus: {status: "Aplicando otimizacoes de privacidade expandidas..."}
 
   # === Speech Recognition
   - title: "Desabilitar Reconhecimento de Fala Online"
@@ -12,11 +12,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Speech_OneCore\\Settings\\OnlineSpeechPrivacy"
-        name: "HasAccepted"
+        value: "HasAccepted"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Input Personalization
   - title: "Desabilitar Personalizacao de Input"
@@ -24,21 +24,21 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\InputPersonalization"
-        name: "RestrictImplicitInkCollection"
+        value: "RestrictImplicitInkCollection"
         type: "REG_DWORD"
-        value: "1"
-      - !registry
+        data: "1"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\InputPersonalization"
-        name: "RestrictImplicitTextCollection"
+        value: "RestrictImplicitTextCollection"
         type: "REG_DWORD"
-        value: "1"
-      - !registry
+        data: "1"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\InputPersonalization\\TrainedDataStore"
-        name: "HarvestContacts"
+        value: "HarvestContacts"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Typing Insights
   - title: "Desabilitar Typing Insights"
@@ -46,11 +46,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Input\\TIPC"
-        name: "Enabled"
+        value: "Enabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === SmartScreen
   - title: "Desabilitar SmartScreen"
@@ -58,11 +58,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
-        name: "EnableSmartScreen"
+        value: "EnableSmartScreen"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === WiFi Sense
   - title: "Desabilitar WiFi Sense"
@@ -70,16 +70,16 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\PolicyManager\\default\\WiFi\\AllowWiFiHotSpotReporting"
-        name: "Value"
+        value: "Value"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\PolicyManager\\default\\WiFi\\AllowAutoConnectToWiFiSenseHotspots"
-        name: "Value"
+        value: "Value"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === App Diagnostics
   - title: "Desabilitar Diagnostico de Apps"
@@ -87,11 +87,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\appDiagnostics"
-        name: "Value"
+        value: "Value"
         type: "REG_SZ"
-        value: "Deny"
+        data: "Deny"
 
   # === Feedback Frequency
   - title: "Desabilitar Feedback"
@@ -99,16 +99,16 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Siuf\\Rules"
-        name: "NumberOfSIUFInPeriod"
+        value: "NumberOfSIUFInPeriod"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Siuf\\Rules"
-        name: "PeriodInNanoSeconds"
+        value: "PeriodInNanoSeconds"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Start Track Programs
   - title: "Desabilitar Rastreamento de Programas"
@@ -116,11 +116,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "Start_TrackProgs"
+        value: "Start_TrackProgs"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Advertising ID
   - title: "Desabilitar ID de Propaganda"
@@ -128,11 +128,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo"
-        name: "Enabled"
+        value: "Enabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Tailored Experiences
   - title: "Desabilitar Experiencias Personalizadas"
@@ -140,11 +140,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy"
-        name: "TailoredExperiencesWithDiagnosticDataEnabled"
+        value: "TailoredExperiencesWithDiagnosticDataEnabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Handwriting Error Reports
   - title: "Desabilitar Relatorios de Manuscricao"
@@ -152,11 +152,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\HandwritingErrorReports"
-        name: "PreventHandwritingErrorReports"
+        value: "PreventHandwritingErrorReports"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Location Tracking
   - title: "Desabilitar Rastreamento de Localizacao"
@@ -165,21 +165,21 @@ actions:
     privilege: "Admin"
     actions:
       - !service: {name: 'lfsvc', operation: change, startup: 4}
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location"
-        name: "Value"
+        value: "Value"
         type: "REG_SZ"
-        value: "Deny"
-      - !registry
+        data: "Deny"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\Overrides\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}"
-        name: "SensorPermissionState"
+        value: "SensorPermissionState"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SYSTEM\\Maps"
-        name: "AutoUpdateEnabled"
+        value: "AutoUpdateEnabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Device Monitoring
   - title: "Desabilitar Monitoramento de Dispositivos"
@@ -187,11 +187,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeviceAccess\\Global\\{2EEF81BE-33FA-4800-9670-1CD474972C3F}"
-        name: "Value"
+        value: "Value"
         type: "REG_SZ"
-        value: "Deny"
+        data: "Deny"
 
   # === Cloud Search
   - title: "Desabilitar Busca na Nuvem"
@@ -199,16 +199,16 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-        name: "ConnectedSearchUseWeb"
+        value: "ConnectedSearchUseWeb"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-        name: "DisableWebSearch"
+        value: "DisableWebSearch"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Search History
   - title: "Desabilitar Historico de Busca"
@@ -216,11 +216,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SearchSettings"
-        name: "IsDeviceSearchHistoryEnabled"
+        value: "IsDeviceSearchHistoryEnabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Search Suggestions
   - title: "Desabilitar Sugestoes de Busca"
@@ -228,11 +228,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer"
-        name: "DisableSearchBoxSuggestions"
+        value: "DisableSearchBoxSuggestions"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Suggested Content
   - title: "Desabilitar Conteudo Sugerido"
@@ -240,16 +240,16 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "SubscribedContent-338388Enabled"
+        value: "SubscribedContent-338388Enabled"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "SubscribedContent-338389Enabled"
+        value: "SubscribedContent-338389Enabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Whats New
   - title: "Desabilitar Novidades do Windows"
@@ -257,11 +257,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager"
-        name: "SubscribedContent-310093Enabled"
+        value: "SubscribedContent-310093Enabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Sign In Options
   - title: "Desabilitar Sugestoes de Login"
@@ -269,11 +269,11 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
-        name: "DisableLockScreenAppNotifications"
+        value: "DisableLockScreenAppNotifications"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Privacy Settings Experience
   - title: "Desabilitar Experiencia de Privacidade"
@@ -281,10 +281,10 @@ actions:
     category: "Privacy"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\OOBE"
-        name: "DisablePrivacyExperience"
+        value: "DisablePrivacyExperience"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
-  - !writeStatus {status: "Privacidade expandida aplicada com sucesso!"}
+  - !writeStatus: {status: "Privacidade expandida aplicada com sucesso!"}

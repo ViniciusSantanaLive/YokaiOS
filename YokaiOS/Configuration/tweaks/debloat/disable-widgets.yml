@@ -4,23 +4,23 @@ description: Desabilita e remove Widgets do Windows 11
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Desabilitando Widgets..."}
+  - !writeStatus: {status: "Desabilitando Widgets..."}
 
   - title: "Desabilitar Widgets via registro"
     description: "Remove Widgets da barra de tarefas"
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh"
-        name: "AllowNewsAndInterests"
+        value: "AllowNewsAndInterests"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "TaskbarDa"
+        value: "TaskbarDa"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   - title: "Remover pacote de Widgets"
     description: "Remove o app de Widgets"
@@ -38,10 +38,10 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Feeds"
-        name: "ShellFeedsTaskbarViewMode"
+        value: "ShellFeedsTaskbarViewMode"
         type: "REG_DWORD"
-        value: "2"
+        data: "2"
 
-  - !writeStatus {status: "Widgets desabilitados!"}
+  - !writeStatus: {status: "Widgets desabilitados!"}

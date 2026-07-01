@@ -7,76 +7,76 @@
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\mouclass\\Parameters"
-      name: "MouseDataQueueSize"
+      value: "MouseDataQueueSize"
       type: "REG_DWORD"
-      value: "20"
-    - !registry
+      data: "20"
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdclass\\Parameters"
-      name: "KeyboardDataQueueSize"
+      value: "KeyboardDataQueueSize"
       type: "REG_DWORD"
-      value: "20"
+      data: "20"
 
 - title: "Disable Mouse Acceleration"
   description: "Raw mouse input for precise aiming"
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\Control Panel\\Mouse"
-      name: "MouseSpeed"
+      value: "MouseSpeed"
       type: "REG_SZ"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\Control Panel\\Mouse"
-      name: "MouseThreshold1"
+      value: "MouseThreshold1"
       type: "REG_SZ"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\Control Panel\\Mouse"
-      name: "MouseThreshold2"
+      value: "MouseThreshold2"
       type: "REG_SZ"
-      value: "0"
+      data: "0"
 
 - title: "Set Mouse to 1:1"
   description: "Disable enhanced pointer precision"
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\Control Panel\\Mouse"
-      name: "MouseSensitivity"
+      value: "MouseSensitivity"
       type: "REG_SZ"
-      value: "10"
-    - !registry
+      data: "10"
+    - !registryValue
       path: "HKCU\\Control Panel\\Mouse"
-      name: "SmoothMouseXCurve"
+      value: "SmoothMouseXCurve"
       type: "REG_BINARY"
-      value: "000000000000000000000000000000000000000000000000000000000000000000000000"
-    - !registry
+      data: "000000000000000000000000000000000000000000000000000000000000000000000000"
+    - !registryValue
       path: "HKCU\\Control Panel\\Mouse"
-      name: "SmoothMouseYCurve"
+      value: "SmoothMouseYCurve"
       type: "REG_BINARY"
-      value: "000000000000000000000000000000000000000000000000000000000000000000000000"
+      data: "000000000000000000000000000000000000000000000000000000000000000000000000"
 
 - title: "Disable Filter Keys"
   description: "Prevent keyboard input filtering"
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\Control Panel\\Accessibility\\Keyboard Response"
-      name: "Flags"
+      value: "Flags"
       type: "REG_SZ"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\Control Panel\\Accessibility\\ToggleKeys"
-      name: "Flags"
+      value: "Flags"
       type: "REG_SZ"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKCU\\Control Panel\\Accessibility\\StickyKeys"
-      name: "Flags"
+      value: "Flags"
       type: "REG_SZ"
-      value: "0"
+      data: "0"

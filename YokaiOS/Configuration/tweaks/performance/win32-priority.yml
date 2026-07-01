@@ -7,30 +7,30 @@
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
-      name: "Win32PrioritySeparation"
+      value: "Win32PrioritySeparation"
       type: "REG_DWORD"
-      value: "38"
+      data: "38"
 
 - title: "Set IRQ Priority"
   description: "Prioritize hardware interrupts"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
-      name: "IRQ8Priority"
+      value: "IRQ8Priority"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Disable Priority Boost"
   description: "Disable dynamic priority boosting for consistent performance"
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
-      name: "ConvertibleSlateMode"
+      value: "ConvertibleSlateMode"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"

@@ -4,7 +4,7 @@ description: Lista completa de 60+ tarefas agendadas desabilitadas para reduzir 
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Desabilitando tarefas de telemetria..."}
+  - !writeStatus: {status: "Desabilitando tarefas de telemetria..."}
 
   # === Telemetria
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'Microsoft Compatibility Appraiser' -TaskPath '\\Microsoft\\Windows\\Application Experience\\' -ErrorAction SilentlyContinue"}
@@ -17,14 +17,14 @@ actions:
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'DmClientOnScenarioDownload' -TaskPath '\\Microsoft\\Windows\\Feedback\\Siuf\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'Sqm-Tasks' -TaskPath '\\Microsoft\\Windows\\PI\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas de maps e localizacao..."}
+  - !writeStatus: {status: "Desabilitando tarefas de maps e localizacao..."}
 
   # === Maps e Localizacao
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'MapsToastTask' -TaskPath '\\Microsoft\\Windows\\Maps\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'MapsUpdateTask' -TaskPath '\\Microsoft\\Windows\\Maps\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'Notifications' -TaskPath '\\Microsoft\\Windows\\Location\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas de erro e diagnostico..."}
+  - !writeStatus: {status: "Desabilitando tarefas de erro e diagnostico..."}
 
   # === Erro e Diagnostico
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'QueueReporting' -TaskPath '\\Microsoft\\Windows\\Windows Error Reporting\\' -ErrorAction SilentlyContinue"}
@@ -33,7 +33,7 @@ actions:
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'Diagnostics' -TaskPath '\\Microsoft\\Windows\\DiskFootprint\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'AnalyzeSystem' -TaskPath '\\Microsoft\\Windows\\Power Efficiency Diagnostics\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas de atualizacao..."}
+  - !writeStatus: {status: "Desabilitando tarefas de atualizacao..."}
 
   # === Windows Update
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'Scheduled Start' -TaskPath '\\Microsoft\\Windows\\WindowsUpdate\\' -ErrorAction SilentlyContinue"}
@@ -43,14 +43,14 @@ actions:
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'UpdateModelTask' -TaskPath '\\Microsoft\\Windows\\UpdateOrchestrator\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'USO_UxBroker' -TaskPath '\\Microsoft\\Windows\\UpdateOrchestrator\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas de manutencao..."}
+  - !writeStatus: {status: "Desabilitando tarefas de manutencao..."}
 
   # === Manutencao
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'Maintenance Configurator' -TaskPath '\\Microsoft\\Windows\\TaskScheduler\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'Manual Maintenance' -TaskPath '\\Microsoft\\Windows\\TaskScheduler\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'Regular Maintenance' -TaskPath '\\Microsoft\\Windows\\TaskScheduler\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas do Defender..."}
+  - !writeStatus: {status: "Desabilitando tarefas do Defender..."}
 
   # === Windows Defender
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'MpIdleTask' -TaskPath '\\Microsoft\\Windows\\Windows Defender\\' -ErrorAction SilentlyContinue"}
@@ -60,25 +60,25 @@ actions:
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'Windows Defender Cleanup' -TaskPath '\\Microsoft\\Windows\\Windows Defender\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'Windows Defender Verification' -TaskPath '\\Microsoft\\Windows\\Windows Defender\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas de familia e seguranca..."}
+  - !writeStatus: {status: "Desabilitando tarefas de familia e seguranca..."}
 
   # === Family Safety e Biometria
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'FamilySafetyRefreshTask' -TaskPath '\\Microsoft\\Windows\\FamilySafety\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'FamilySafetyMonitor' -TaskPath '\\Microsoft\\Windows\\FamilySafety\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'WinBioRemediation' -TaskPath '\\Microsoft\\Windows\\Biometric\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas de nuvem..."}
+  - !writeStatus: {status: "Desabilitando tarefas de nuvem..."}
 
   # === Cloud e Sync
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'CloudRestore' -TaskPath '\\Microsoft\\Windows\\CloudExperienceHost\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'SpeechModelDownloadTask' -TaskPath '\\Microsoft\\Windows\\Speech\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas do Xbox..."}
+  - !writeStatus: {status: "Desabilitando tarefas do Xbox..."}
 
   # === Xbox
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'XblGameSaveTask' -TaskPath '\\Microsoft\\Windows\\XblGameSave\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas de conveniencia..."}
+  - !writeStatus: {status: "Desabilitando tarefas de conveniencia..."}
 
   # === Conveniencia
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'ProactiveScan' -TaskPath '\\Microsoft\\Windows\\Chkdsk\\' -ErrorAction SilentlyContinue"}
@@ -89,16 +89,16 @@ actions:
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'StartupAppTask' -TaskPath '\\Microsoft\\Windows\\Application Experience\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'AitAgent' -TaskPath '\\Microsoft\\Windows\\Application Experience\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas de notificacao..."}
+  - !writeStatus: {status: "Desabilitando tarefas de notificacao..."}
 
   # === Notificacoes
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'ResPriStaticDbSync' -TaskPath '\\Microsoft\\Windows\\Flighting\\OneSettings\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'WsSwapAssessmentTask' -TaskPath '\\Microsoft\\Windows\\Flighting\\OneSettings\\' -ErrorAction SilentlyContinue"}
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'SmartScreenSpecific' -TaskPath '\\Microsoft\\Windows\\Shell\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Desabilitando tarefas de manutencao de disco..."}
+  - !writeStatus: {status: "Desabilitando tarefas de manutencao de disco..."}
 
   # === Disco
   - !powershell: {command: "Disable-ScheduledTask -TaskName 'SilentCleanup' -TaskPath '\\Microsoft\\Windows\\DiskCleanup\\' -ErrorAction SilentlyContinue"}
 
-  - !writeStatus {status: "Tarefas agendadas desabilitadas com sucesso!"}
+  - !writeStatus: {status: "Tarefas agendadas desabilitadas com sucesso!"}

@@ -4,7 +4,7 @@ description: Otimizacoes da barra de tarefas
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Configurando Taskbar..."}
+  - !writeStatus: {status: "Configurando Taskbar..."}
 
   # === Desabilitar Search Box
   - title: "Desabilitar Search Box na Taskbar"
@@ -12,11 +12,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search"
-        name: "SearchboxTaskbarMode"
+        value: "SearchboxTaskbarMode"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Task View Button
   - title: "Desabilitar Task View Button"
@@ -24,11 +24,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "ShowTaskViewButton"
+        value: "ShowTaskViewButton"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Widgets Button
   - title: "Desabilitar Widgets Button"
@@ -36,11 +36,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "TaskbarDa"
+        value: "TaskbarDa"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Chat Button
   - title: "Desabilitar Chat Button"
@@ -48,11 +48,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "TaskbarMn"
+        value: "TaskbarMn"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Meet Now
   - title: "Desabilitar Meet Now"
@@ -60,11 +60,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
-        name: "HideSCAMeetNow"
+        value: "HideSCAMeetNow"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Desabilitar News and Interests
   - title: "Desabilitar News and Interests"
@@ -72,11 +72,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds"
-        name: "EnableFeeds"
+        value: "EnableFeeds"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Desktop Peek
   - title: "Desabilitar Desktop Peek"
@@ -84,11 +84,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "DisablePreviewDesktop"
+        value: "DisablePreviewDesktop"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === End Task com Botao Direito
   - title: "End Task com Botao Direito"
@@ -96,11 +96,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\TaskbarDeveloperSettings"
-        name: "TaskbarEndTask"
+        value: "TaskbarEndTask"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Desabilitar Copilot Button
   - title: "Desabilitar Copilot Button"
@@ -108,11 +108,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "ShowCopilotButton"
+        value: "ShowCopilotButton"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Taskbar Esquerda (Windows 10 style)
   - title: "Taskbar Icons Esquerda"
@@ -120,11 +120,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "TaskbarAl"
+        value: "TaskbarAl"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Desabilitar Notification Badges
   - title: "Desabilitar Notification Badges"
@@ -132,11 +132,11 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "TaskbarBadges"
+        value: "TaskbarBadges"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Mostrar Segundos no Relogio
   - title: "Mostrar Segundos no Relogio"
@@ -144,10 +144,10 @@ actions:
     category: "Taskbar"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "ShowSecondsInSystemClock"
+        value: "ShowSecondsInSystemClock"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
-  - !writeStatus {status: "Taskbar configurada!"}
+  - !writeStatus: {status: "Taskbar configurada!"}

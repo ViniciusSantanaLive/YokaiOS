@@ -4,7 +4,7 @@ description: Otimizacoes inspiradas no WinUtil do Chris Titus
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Aplicando tweaks do WinUtil..."}
+  - !writeStatus: {status: "Aplicando tweaks do WinUtil..."}
 
   # === Consumer Features
   - title: "Desabilitar Consumer Features"
@@ -12,11 +12,11 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent"
-        name: "DisableWindowsConsumerFeatures"
+        value: "DisableWindowsConsumerFeatures"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Delivery Optimization
   - title: "Desabilitar Delivery Optimization"
@@ -24,11 +24,11 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization"
-        name: "DODownloadMode"
+        value: "DODownloadMode"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Reserved Storage
   - title: "Desabilitar Reserved Storage"
@@ -45,11 +45,11 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy"
-        name: "01"
+        value: "01"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === WPBT
   - title: "Desabilitar WPBT"
@@ -57,11 +57,11 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager"
-        name: "DisableWpbtExecution"
+        value: "DisableWpbtExecution"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Notifications
   - title: "Desabilitar Notificacoes"
@@ -69,16 +69,16 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Policies\\Microsoft\\Windows\\Explorer"
-        name: "DisableNotificationCenter"
+        value: "DisableNotificationCenter"
         type: "REG_DWORD"
-        value: "1"
-      - !registry
+        data: "1"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\PushNotifications"
-        name: "ToastEnabled"
+        value: "ToastEnabled"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === IPv6 Preferencial
   - title: "IPv4 Preferencial"
@@ -86,11 +86,11 @@ actions:
     category: "Network"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters"
-        name: "DisabledComponents"
+        value: "DisabledComponents"
         type: "REG_DWORD"
-        value: "32"
+        data: "32"
 
   # === Teredo
   - title: "Desabilitar Teredo"
@@ -107,11 +107,11 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\TaskbarDeveloperSettings"
-        name: "TaskbarEndTask"
+        value: "TaskbarEndTask"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Explorer Auto Discovery
   - title: "Desabilitar Auto Discovery"
@@ -131,16 +131,16 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching"
-        name: "SearchOrderConfig"
+        value: "SearchOrderConfig"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Device Installer"
-        name: "DisableCoInstallers"
+        value: "DisableCoInstallers"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === SvcHost Split Threshold
   - title: "SvcHost Split Threshold"
@@ -159,21 +159,21 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Classes\\CLSID\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}"
-        name: "System.IsPinnedToNameSpaceTree"
+        value: "System.IsPinnedToNameSpaceTree"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\Software\\Classes\\CLSID\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}"
-        name: "System.IsPinnedToNameSpaceTree"
+        value: "System.IsPinnedToNameSpaceTree"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "LaunchTo"
+        value: "LaunchTo"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Classic Right Click
   - title: "Menu de Contexto Classico"
@@ -190,11 +190,11 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "HideFileExt"
+        value: "HideFileExt"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"
 
   # === Show Hidden Files
   - title: "Mostrar Arquivos Ocultos"
@@ -202,11 +202,11 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced"
-        name: "Hidden"
+        value: "Hidden"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Verbose Logon
   - title: "Logon Verbose"
@@ -214,11 +214,11 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
-        name: "VerboseStatus"
+        value: "VerboseStatus"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Detailed BSoD
   - title: "BSoD Detalhado"
@@ -226,16 +226,16 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\CrashControl"
-        name: "DisplayParameters"
+        value: "DisplayParameters"
         type: "REG_DWORD"
-        value: "1"
-      - !registry
+        data: "1"
+      - !registryValue
         path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\CrashControl"
-        name: "DisableEmoticon"
+        value: "DisableEmoticon"
         type: "REG_DWORD"
-        value: "1"
+        data: "1"
 
   # === Dark Mode
   - title: "Modo Escuro"
@@ -243,13 +243,13 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !registry
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
-        name: "AppsUseLightTheme"
+        value: "AppsUseLightTheme"
         type: "REG_DWORD"
-        value: "0"
-      - !registry
+        data: "0"
+      - !registryValue
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
-        name: "SystemUsesLightTheme"
+        value: "SystemUsesLightTheme"
         type: "REG_DWORD"
-        value: "0"
+        data: "0"

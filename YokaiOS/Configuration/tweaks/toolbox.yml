@@ -4,7 +4,7 @@ description: Copia a toolbox para Program Files e cria atalhos
 privilege: Admin
 actions:
 
-  - !writeStatus {status: "Instalando YokaiOS Toolbox..."}
+  - !writeStatus: {status: "Instalando YokaiOS Toolbox..."}
 
   - title: "Copiar Toolbox para Program Files"
     description: "Instala a toolbox em C:\Program Files\YokaiOS Toolbox"
@@ -81,11 +81,11 @@ actions:
     privilege: "Admin"
     option: "toolbox-startup"
     actions:
-      - !registry
+      - !registryValue
         option: "toolbox-startup"
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-        name: "YokaiOS Toolbox"
+        value: "YokaiOS Toolbox"
         type: "REG_SZ"
-        value: "\"C:\\Program Files\\YokaiOS Toolbox\\YokaiOS-Toolbox.exe\" --minimized"
+        data: "\"C:\\Program Files\\YokaiOS Toolbox\\YokaiOS-Toolbox.exe\" --minimized"
 
-  - !writeStatus {status: "YokaiOS Toolbox instalada!"}
+  - !writeStatus: {status: "YokaiOS Toolbox instalada!"}

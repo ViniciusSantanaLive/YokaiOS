@@ -7,26 +7,26 @@
   category: "Privacy"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-      name: "AllowCortana"
+      value: "AllowCortana"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-      name: "DisableWebSearch"
+      value: "DisableWebSearch"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-      name: "AllowSearchToUseLocation"
+      value: "AllowSearchToUseLocation"
       type: "REG_DWORD"
-      value: "0"
-    - !registry
+      data: "0"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
-      name: "ConnectedSearchUseWeb"
+      value: "ConnectedSearchUseWeb"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
 
 - title: "Remove Cortana Package"
   description: "Uninstall Cortana from system"

@@ -18,20 +18,20 @@
                 Remove-Item $file -Force -ErrorAction SilentlyContinue
             }
         }
-        
+
         # Clear recent apps
         $recentPath = "$env:APPDATA\Microsoft\Windows\Recent\AutomaticDestinations"
         if (Test-Path $recentPath) {
             Get-ChildItem $recentPath -Filter "*.automaticDestinations-ms" | Remove-Item -Force -ErrorAction SilentlyContinue
         }
-        
+
         # Reset Start Menu layout
         $layoutPath = "$env:LOCALAPPDATA\Microsoft\Windows\Shell\LayoutModification.xml"
         if (Test-Path $layoutPath) {
             Remove-Item $layoutPath -Force -ErrorAction SilentlyContinue
         }
-    - !registry
+    - !registryValue
       path: "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Start"
-      name: "Config"
+      value: "Config"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"

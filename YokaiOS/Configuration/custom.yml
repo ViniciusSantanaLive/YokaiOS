@@ -1,0 +1,72 @@
+# YokaiOS Root Playbook File
+# AME Wizard entry point — all tweaks are orchestrated from here
+
+---
+title: "Root Playbook File"
+description: "YokaiOS v2.0.0 - Windows 11 Ultra-Optimized for Gaming"
+actions:
+
+  # Software Installation (Browser)
+  - !task: {path: 'tweaks\software.yml'}
+
+  # Gaming Optimizations
+  - !task: {path: 'tweaks\gaming\gpu-optimization.yml'}
+  - !task: {path: 'tweaks\gaming\cpu-scheduling.yml'}
+  - !task: {path: 'tweaks\gaming\cpu-deep-optimization.yml'}
+  - !task: {path: 'tweaks\gaming\game-mode.yml'}
+  - !task: {path: 'tweaks\gaming\disable-fso.yml'}
+  - !task: {path: 'tweaks\gaming\timer-resolution.yml'}
+  - !task: {path: 'tweaks\gaming\keyboard-mouse-latency.yml'}
+  - !task: {path: 'tweaks\gaming\visual-effects.yml'}
+  - !task: {path: 'tweaks\gaming\mmcs-optimization.yml'}
+  - !task: {path: 'tweaks\gaming\hardware-detection.yml'}
+
+  # Performance Optimizations
+  - !task: {path: 'tweaks\performance\disable-services-expandido.yml'}
+  - !task: {path: 'tweaks\performance\disable-startup.yml'}
+  - !task: {path: 'tweaks\performance\memory-optimization.yml'}
+  - !task: {path: 'tweaks\performance\disk-optimization.yml'}
+  - !task: {path: 'tweaks\performance\power-plan.yml'}
+  - !task: {path: 'tweaks\performance\disable-paging.yml'}
+  - !task: {path: 'tweaks\performance\win32-priority.yml'}
+  - !task: {path: 'tweaks\performance\disable-background-apps.yml'}
+  - !task: {path: 'tweaks\performance\disable-scheduled-tasks-expandido.yml'}
+  - !task: {path: 'tweaks\performance\bcdedit-optimization.yml'}
+  - !task: {path: 'tweaks\performance\disable-mitigations.yml'}
+  - !task: {path: 'tweaks\performance\winutil-tweaks.yml'}
+
+  # Privacy
+  - !task: {path: 'tweaks\privacy\privacy-expandido.yml'}
+  - !task: {path: 'tweaks\privacy\disable-telemetry.yml'}
+
+  # Quality of Life
+  - !task: {path: 'tweaks\qol\explorer.yml'}
+  - !task: {path: 'tweaks\qol\taskbar.yml'}
+  - !task: {path: 'tweaks\qol\context-menu.yml'}
+  - !task: {path: 'tweaks\qol\qol-tweaks.yml'}
+  - !task: {path: 'tweaks\qol\remove-pinned-items.yml'}
+
+  # Security Hardening
+  - !task: {path: 'tweaks\security\security-hardening.yml'}
+  - !task: {path: 'tweaks\security\defender-toggle.yml'}
+
+  # Performance Toggles
+  - !task: {path: 'tweaks\performance\windows-update-toggle.yml'}
+  - !task: {path: 'tweaks\performance\hibernate-toggle.yml'}
+
+  # Debloat
+  - !task: {path: 'tweaks\debloat\remove-bloatware.yml'}
+  - !task: {path: 'tweaks\debloat\remove-edge.yml'}
+  - !task: {path: 'tweaks\debloat\remove-onedrive.yml'}
+  - !task: {path: 'tweaks\debloat\remove-xbox-apps.yml'}
+  - !task: {path: 'tweaks\debloat\remove-cortana.yml'}
+  - !task: {path: 'tweaks\debloat\disable-widgets.yml'}
+  - !task: {path: 'tweaks\debloat\disable-copilot.yml'}
+  - !task: {path: 'tweaks\debloat\disable-ai-copilot.yml'}
+  - !task: {path: 'tweaks\debloat\remove-teams.yml'}
+
+  # Network Optimization
+  - !task: {path: 'tweaks\network\tcp-optimization.yml'}
+
+  # Toolbox Installation
+  - !task: {path: 'tweaks\toolbox.yml'}

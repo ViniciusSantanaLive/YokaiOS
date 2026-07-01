@@ -94,22 +94,22 @@
         } elseif (Test-Path "$env:SystemRoot\System32\OneDriveSetup.exe") {
           & "$env:SystemRoot\System32\OneDriveSetup.exe" /uninstall
         }
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive"
-      name: "DisableFileSyncNGSC"
+      value: "DisableFileSyncNGSC"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
 
 - title: "Remove Widgets"
   description: "Disable and remove Windows Widgets"
   category: "Debloat"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh"
-      name: "AllowNewsAndInterests"
+      value: "AllowNewsAndInterests"
       type: "REG_DWORD"
-      value: "0"
+      data: "0"
     - !powershell
       command: "Get-AppxPackage *WebExperience* | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
 
@@ -118,13 +118,13 @@
   category: "Debloat"
   privilege: "Admin"
   actions:
-    - !registry
+    - !registryValue
       path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
-      name: "TurnOffWindowsCopilot"
+      value: "TurnOffWindowsCopilot"
       type: "REG_DWORD"
-      value: "1"
-    - !registry
+      data: "1"
+    - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
-      name: "TurnOffWindowsCopilot"
+      value: "TurnOffWindowsCopilot"
       type: "REG_DWORD"
-      value: "1"
+      data: "1"
