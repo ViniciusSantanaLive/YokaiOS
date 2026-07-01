@@ -14,6 +14,7 @@
   description: "Disable Spectre mitigations for better performance"
   category: "Performance"
   privilege: "Admin"
+  option: "mitigations-disable"
   actions:
     - !registry
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
@@ -30,6 +31,7 @@
   description: "Disable Structured Exception Handling Overwrite Protection for performance"
   category: "Performance"
   privilege: "Admin"
+  option: "mitigations-disable"
   actions:
     - !registry
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
@@ -41,6 +43,7 @@
   description: "Disable Virtualization-Based Security for gaming performance"
   category: "Performance"
   privilege: "Admin"
+  option: "mitigations-disable"
   actions:
     - !registry
       path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
@@ -57,6 +60,28 @@
       name: "Enabled"
       type: "REG_DWORD"
       value: "0"
+
+- title: "Keep Mitigations Default"
+  description: "Keep CPU security mitigations enabled (default)"
+  category: "Performance"
+  privilege: "Admin"
+  option: "mitigations-default"
+  actions:
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "FeatureSettingsOverride"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+      name: "FeatureSettingsOverrideMask"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
+      name: "EnableVirtualizationBasedSecurity"
+      type: "REG_DWORD"
+      value: "1"
 
 # === KEPT FOR ANTI-CHEAT COMPATIBILITY ===
 # ASLR is NOT disabled (MoveImages stays at default 1)

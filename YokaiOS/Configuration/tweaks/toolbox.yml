@@ -79,10 +79,10 @@ actions:
     description: "Inicia a toolbox junto com o Windows"
     category: "Toolbox"
     privilege: "Admin"
-    option: "install-toolbox"
+    option: "toolbox-startup"
     actions:
       - !registry
-        option: "install-toolbox"
+        option: "toolbox-startup"
         path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
         name: "YokaiOS Toolbox"
         type: "REG_SZ"

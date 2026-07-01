@@ -6,6 +6,7 @@
   description: "Remove default pinned apps from Start Menu"
   category: "QoL"
   privilege: "Admin"
+  option: "remove-pinned-items-startmenu"
   actions:
     - !powershell
       command: |
