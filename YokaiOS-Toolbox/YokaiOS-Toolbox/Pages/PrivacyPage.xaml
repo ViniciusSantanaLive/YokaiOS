@@ -1,19 +1,37 @@
-<Page x:Class="YokaiOS_Toolbox.Pages.PrivacyPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Background="Transparent">
-    <StackPanel>
-        <Border Style="{StaticResource CardBorder}">
-            <StackPanel>
-                <TextBlock Text="Privacidade" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource YokaiText}" Margin="0,0,0,4"/>
-                <TextBlock Text="20+ otimizacoes para eliminar telemetria" FontSize="13" Foreground="{StaticResource YokaiText2}" Margin="0,0,0,16"/>
-                <CheckBox Content="Desabilitar Telemetria" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
-                <CheckBox Content="Desabilitar Tracking e Advertising ID" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
-                <CheckBox Content="Desabilitar Cortana" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
-                <CheckBox Content="Desabilitar Busca Web (Bing)" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
-                <CheckBox Content="Desabilitar Location Tracking" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
-                <CheckBox Content="Desabilitar SmartScreen" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
-                <CheckBox Content="Desabilitar Cloud Search" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,8"/>
-                <CheckBox Content="Desabilitar Feedback" IsChecked="True" Foreground="{StaticResource YokaiText}" Margin="0,0,0,16"/>
-                <Button Content="Aplicar Privacidade" Style="{StaticResource PrimaryBtn}" Click="Apply_Click"/>
-            </StackPanel>
-        </Border>
-    </StackPanel>
+<Page x:Class="YokaiOS_Toolbox.Pages.PrivacyPage" 
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+      Background="Transparent">
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Border Style="{StaticResource CardBorderHover}" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Privacidade" FontSize="22" FontWeight="SemiBold" Foreground="{StaticResource YokaiText}"/>
+                    <TextBlock Text="20+ otimizacoes para eliminar telemetria" FontSize="13" Foreground="{StaticResource YokaiText2}"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Style="{StaticResource CardBorder}">
+                <StackPanel>
+                    <TextBlock Text="FEATURES" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource YokaiTextMuted}" Margin="0,0,0,16"/>
+                    
+                    <CheckBox x:Name="ChkTelemetry" Content="Desabilitar Telemetria" Style="{StaticResource YokaiCheckBox}" IsChecked="True" Margin="0,0,0,8"/>
+                    <CheckBox x:Name="ChkTracking" Content="Desabilitar Tracking e Advertising ID" Style="{StaticResource YokaiCheckBox}" IsChecked="True" Margin="0,0,0,8"/>
+                    <CheckBox x:Name="ChkCortana" Content="Desabilitar Cortana" Style="{StaticResource YokaiCheckBox}" IsChecked="True" Margin="0,0,0,8"/>
+                    <CheckBox x:Name="ChkWebSearch" Content="Desabilitar Busca Web (Bing)" Style="{StaticResource YokaiCheckBox}" IsChecked="True" Margin="0,0,0,8"/>
+                    <CheckBox x:Name="ChkLocation" Content="Desabilitar Location Tracking" Style="{StaticResource YokaiCheckBox}" IsChecked="True" Margin="0,0,0,8"/>
+                    <CheckBox x:Name="ChkSmartScreen" Content="Desabilitar SmartScreen" Style="{StaticResource YokaiCheckBox}" IsChecked="True" Margin="0,0,0,8"/>
+                    <CheckBox x:Name="ChkCloudSearch" Content="Desabilitar Cloud Search" Style="{StaticResource YokaiCheckBox}" IsChecked="True" Margin="0,0,0,8"/>
+                    <CheckBox x:Name="ChkFeedback" Content="Desabilitar Feedback" Style="{StaticResource YokaiCheckBox}" IsChecked="True" Margin="0,0,0,8"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Style="{StaticResource CardBorder}">
+                <Button Style="{StaticResource PrimaryBtn}" Click="Apply_Click">
+                    <TextBlock Text="Aplicar Privacidade"/>
+                </Button>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

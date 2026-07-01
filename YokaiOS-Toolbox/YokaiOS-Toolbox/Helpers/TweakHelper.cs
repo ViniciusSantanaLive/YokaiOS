@@ -354,6 +354,91 @@ namespace YokaiOS_Toolbox.Helpers
             SetRegistryValueLM(@"SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters", "DisabledComponents", 0x20, RegistryValueKind.DWord);
         }
 
+        public static void ApplyCloudflareDNS()
+        {
+            RunPowerShell("Get-NetAdapter | Where-Object {$_.Status -eq 'Up'} | ForEach-Object { Set-DnsClientServerAddress -InterfaceIndex $_.ifIndex -ServerAddresses ('1.1.1.1','1.0.0.1') }");
+        }
+
+        // Missing gaming methods
+        public static void ApplyGPUScheduling()
+        {
+            SetRegistryValueLM(@"SYSTEM\CurrentControlSet\Control\GraphicsDrivers", "HwSchMode", 2, RegistryValueKind.DWord);
+        }
+
+        public static void ApplyCPUPriority()
+        {
+            SetRegistryValue(@"System\CurrentControlSet\Control\PriorityControl", "Win32PrioritySeparation", 38, RegistryValueKind.DWord);
+        }
+
+        public static void ApplyTimerResolution()
+        {
+            SetRegistryValueLM(@"SYSTEM\CurrentControlSet\Control\Session Manager\kernel", "GlobalTimerResolutionRequests", 1, RegistryValueKind.DWord);
+            RunCommand("bcdedit /set tscsyncpolicy enhanced");
+            RunCommand("bcdedit /set disabledynamictick yes");
+        }
+
+        public static void ApplyVisualEffects()
+        {
+            SetRegistryValue(@"Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects", "VisualFXSetting", 2, RegistryValueKind.DWord);
+            SetRegistryValue(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "ListviewAlphaSelect", 0, RegistryValueKind.DWord);
+            SetRegistryValue(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "TaskbarAnimations", 0, RegistryValueKind.DWord);
+        }
+
+        // Missing performance methods
+        public static void ApplyMitigations()
+        {
+            RunCommand("powershell -Command \"Set-ProcessMitigation -System -Disable DEP, SEHOP, EmulateAtlThunks, EnableRopStackPivot, EnableRopCallerCheck, EnableRopSimExec\"");
+            SetRegistryValueLM(@"SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management", "FeatureSettingsOverride", 3, RegistryValueKind.DWord);
+            SetRegistryValueLM(@"SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management", "FeatureSettingsOverrideMask", 3, RegistryValueKind.DWord);
+        }
+
+        public static void DisableReservedStorage()
+        {
+            SetRegistryValueLM(@"SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager", "ShippedWithReserves", 0, RegistryValueKind.DWord);
+        }
+
+        public static void DisableScheduledTasks()
+        {
+            var tasks = new[] {
+                @"\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser",
+                @"\Microsoft\Windows\Application Experience\ProgramDataUpdater",
+                @"\Microsoft\Windows\Autochk\Proxy",
+                @"\Microsoft\Windows\Customer Experience Improvement Program\Consolidator",
+                @"\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip",
+                @"\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector",
+                @"\Microsoft\Windows\Feedback\Siuf\DmClient",
+                @"\Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload",
+                @"\Microsoft\Windows\Windows Error Reporting\QueueReporting",
+                @"\Microsoft\Windows\Maps\MapsToastTask",
+                @"\Microsoft\Windows\Maps\MapsUpdateTask"
+            };
+            foreach (var task in tasks)
+            {
+                RunCommand($"schtasks /Change /TN \"{task}\" /Disable");
+            }
+        }
+
+        // Missing privacy methods
+        public static void ApplyCloudSearch()
+        {
+            SetRegistryValueLM(@"SOFTWARE\Policies\Microsoft\Windows\Windows Search", "DisableWebSearch", 1, RegistryValueKind.DWord);
+            SetRegistryValueLM(@"SOFTWARE\Policies\Microsoft\Windows\Windows Search", "ConnectedSearchUseWeb", 0, RegistryValueKind.DWord);
+        }
+
+        // Missing debloat methods
+        public static void RemoveBloatware()
+        {
+            var apps = new[] {
+                "Microsoft.3DBuilder", "Microsoft.BingWeather", "Microsoft.BingNews",
+                "Microsoft.GetHelp", "Microsoft.Getstarted", "Microsoft.MicrosoftOfficeHub",
+                "Microsoft.MicrosoftSolitaireCollection", "Microsoft.People",
+                "Microsoft.SkypeApp", "Microsoft.MixedReality.Portal",
+                "Microsoft.WindowsFeedbackHub", "Microsoft.YourPhone",
+                "Microsoft.ZuneMusic", "Microsoft.ZuneVideo"
+            };
+            foreach (var app in apps) RemoveAppxPackage(app);
+        }
+
         // System info
         public static int GetProcessCount() => Process.GetProcesses().Length;
 

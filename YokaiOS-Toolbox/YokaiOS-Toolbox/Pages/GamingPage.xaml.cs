@@ -13,16 +13,19 @@ namespace YokaiOS_Toolbox.Pages
 
         private void Apply_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Aplicar otimizacoes de gaming?", "YokaiOS", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show("Aplicar otimizacoes de gaming selecionadas?", "YokaiOS", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
-            TweakHelper.ApplyGameMode(true);
-            TweakHelper.ApplyGameBar(true);
-            TweakHelper.ApplyFSO(true);
-            TweakHelper.ApplyMouseAcceleration(true);
-            TweakHelper.SetRegistryValue(@"Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects", "VisualFXSetting", 2, Microsoft.Win32.RegistryValueKind.DWord);
+            if (ChkGameMode.IsChecked == true) TweakHelper.ApplyGameMode(true);
+            if (ChkGameBar.IsChecked == true) TweakHelper.ApplyGameBar(true);
+            if (ChkFSO.IsChecked == true) TweakHelper.ApplyFSO(true);
+            if (ChkGPUScheduling.IsChecked == true) TweakHelper.ApplyGPUScheduling();
+            if (ChkCPUPriority.IsChecked == true) TweakHelper.ApplyCPUPriority();
+            if (ChkTimerRes.IsChecked == true) TweakHelper.ApplyTimerResolution();
+            if (ChkMouseAccel.IsChecked == true) TweakHelper.ApplyMouseAcceleration(true);
+            if (ChkVisualFX.IsChecked == true) TweakHelper.ApplyVisualEffects();
 
-            MessageBox.Show("Gaming aplicado!\n\nReinicie para aplicar todas as mudancas.", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Gaming aplicado! Reinicie para melhor efeito.", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

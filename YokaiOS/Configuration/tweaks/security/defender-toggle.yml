@@ -1,0 +1,48 @@
+# Windows Defender Configuration
+# Toggles Windows Defender on/off based on user selection
+
+---
+- title: "Disable Windows Defender"
+  description: "Disable Windows Defender for maximum gaming performance"
+  category: "Security"
+  privilege: "Admin"
+  option: "defender-disable"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender"
+      name: "DisableAntiSpyware"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
+      name: "DisableRealtimeMonitoring"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
+      name: "DisableBehaviorMonitoring"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
+      name: "DisableScanOnRealtimeEnable"
+      type: "REG_DWORD"
+      value: "1"
+    - !service
+      name: "WinDefend"
+      startup_type: "disabled"
+
+- title: "Keep Windows Defender Enabled"
+  description: "Keep Windows Defender active (default)"
+  category: "Security"
+  privilege: "Admin"
+  option: "defender-enable"
+  actions:
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender"
+      name: "DisableAntiSpyware"
+      type: "REG_DWORD"
+      value: "0"
+    - !service
+      name: "WinDefend"
+      startup_type: "automatic"

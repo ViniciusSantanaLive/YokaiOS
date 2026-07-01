@@ -16,15 +16,16 @@ namespace YokaiOS_Toolbox.Pages
             var result = MessageBox.Show("Aplicar otimizacoes de privacidade?", "YokaiOS", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
-            TweakHelper.ApplyTelemetry(true);
-            TweakHelper.ApplyAdvertisingId(true);
-            TweakHelper.ApplyCortana(true);
-            TweakHelper.ApplyWebSearch(true);
-            TweakHelper.ApplyLocationTracking(true);
-            TweakHelper.ApplySmartScreen(true);
-            TweakHelper.ApplyFeedback(true);
+            if (ChkTelemetry.IsChecked == true) TweakHelper.ApplyTelemetry(true);
+            if (ChkTracking.IsChecked == true) TweakHelper.ApplyAdvertisingId(true);
+            if (ChkCortana.IsChecked == true) TweakHelper.ApplyCortana(true);
+            if (ChkWebSearch.IsChecked == true) TweakHelper.ApplyWebSearch(true);
+            if (ChkLocation.IsChecked == true) TweakHelper.ApplyLocationTracking(true);
+            if (ChkSmartScreen.IsChecked == true) TweakHelper.ApplySmartScreen(true);
+            if (ChkCloudSearch.IsChecked == true) TweakHelper.ApplyCloudSearch();
+            if (ChkFeedback.IsChecked == true) TweakHelper.ApplyFeedback(true);
 
-            MessageBox.Show("Privacidade aplicada!\n\nReinicie para aplicar todas as mudancas.", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Privacidade aplicada! Reinicie para melhor efeito.", "YokaiOS", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

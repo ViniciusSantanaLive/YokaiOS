@@ -1,0 +1,41 @@
+# Hibernate Configuration
+# Toggles Hibernate and Fast Startup based on user selection
+
+---
+- title: "Disable Hibernate"
+  description: "Disable hibernation and Fast Startup for cleaner boot"
+  category: "Power"
+  privilege: "Admin"
+  option: "disable-hibernate"
+  actions:
+    - !cmd
+      command: "powercfg /hibernate off"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power"
+      name: "HibernateEnabled"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power"
+      name: "HiberbootEnabled"
+      type: "REG_DWORD"
+      value: "0"
+
+- title: "Keep Hibernate Enabled"
+  description: "Keep hibernation and Fast Startup enabled"
+  category: "Power"
+  privilege: "Admin"
+  option: "enable-hibernate"
+  actions:
+    - !cmd
+      command: "powercfg /hibernate on"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power"
+      name: "HibernateEnabled"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power"
+      name: "HiberbootEnabled"
+      type: "REG_DWORD"
+      value: "1"

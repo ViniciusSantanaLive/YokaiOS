@@ -1,0 +1,69 @@
+# Windows Update Configuration
+# Toggles Windows Update based on user selection
+
+---
+- title: "Disable Windows Update"
+  description: "Disable automatic Windows updates for gaming"
+  category: "System"
+  privilege: "Admin"
+  option: "updates-disable"
+  actions:
+    - !service
+      name: "wuauserv"
+      startup_type: "disabled"
+    - !service
+      name: "UsoSvc"
+      startup_type: "disabled"
+    - !service
+      name: "DoSvc"
+      startup_type: "disabled"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
+      name: "NoAutoUpdate"
+      type: "REG_DWORD"
+      value: "1"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
+      name: "AUOptions"
+      type: "REG_DWORD"
+      value: "1"
+
+- title: "Notify Only About Updates"
+  description: "Show notifications but don't auto-install"
+  category: "System"
+  privilege: "Admin"
+  option: "updates-notify"
+  actions:
+    - !service
+      name: "wuauserv"
+      startup_type: "manual"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
+      name: "NoAutoUpdate"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
+      name: "AUOptions"
+      type: "REG_DWORD"
+      value: "2"
+
+- title: "Keep Windows Update Default"
+  description: "Keep automatic updates enabled"
+  category: "System"
+  privilege: "Admin"
+  option: "updates-default"
+  actions:
+    - !service
+      name: "wuauserv"
+      startup_type: "automatic"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
+      name: "NoAutoUpdate"
+      type: "REG_DWORD"
+      value: "0"
+    - !registry
+      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU"
+      name: "AUOptions"
+      type: "REG_DWORD"
+      value: "4"

@@ -40,9 +40,15 @@
 - !include tweaks/qol/taskbar.yml
 - !include tweaks/qol/context-menu.yml
 - !include tweaks/qol/qol-tweaks.yml
+- !include tweaks/qol/remove-pinned-items.yml
 
 # Security Hardening
 - !include tweaks/security/security-hardening.yml
+- !include tweaks/security/defender-toggle.yml
+
+# Performance - Toggles
+- !include tweaks/performance/windows-update-toggle.yml
+- !include tweaks/performance/hibernate-toggle.yml
 
 # Debloat
 - !include tweaks/debloat/remove-bloatware.yml
