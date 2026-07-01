@@ -1,5 +1,5 @@
 # YokaiOS Build Script v2.0
-# Creates the .apbx file for AME Wizard
+# Creates the .apbx file for AME Wizard (encrypted with password)
 
 param(
     [string]$OutputPath = ""
@@ -51,16 +51,47 @@ if (Test-Path $OutputPath) {
     Write-Host "[*] Removed existing .apbx file" -ForegroundColor Yellow
 }
 
-# Create the .apbx archive
+# Create the .apbx archive (encrypted ZIP)
 Write-Host "[*] Creating YokaiOS playbook..." -ForegroundColor Yellow
 
 try {
-    # Compress to ZIP first
+    # AME Wizard password
+    $password = "malte"
+    
+    # Temp ZIP path
     $zipPath = $OutputPath -replace '\.apbx$', '.zip'
-    Compress-Archive -Path "$sourcePath\*" -DestinationPath $zipPath -Force
+    
+    # Remove temp zip if exists
+    if (Test-Path $zipPath) {
+        Remove-Item $zipPath -Force
+    }
+    
+    # Check if 7-Zip is available
+    $7zPath = @(
+        "C:\Program Files\7-Zip\7z.exe",
+        "C:\Program Files (x86)\7-Zip\7z.exe",
+        "$env:LOCALAPPDATA\Programs\7-Zip\7z.exe"
+    ) | Where-Object { Test-Path $_ } | Select-Object -First 1
+    
+    if ($7zPath) {
+        Write-Host "[*] Using 7-Zip for encryption..." -ForegroundColor Yellow
+        # Create encrypted archive with 7-Zip
+        & $7zPath a -tzip -p$password -mem=AES256 $zipPath "$sourcePath\*" | Out-Null
+    } else {
+        Write-Host "[*] 7-Zip not found, using .NET compression..." -ForegroundColor Yellow
+        # Fallback: Create regular ZIP (AME Wizard will still try to open it)
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($sourcePath, $zipPath)
+        
+        Write-Host "[!] WARNING: Archive created without encryption." -ForegroundColor Yellow
+        Write-Host "[!] Install 7-Zip for proper AME Wizard compatibility." -ForegroundColor Yellow
+        Write-Host "[!] Download: https://7-zip.org/" -ForegroundColor Yellow
+    }
     
     # Rename to .apbx
-    Rename-Item -Path $zipPath -NewName (Split-Path $OutputPath -Leaf) -Force
+    if (Test-Path $zipPath) {
+        Rename-Item -Path $zipPath -NewName (Split-Path $OutputPath -Leaf) -Force
+    }
     
     $fileSize = (Get-Item $OutputPath).Length / 1MB
     
@@ -71,6 +102,7 @@ try {
 ╠═══════════════════════════════════════════════════════════════╣
 ║  Output: $OutputPath
 ║  Size:   $([math]::Round($fileSize, 2)) MB
+║  Encrypted: $(if($7zPath){"Yes (AES256)"}else{"No"})
 ║                                                               ║
 ║  To install:                                                  ║
 ║  1. Open AME Wizard                                          ║
