@@ -34,7 +34,7 @@ YokaiOS/
 ├── playbook.conf                    # Configuracao principal
 ├── README.md                        # Documentacao profissional
 ├── Configuration/
-│   ├── custom.yml                  # Entry point do AME (orquestra tweaks via !task)
+│   ├── main.yml                     # Entry point do AME (orquestra tweaks via !task)
 │   └── tweaks/
 │       ├── gaming/                 # 9 arquivos (consolidado)
 │       ├── performance/            # 12 arquivos (consolidado)

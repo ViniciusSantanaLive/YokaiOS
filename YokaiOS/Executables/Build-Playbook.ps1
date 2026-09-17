@@ -33,7 +33,8 @@ if (-not (Test-Path $sourcePath)) {
 # Verify required files
 $requiredFiles = @(
     "playbook.conf",
-    "Configuration\custom.yml",
+    "playbook.png",
+    "Configuration\main.yml",
     "Executables\Install-YokaiOS.ps1"
 )
 
@@ -110,6 +111,9 @@ try {
     # Copy files to temp folder (maintaining structure)
     Write-Host "[*] Copying files..." -ForegroundColor Yellow
     Copy-Item -Path "$sourcePath\playbook.conf" -Destination $tempFolder -Force
+    # playbook.png precisa ficar na RAIZ do playbook (256px) - e o icone que o AME
+    # exibe e um requisito citado na doc de verificacao deles.
+    Copy-Item -Path "$sourcePath\playbook.png" -Destination $tempFolder -Force
     Copy-Item -Path "$sourcePath\Configuration" -Destination $tempFolder -Recurse -Force
     Copy-Item -Path "$sourcePath\Executables" -Destination $tempFolder -Recurse -Force
     Copy-Item -Path "$sourcePath\Images" -Destination $tempFolder -Recurse -Force

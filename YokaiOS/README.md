@@ -183,7 +183,7 @@ powershell -ExecutionPolicy Bypass -File "C:\YokaiOS\Restore-Defaults.ps1"
 YokaiOS/
 ├── playbook.conf                    # Configuracao principal do playbook
 ├── Configuration/
-│   ├── custom.yml                  # Entry point do AME (orquestra os tweaks via !task)
+│   ├── main.yml                     # Entry point do AME (orquestra os tweaks via !task)
 │   └── tweaks/
 │       ├── gaming/                 # 12 arquivos de otimizacao gaming
 │       │   ├── gpu-optimization.yml
@@ -313,7 +313,7 @@ Contribuicoes sao bem-vindas! Para contribuir:
 ## Changelog
 
 ### v2.0.0 (Atual)
-- Playbook validado e funcional no AME Wizard (entry point `custom.yml`, sintaxe `!registryValue`/`!task`)
+- Playbook validado e funcional no AME Wizard (entry point `main.yml`, sintaxe `!registryValue`/`!task`)
 - Toolbox unificada em Tauri (Rust + TypeScript); versao C# WPF removida
 - Toolbox cria ISO customizada do Win11 com debloat offline + bypass de TPM/Secure Boot/RAM (instala em VM/hardware nao suportado)
 - Consolidacao de arquivos (rede, GPU, gaming, servicos, tarefas, privacy)
