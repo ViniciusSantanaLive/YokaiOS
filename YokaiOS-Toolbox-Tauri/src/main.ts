@@ -123,7 +123,7 @@ function renderSidebar(): string {
 
   const sys = [
     { id: 'createiso', icon: Icons.disk, label: 'Create ISO' },
-    { id: 'services', icon: Icons.settings, label: 'Servicos' },
+    { id: 'services', icon: Icons.settings, label: 'Serviços' },
     { id: 'benchmark', icon: Icons.benchmark, label: 'Benchmark' },
     { id: 'restore', icon: Icons.restore, label: 'Restaurar' },
   ];
@@ -192,7 +192,7 @@ function renderDashboard(): string {
     <div class="fade-in">
       <div class="page-header">
         <h1 class="page-title">Dashboard</h1>
-        <p class="page-subtitle">Visao geral do sistema</p>
+        <p class="page-subtitle">Visão geral do sistema</p>
         <div class="page-divider"></div>
       </div>
       <div class="stats-row">
@@ -200,7 +200,7 @@ function renderDashboard(): string {
           <div class="stat-icon">${Icons.activity}</div>
           <div class="stat-label">Processos</div>
           <div class="stat-value">${s?.process_count ?? '...'}</div>
-          <div class="stat-change">em execucao</div>
+          <div class="stat-change">em execução</div>
         </div>
         <div class="stat">
           <div class="stat-icon">${Icons.ram}</div>
@@ -212,7 +212,7 @@ function renderDashboard(): string {
           <div class="stat-icon">${Icons.cpu}</div>
           <div class="stat-label">CPU</div>
           <div class="stat-value">${s ? s.cpu_usage.toFixed(0) : '...'}%</div>
-          <div class="stat-change">uso medio</div>
+          <div class="stat-change">uso médio</div>
         </div>
         <div class="stat">
           <div class="stat-icon">${Icons.settings}</div>
@@ -224,8 +224,8 @@ function renderDashboard(): string {
       <div class="card">
         <div class="card-header">
           <div>
-            <div class="card-title">Acoes Rapidas</div>
-            <div class="card-subtitle">Execute as otimizacoes com um clique</div>
+            <div class="card-title">Ações Rápidas</div>
+            <div class="card-subtitle">Execute as otimizações com um clique</div>
           </div>
         </div>
         <div class="btn-group">
@@ -235,7 +235,7 @@ function renderDashboard(): string {
         </div>
       </div>
       <div class="card">
-        <div class="card-title mb-4">Informacoes do Sistema</div>
+        <div class="card-title mb-4">Informações do Sistema</div>
         <div class="info-grid">
           <div class="info-item">
             <div class="info-label">Computador</div>
@@ -263,25 +263,25 @@ function renderGaming(): string {
   const tweaks = [
     { id: 'gamemode', title: 'Desabilitar Game Mode', desc: 'Evita stuttering causado pelo Game Mode', badge: 'high' },
     { id: 'gamebar', title: 'Desabilitar Game Bar e DVR', desc: 'Remove overlay que consome recursos', badge: 'high' },
-    { id: 'fso', title: 'Desabilitar Fullscreen Optimizations', desc: 'Forca tela cheia exclusiva', badge: 'medium' },
+    { id: 'fso', title: 'Desabilitar Fullscreen Optimizations', desc: 'Força tela cheia exclusiva', badge: 'medium' },
     { id: 'gpu', title: 'Otimizar GPU Scheduling', desc: 'Hardware-accelerated GPU scheduling', badge: 'low' },
     { id: 'cpu', title: 'Otimizar CPU Priority', desc: 'Win32PrioritySeparation = 38', badge: 'low' },
-    { id: 'timer', title: 'Timer Resolution 0.5ms', desc: 'Reduz latencia do timer do sistema', badge: 'medium' },
-    { id: 'mouse', title: 'Desabilitar Aceleracao do Mouse', desc: 'Input raw 1:1 para miras precisas', badge: 'high' },
-    { id: 'visual', title: 'Desabilitar Efeitos Visuais', desc: 'Remove animacoes para liberar GPU', badge: 'medium' },
+    { id: 'timer', title: 'Timer Resolution 0.5ms', desc: 'Reduz latência do timer do sistema', badge: 'medium' },
+    { id: 'mouse', title: 'Desabilitar Aceleração do Mouse', desc: 'Input raw 1:1 para miras precisas', badge: 'high' },
+    { id: 'visual', title: 'Desabilitar Efeitos Visuais', desc: 'Remove animações para liberar GPU', badge: 'medium' },
   ];
-  return renderTweakPage('Gaming', 'Otimizacoes para maximo desempenho em jogos', tweaks, 'btn-apply-gaming', 'Aplicar Gaming');
+  return renderTweakPage('Gaming', 'Otimizações para máximo desempenho em jogos', tweaks, 'btn-apply-gaming', 'Aplicar Gaming');
 }
 
 function renderPerformance(): string {
   const tweaks = [
     { id: 'services', title: 'Desabilitar 50+ Servicos', desc: 'Remove servicos desnecessarios', badge: 'high' },
     { id: 'tasks', title: 'Desabilitar 60+ Tarefas Agendadas', desc: 'Remove tarefas de telemetria', badge: 'high' },
-    { id: 'power', title: 'Plano Ultimate Performance', desc: 'Maximo desempenho do processador', badge: 'low' },
+    { id: 'power', title: 'Plano Ultimate Performance', desc: 'Máximo desempenho do processador', badge: 'low' },
     { id: 'darkmode', title: 'Modo Escuro', desc: 'Ativa tema escuro do sistema', badge: 'info' },
     { id: 'contextmenu', title: 'Menu Contexto Classico', desc: 'Restaura menu do Windows 10', badge: 'info' },
   ];
-  return renderTweakPage('Performance', '50+ servicos, 60+ tarefas, otimizacoes WinUtil', tweaks, 'btn-apply-performance', 'Aplicar Performance');
+  return renderTweakPage('Performance', '50+ serviços, 60+ tarefas, otimizações WinUtil', tweaks, 'btn-apply-performance', 'Aplicar Performance');
 }
 
 function renderPrivacy(): string {
@@ -292,7 +292,7 @@ function renderPrivacy(): string {
     { id: 'websearch', title: 'Desabilitar Busca Web (Bing)', desc: 'Remove Bing do Menu Iniciar', badge: 'medium' },
     { id: 'location', title: 'Desabilitar Location Tracking', desc: 'Remove servico de localizacao', badge: 'medium' },
   ];
-  return renderTweakPage('Privacidade', '20+ otimizacoes para eliminar telemetria', tweaks, 'btn-apply-privacy', 'Aplicar Privacidade');
+  return renderTweakPage('Privacidade', '20+ otimizações para eliminar telemetria', tweaks, 'btn-apply-privacy', 'Aplicar Privacidade');
 }
 
 function renderDebloat(): string {
@@ -303,17 +303,17 @@ function renderDebloat(): string {
     { id: 'widgets', title: 'Remover Widgets', desc: 'Remove painel de widgets', badge: 'low' },
     { id: 'xbox', title: 'Remover Xbox Apps', desc: 'Remove apps Xbox exceto Game Bar', badge: 'low' },
   ];
-  return renderTweakPage('Debloat', 'Remocao de bloatware e componentes desnecessarios', tweaks, 'btn-apply-debloat', 'Aplicar Debloat');
+  return renderTweakPage('Debloat', 'Remoção de bloatware e componentes desnecessários', tweaks, 'btn-apply-debloat', 'Aplicar Debloat');
 }
 
 function renderNetwork(): string {
   const tweaks = [
-    { id: 'nagle', title: 'Desabilitar Algoritmo de Nagle', desc: 'Reduz latencia em conexoes TCP', badge: 'high' },
+    { id: 'nagle', title: 'Desabilitar Algoritmo de Nagle', desc: 'Reduz latência em conexões TCP', badge: 'high' },
     { id: 'dns', title: 'DNS Cloudflare (1.1.1.1)', desc: 'DNS mais rapido e privado', badge: 'low' },
     { id: 'throttling', title: 'Desabilitar Network Throttling', desc: 'Remove limitacao de rede', badge: 'medium' },
     { id: 'teredo', title: 'Desabilitar Teredo', desc: 'Remove tunel IPv6 problematico', badge: 'medium' },
   ];
-  return renderTweakPage('Rede', 'Otimizacoes de rede para baixa latencia', tweaks, 'btn-apply-network', 'Aplicar Rede');
+  return renderTweakPage('Rede', 'Otimizações de rede para baixa latência', tweaks, 'btn-apply-network', 'Aplicar Rede');
 }
 
 function renderCreateISO(): string {
@@ -321,7 +321,7 @@ function renderCreateISO(): string {
     <div class="fade-in">
       <div class="page-header">
         <h1 class="page-title">Create ISO</h1>
-        <p class="page-subtitle">Crie uma ISO do Windows 11 ja otimizada com YokaiOS</p>
+        <p class="page-subtitle">Crie uma ISO do Windows 11 já otimizada com YokaiOS</p>
         <div class="page-divider"></div>
       </div>
 
@@ -360,7 +360,7 @@ function renderCreateISO(): string {
       <div class="card">
         <div class="card-header">
           <div>
-            <div class="card-title">Passo 2: Configuracoes</div>
+            <div class="card-title">Passo 2: Configurações</div>
             <div class="card-subtitle">Escolha o que remover e aplicar na ISO</div>
           </div>
           <span class="toggle-badge badge-info">2/4</span>
@@ -370,11 +370,11 @@ function renderCreateISO(): string {
             { key: 'remove_edge', title: 'Remover Microsoft Edge', desc: 'Remove o navegador Edge da imagem' },
             { key: 'remove_onedrive', title: 'Remover OneDrive', desc: 'Remove o cloud storage da Microsoft' },
             { key: 'remove_copilot', title: 'Remover Copilot e IA', desc: 'Remove assistente de IA e Recall' },
-            { key: 'remove_bloatware', title: 'Remover Bloatware', desc: 'Remove 30+ apps pre-instalados' },
+            { key: 'remove_bloatware', title: 'Remover Bloatware', desc: 'Remove 30+ apps pré-instalados' },
             { key: 'remove_widgets', title: 'Remover Widgets', desc: 'Remove painel de widgets' },
             { key: 'remove_xbox', title: 'Remover Xbox Apps', desc: 'Remove apps Xbox (mantem Game Bar)' },
             { key: 'disable_defender', title: 'Desabilitar Defender', desc: 'Desabilita Windows Defender na imagem' },
-            { key: 'disable_updates', title: 'Desabilitar Updates', desc: 'Desabilita atualizacoes automaticas' },
+            { key: 'disable_updates', title: 'Desabilitar Updates', desc: 'Desabilita atualizações automáticas' },
             { key: 'apply_gaming', title: 'Aplicar Gaming Tweaks', desc: 'GPU, CPU, MMCS, Timer Resolution' },
             { key: 'apply_privacy', title: 'Aplicar Privacidade', desc: 'Telemetria, Tracking, Advertising' },
             { key: 'bypass_requirements', title: 'Bypass Requisitos Win11', desc: 'TPM 2.0, Secure Boot, RAM, CPU' },
@@ -394,7 +394,7 @@ function renderCreateISO(): string {
         <div class="card-header">
           <div>
             <div class="card-title">Passo 3: Usuario</div>
-            <div class="card-subtitle">Configure o usuario padrao da instalacao</div>
+            <div class="card-subtitle">Configure o usuário padrão da instalação</div>
           </div>
           <span class="toggle-badge badge-info">3/4</span>
         </div>
@@ -458,7 +458,7 @@ function renderCreateISO(): string {
         <div class="iso-progress-bar-container">
           <div class="iso-progress-bar" id="iso-progress-bar" style="width: 0%"></div>
         </div>
-        <div class="iso-progress-message" id="iso-progress-message">Aguardando inicio...</div>
+        <div class="iso-progress-message" id="iso-progress-message">Aguardando início...</div>
         <div class="terminal iso-log" id="iso-log"></div>
       </div>
     </div>
@@ -476,7 +476,7 @@ function renderTweakPage(title: string, subtitle: string, tweaks: Array<{id: str
       <div class="card">
         <div class="card-header">
           <div class="card-title">${title}</div>
-          <span class="toggle-badge badge-info">${tweaks.length} opcoes</span>
+          <span class="toggle-badge badge-info">${tweaks.length} opções</span>
         </div>
         ${tweaks.map(t => `
           <div class="toggle-item tweak-toggle" data-tweak="${t.id}">
@@ -485,7 +485,7 @@ function renderTweakPage(title: string, subtitle: string, tweaks: Array<{id: str
               <div class="toggle-title">${t.title}</div>
               <div class="toggle-desc">${t.desc}</div>
             </div>
-            <span class="toggle-badge badge-${t.badge}">${t.badge === 'high' ? 'Alto' : t.badge === 'medium' ? 'Medio' : t.badge === 'low' ? 'Baixo' : 'Info'}</span>
+            <span class="toggle-badge badge-${t.badge}">${t.badge === 'high' ? 'Alto' : t.badge === 'medium' ? 'Médio' : t.badge === 'low' ? 'Baixo' : 'Info'}</span>
           </div>
         `).join('')}
       </div>
@@ -532,14 +532,14 @@ function renderServices(): string {
   return `
     <div class="fade-in">
       <div class="page-header">
-        <h1 class="page-title">Servicos</h1>
-        <p class="page-subtitle">${services.length}+ servicos desabilitados pelo YokaiOS</p>
+        <h1 class="page-title">Serviços</h1>
+        <p class="page-subtitle">${services.length}+ serviços desabilitados pelo YokaiOS</p>
         <div class="page-divider"></div>
       </div>
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Servicos Desabilitados</div>
-          <span class="toggle-badge badge-info">${services.length} servicos</span>
+          <div class="card-title">Serviços Desabilitados</div>
+          <span class="toggle-badge badge-info">${services.length} serviços</span>
         </div>
         ${services.map(s => `
           <div class="service-item">
@@ -558,14 +558,14 @@ function renderBenchmark(): string {
     <div class="fade-in">
       <div class="page-header">
         <h1 class="page-title">Benchmark</h1>
-        <p class="page-subtitle">Metricas reais do sistema em tempo real</p>
+        <p class="page-subtitle">Métricas reais do sistema em tempo real</p>
         <div class="page-divider"></div>
       </div>
       <div class="card">
         <div class="card-header">
           <div class="card-title">Benchmark do Sistema</div>
         </div>
-        <div class="terminal" id="bench-output">Clique em Executar para comecar...</div>
+        <div class="terminal" id="bench-output">Clique em Executar para começar...</div>
       </div>
       <div class="card">
         <button class="btn btn-primary" id="btn-run-bench">${Icons.zap} Executar Benchmark</button>
@@ -579,14 +579,14 @@ function renderRestore(): string {
     <div class="fade-in">
       <div class="page-header">
         <h1 class="page-title">Restaurar</h1>
-        <p class="page-subtitle">Restaure configuracoes padrao do Windows</p>
+        <p class="page-subtitle">Restaure configurações padrão do Windows</p>
         <div class="page-divider"></div>
       </div>
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Restaurar Configuracoes</div>
+          <div class="card-title">Restaurar Configurações</div>
         </div>
-        <p class="text-sm text-muted mb-4">Reverte todas as otimizacoes aplicadas pelo YokaiOS.</p>
+        <p class="text-sm text-muted mb-4">Reverte todas as otimizações aplicadas pelo YokaiOS.</p>
         <button class="btn btn-danger" id="btn-restore">${Icons.restore} Restaurar Tudo</button>
       </div>
     </div>
@@ -772,7 +772,7 @@ async function loadUSBDrives() {
 
 async function applyAction(action: string) {
   if (isApplying) return;
-  if (!confirm('Aplicar otimizacoes?')) return;
+  if (!confirm('Aplicar otimizações?')) return;
 
   isApplying = true;
   const btn = document.querySelector(`[id^="btn-apply"], [id="btn-restore"]`) as HTMLButtonElement;
@@ -787,7 +787,7 @@ async function applyAction(action: string) {
     } else {
       await invoke(action);
     }
-    alert('Otimizacoes aplicadas com sucesso! Reinicie o computador.');
+    alert('Otimizações aplicadas com sucesso! Reinicie o computador.');
   } catch (e) { alert('Erro: ' + e); }
   finally {
     isApplying = false;
@@ -801,7 +801,7 @@ async function runBenchmark() {
   if (!output) return;
 
   if (btn) { btn.disabled = true; btn.textContent = 'Executando...'; }
-  output.innerHTML = '<span class="terminal-accent">=== YOKAIOS BENCHMARK ===</span>\n\nColetando metricas...\n';
+  output.innerHTML = '<span class="terminal-accent">=== YOKAIOS BENCHMARK ===</span>\n\nColetando métricas...\n';
 
   try {
     // Collect multiple samples for CPU accuracy
@@ -816,7 +816,7 @@ async function runBenchmark() {
     const avgRam = samples[1].ram; // Use middle sample
     const procCount = samples[2].proc;
 
-    output.innerHTML += `<span class="terminal-success">[CPU]</span> Uso: ${avgCpu.toFixed(1)}% (media de 3 amostras)`;
+    output.innerHTML += `<span class="terminal-success">[CPU]</span> Uso: ${avgCpu.toFixed(1)}% (média de 3 amostras)`;
     output.innerHTML += `\n<span class="terminal-success">[RAM]</span> Uso: ${avgRam.toFixed(2)} GB`;
 
     // Get network latency
@@ -838,7 +838,7 @@ async function runBenchmark() {
     // Services count
     try {
       const svcCount = await invoke<string>('run_powershell', { command: `(Get-Service | Where-Object {$_.StartType -eq 'Disabled'}).Count` });
-      output.innerHTML += `\n<span class="terminal-success">[SVC]</span> ${svcCount.trim()} servicos desabilitados`;
+      output.innerHTML += `\n<span class="terminal-success">[SVC]</span> ${svcCount.trim()} serviços desabilitados`;
     } catch { /* skip */ }
 
     // Process count
@@ -850,7 +850,7 @@ async function runBenchmark() {
       output.innerHTML += `\n<span class="terminal-success">[UPTIME]</span> Ultimo boot: ${uptime.trim()}`;
     } catch { /* skip */ }
 
-    output.innerHTML += `\n\n<span class="terminal-accent">=== CONCLUIDO ===</span>`;
+    output.innerHTML += `\n\n<span class="terminal-accent">=== CONCLUÍDO ===</span>`;
   } catch (e) {
     output.innerHTML += `\n<span style="color:var(--danger)">Erro: ${e}</span>`;
   } finally {
@@ -865,9 +865,9 @@ async function startISOCreation() {
   try {
     const isAdmin = await invoke<boolean>('check_admin');
     if (!isAdmin) {
-      if (confirm('Criar ISO precisa de privilegios de Administrador.\n\nDeseja reabrir como Administrador?')) {
+      if (confirm('Criar ISO precisa de privilégios de Administrador.\n\nDeseja reabrir como Administrador?')) {
         await invoke('request_elevation');
-        alert('A Toolbox sera reaberta como Administrador.\nFeche esta janela e use a nova.');
+        alert('A Toolbox será reaberta como Administrador.\nFeche esta janela e use a nova.');
       }
       return;
     }
@@ -891,7 +891,7 @@ async function startISOCreation() {
     return;
   }
 
-  if (!confirm('Criar ISO YokaiOS? Isso pode levar varios minutos.')) return;
+  if (!confirm('Criar ISO YokaiOS? Isso pode levar vários minutos.')) return;
 
   isApplying = true;
   const createBtn = document.getElementById('btn-create-iso') as HTMLButtonElement;

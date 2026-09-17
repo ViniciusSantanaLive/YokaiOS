@@ -425,7 +425,7 @@ fn download_windows_iso(output_path: String, window: tauri::Window) -> Result<St
     if output.status.success() && Path::new(&output_path).exists() {
         window.emit("iso-progress", ProgressUpdate {
             step: 1, total_steps: 8,
-            message: "Download concluido!".to_string(),
+            message: "Download concluído!".to_string(),
             percentage: 15, status: "downloaded".to_string(),
         }).ok();
         Ok(output_path)
@@ -495,7 +495,7 @@ fn extract_iso(iso_path: String, work_dir: String, window: tauri::Window) -> Res
 fn mount_wim(iso_work_dir: String, wim_mount_dir: String, window: tauri::Window) -> Result<String, String> {
     // Verifica se e administrador
     if !is_admin() {
-        return Err("DISM precisa de privilegios de Administrador. Clique com botao direito no exe > Executar como administrador.".to_string());
+        return Err("DISM precisa de privilégios de Administrador. Clique com botão direito no exe > Executar como administrador.".to_string());
     }
 
     window.emit("iso-progress", ProgressUpdate {
@@ -512,7 +512,7 @@ fn mount_wim(iso_work_dir: String, wim_mount_dir: String, window: tauri::Window)
         if Path::new(&esd_path).exists() {
             window.emit("iso-progress", ProgressUpdate {
                 step: 3, total_steps: 8,
-                message: "Convertendo ESD para WIM (pode levar varios minutos)...".to_string(),
+                message: "Convertendo ESD para WIM (pode levar vários minutos)...".to_string(),
                 percentage: 26, status: "converting".to_string(),
             }).ok();
             let output = silent_dism()
@@ -526,13 +526,13 @@ fn mount_wim(iso_work_dir: String, wim_mount_dir: String, window: tauri::Window)
             }
             std::fs::remove_file(&esd_path).ok();
         } else {
-            return Err(format!("install.wim e install.esd nao encontrados em: {}\\sources\\", iso_work_dir));
+            return Err(format!("install.wim e install.esd não encontrados em: {}\\sources\\", iso_work_dir));
         }
     }
 
     // Verifica se o WIM existe agora
     if !Path::new(&wim_path).exists() {
-        return Err(format!("Arquivo WIM nao existe apos conversao: {}", wim_path));
+        return Err(format!("Arquivo WIM não existe após conversão: {}", wim_path));
     }
 
     // === LIMPEZA FORÇADA ===
@@ -545,7 +545,7 @@ fn mount_wim(iso_work_dir: String, wim_mount_dir: String, window: tauri::Window)
     std::thread::sleep(std::time::Duration::from_millis(500));
     
     // 3. Cria diretorio limpo
-    std::fs::create_dir_all(&wim_mount_dir).map_err(|e| format!("Erro ao criar diretorio de mount: {}", e))?;
+    std::fs::create_dir_all(&wim_mount_dir).map_err(|e| format!("Erro ao criar diretório de mount: {}", e))?;
 
     // 4. Remove atributo ReadOnly do WIM (ISOs costumam ter WIM read-only)
     Command::new("attrib")
@@ -1053,7 +1053,7 @@ fn build_iso(iso_work_dir: String, output_path: String, window: tauri::Window) -
     if oscdimg_path.is_empty() {
         window.emit("iso-progress", ProgressUpdate {
             step: 8, total_steps: 8,
-            message: "oscdimg.exe nao encontrado. Baixando Windows ADK...".to_string(),
+            message: "oscdimg.exe não encontrado. Baixando Windows ADK...".to_string(),
             percentage: 76, status: "downloading_adk".to_string(),
         }).ok();
 
@@ -1126,7 +1126,7 @@ fn build_iso(iso_work_dir: String, output_path: String, window: tauri::Window) -
         }
 
         if oscdimg_path.is_empty() {
-            return Err("Nao foi possivel obter o oscdimg.exe.\n\nInstale manualmente o Windows ADK:\nhttps://learn.microsoft.com/pt-br/windows-hardware/get-started/adk-install".to_string());
+            return Err("Não foi possível obter o oscdimg.exe.\n\nInstale manualmente o Windows ADK:\nhttps://learn.microsoft.com/pt-br/windows-hardware/get-started/adk-install".to_string());
         }
 
         window.emit("iso-progress", ProgressUpdate {
@@ -1269,10 +1269,10 @@ fn check_admin() -> bool {
 #[tauri::command]
 fn request_elevation() -> Result<String, String> {
     if is_admin() {
-        return Ok("Ja e administrador".to_string());
+        return Ok("Já é administrador".to_string());
     }
     request_admin();
-    Ok("Solicitando elevacao...".to_string())
+    Ok("Solicitando elevação...".to_string())
 }
 
 #[tauri::command]
@@ -1301,7 +1301,7 @@ fn cleanup_iso_work() -> Result<String, String> {
     let temp = std::env::temp_dir();
     let _ = std::fs::remove_file(temp.join("yokai_diskpart.txt"));
 
-    Ok("Cleanup concluido".to_string())
+    Ok("Cleanup concluído".to_string())
 }
 
 fn main() {
