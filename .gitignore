@@ -5,8 +5,9 @@
 *.dll
 *.pdb
 *.cache
-*.json
-!package.json
+# NAO usar '*.json' aqui: isso deixava tauri.conf.json e os tsconfig fora do
+# repo, e um clone limpo nao compilava a Toolbox. Ignore apenas o que e gerado.
+YokaiOS-Toolbox-Tauri/src-tauri/gen/
 bin/
 obj/
 publish/
