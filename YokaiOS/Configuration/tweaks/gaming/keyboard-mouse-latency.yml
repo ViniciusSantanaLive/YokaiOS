@@ -1,82 +1,79 @@
 # Keyboard and Mouse Latency Optimization
 # Reduces input lag for gaming
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Sub-tarefa virou comentario; `option:` de
+# sub-tarefa foi propagado pras actions dela.
 
 ---
-- title: "Optimize USB Polling Rate"
-  description: "Set USB polling to maximum rate"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\mouclass\\Parameters"
-      value: "MouseDataQueueSize"
-      type: "REG_DWORD"
-      data: "20"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdclass\\Parameters"
-      value: "KeyboardDataQueueSize"
-      type: "REG_DWORD"
-      data: "20"
+title: Keyboard and Mouse Latency Optimization
+description: Reduces input lag for gaming
+privilege: Admin
+actions:
 
-- title: "Disable Mouse Acceleration"
-  description: "Raw mouse input for precise aiming"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKCU\\Control Panel\\Mouse"
-      value: "MouseSpeed"
-      type: "REG_SZ"
-      data: "0"
-    - !registryValue
-      path: "HKCU\\Control Panel\\Mouse"
-      value: "MouseThreshold1"
-      type: "REG_SZ"
-      data: "0"
-    - !registryValue
-      path: "HKCU\\Control Panel\\Mouse"
-      value: "MouseThreshold2"
-      type: "REG_SZ"
-      data: "0"
+  # === Optimize USB Polling Rate
+  # Set USB polling to maximum rate
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\mouclass\\Parameters"
+    value: "MouseDataQueueSize"
+    type: "REG_DWORD"
+    data: "20"
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Services\\kbdclass\\Parameters"
+    value: "KeyboardDataQueueSize"
+    type: "REG_DWORD"
+    data: "20"
 
-- title: "Set Mouse to 1:1"
-  description: "Disable enhanced pointer precision"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKCU\\Control Panel\\Mouse"
-      value: "MouseSensitivity"
-      type: "REG_SZ"
-      data: "10"
-    - !registryValue
-      path: "HKCU\\Control Panel\\Mouse"
-      value: "SmoothMouseXCurve"
-      type: "REG_BINARY"
-      data: "000000000000000000000000000000000000000000000000000000000000000000000000"
-    - !registryValue
-      path: "HKCU\\Control Panel\\Mouse"
-      value: "SmoothMouseYCurve"
-      type: "REG_BINARY"
-      data: "000000000000000000000000000000000000000000000000000000000000000000000000"
+  # === Disable Mouse Acceleration
+  # Raw mouse input for precise aiming
+  - !registryValue
+    path: "HKCU\\Control Panel\\Mouse"
+    value: "MouseSpeed"
+    type: "REG_SZ"
+    data: "0"
+  - !registryValue
+    path: "HKCU\\Control Panel\\Mouse"
+    value: "MouseThreshold1"
+    type: "REG_SZ"
+    data: "0"
+  - !registryValue
+    path: "HKCU\\Control Panel\\Mouse"
+    value: "MouseThreshold2"
+    type: "REG_SZ"
+    data: "0"
 
-- title: "Disable Filter Keys"
-  description: "Prevent keyboard input filtering"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKCU\\Control Panel\\Accessibility\\Keyboard Response"
-      value: "Flags"
-      type: "REG_SZ"
-      data: "0"
-    - !registryValue
-      path: "HKCU\\Control Panel\\Accessibility\\ToggleKeys"
-      value: "Flags"
-      type: "REG_SZ"
-      data: "0"
-    - !registryValue
-      path: "HKCU\\Control Panel\\Accessibility\\StickyKeys"
-      value: "Flags"
-      type: "REG_SZ"
-      data: "0"
+  # === Set Mouse to 1:1
+  # Disable enhanced pointer precision
+  - !registryValue
+    path: "HKCU\\Control Panel\\Mouse"
+    value: "MouseSensitivity"
+    type: "REG_SZ"
+    data: "10"
+  - !registryValue
+    path: "HKCU\\Control Panel\\Mouse"
+    value: "SmoothMouseXCurve"
+    type: "REG_BINARY"
+    data: "000000000000000000000000000000000000000000000000000000000000000000000000"
+  - !registryValue
+    path: "HKCU\\Control Panel\\Mouse"
+    value: "SmoothMouseYCurve"
+    type: "REG_BINARY"
+    data: "000000000000000000000000000000000000000000000000000000000000000000000000"
+
+  # === Disable Filter Keys
+  # Prevent keyboard input filtering
+  - !registryValue
+    path: "HKCU\\Control Panel\\Accessibility\\Keyboard Response"
+    value: "Flags"
+    type: "REG_SZ"
+    data: "0"
+  - !registryValue
+    path: "HKCU\\Control Panel\\Accessibility\\ToggleKeys"
+    value: "Flags"
+    type: "REG_SZ"
+    data: "0"
+  - !registryValue
+    path: "HKCU\\Control Panel\\Accessibility\\StickyKeys"
+    value: "Flags"
+    type: "REG_SZ"
+    data: "0"

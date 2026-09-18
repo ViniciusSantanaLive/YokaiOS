@@ -1,41 +1,48 @@
 # Hibernate Configuration
 # Toggles Hibernate and Fast Startup based on user selection
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Sub-tarefa virou comentario; `option:` de
+# sub-tarefa foi propagado pras actions dela.
 
 ---
-- title: "Disable Hibernate"
-  description: "Disable hibernation and Fast Startup for cleaner boot"
-  category: "Power"
-  privilege: "Admin"
-  option: "disable-hibernate"
-  actions:
-    - !cmd
-      command: "powercfg /hibernate off"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power"
-      value: "HibernateEnabled"
-      type: "REG_DWORD"
-      data: "0"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power"
-      value: "HiberbootEnabled"
-      type: "REG_DWORD"
-      data: "0"
+title: Hibernate Configuration
+description: Toggles Hibernate and Fast Startup based on user selection
+privilege: Admin
+actions:
 
-- title: "Keep Hibernate Enabled"
-  description: "Keep hibernation and Fast Startup enabled"
-  category: "Power"
-  privilege: "Admin"
-  option: "enable-hibernate"
-  actions:
-    - !cmd
-      command: "powercfg /hibernate on"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power"
-      value: "HibernateEnabled"
-      type: "REG_DWORD"
-      data: "1"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power"
-      value: "HiberbootEnabled"
-      type: "REG_DWORD"
-      data: "1"
+  # === Disable Hibernate
+  # Disable hibernation and Fast Startup for cleaner boot
+  - !cmd
+    option: "disable-hibernate"
+    command: "powercfg /hibernate off"
+  - !registryValue
+    option: "disable-hibernate"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power"
+    value: "HibernateEnabled"
+    type: "REG_DWORD"
+    data: "0"
+  - !registryValue
+    option: "disable-hibernate"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power"
+    value: "HiberbootEnabled"
+    type: "REG_DWORD"
+    data: "0"
+
+  # === Keep Hibernate Enabled
+  # Keep hibernation and Fast Startup enabled
+  - !cmd
+    option: "enable-hibernate"
+    command: "powercfg /hibernate on"
+  - !registryValue
+    option: "enable-hibernate"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power"
+    value: "HibernateEnabled"
+    type: "REG_DWORD"
+    data: "1"
+  - !registryValue
+    option: "enable-hibernate"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power"
+    value: "HiberbootEnabled"
+    type: "REG_DWORD"
+    data: "1"

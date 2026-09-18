@@ -1,65 +1,59 @@
 # Disable Startup Programs
 # Prevents unnecessary programs from starting with Windows
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Sub-tarefa virou comentario; `option:` de
+# sub-tarefa foi propagado pras actions dela.
 
 ---
-- title: "Disable OneDrive AutoStart"
-  description: "Prevent OneDrive from starting automatically"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-      value: "OneDrive"
-      type: "REG_SZ"
-      data: ""
-    - !cmd
-      command: "reg delete \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\" /v OneDrive /f 2>nul"
+title: Disable Startup Programs
+description: Prevents unnecessary programs from starting with Windows
+privilege: Admin
+actions:
 
-- title: "Disable Teams AutoStart"
-  description: "Prevent Microsoft Teams from starting automatically"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-      value: "com.squirrel.Teams.Teams"
-      type: "REG_SZ"
-      data: ""
+  # === Disable OneDrive AutoStart
+  # Prevent OneDrive from starting automatically
+  - !registryValue
+    path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+    value: "OneDrive"
+    type: "REG_SZ"
+    data: ""
+  - !cmd
+    command: "reg delete \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\" /v OneDrive /f 2>nul"
 
-- title: "Disable Skype AutoStart"
-  description: "Prevent Skype from starting automatically"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-      value: "Skype for Desktop"
-      type: "REG_SZ"
-      data: ""
+  # === Disable Teams AutoStart
+  # Prevent Microsoft Teams from starting automatically
+  - !registryValue
+    path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+    value: "com.squirrel.Teams.Teams"
+    type: "REG_SZ"
+    data: ""
 
-- title: "Disable Edge AutoStart"
-  description: "Prevent Microsoft Edge from starting automatically"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-      value: "Microsoft Edge"
-      type: "REG_SZ"
-      data: ""
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main"
-      value: "AllowPrelaunch"
-      type: "REG_DWORD"
-      data: "0"
+  # === Disable Skype AutoStart
+  # Prevent Skype from starting automatically
+  - !registryValue
+    path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+    value: "Skype for Desktop"
+    type: "REG_SZ"
+    data: ""
 
-- title: "Disable Cortana AutoStart"
-  description: "Prevent Cortana from starting automatically"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-      value: "Cortana"
-      type: "REG_SZ"
-      data: ""
+  # === Disable Edge AutoStart
+  # Prevent Microsoft Edge from starting automatically
+  - !registryValue
+    path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+    value: "Microsoft Edge"
+    type: "REG_SZ"
+    data: ""
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main"
+    value: "AllowPrelaunch"
+    type: "REG_DWORD"
+    data: "0"
+
+  # === Disable Cortana AutoStart
+  # Prevent Cortana from starting automatically
+  - !registryValue
+    path: "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+    value: "Cortana"
+    type: "REG_SZ"
+    data: ""

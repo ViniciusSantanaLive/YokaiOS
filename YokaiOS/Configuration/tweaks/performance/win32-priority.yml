@@ -1,36 +1,36 @@
 # Win32 Priority Separation
 # Optimizes CPU time allocation for gaming
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Sub-tarefa virou comentario; `option:` de
+# sub-tarefa foi propagado pras actions dela.
 
 ---
-- title: "Set Win32PrioritySeparation"
-  description: "Optimize CPU scheduling for foreground applications"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
-      value: "Win32PrioritySeparation"
-      type: "REG_DWORD"
-      data: "38"
+title: Win32 Priority Separation
+description: Optimizes CPU time allocation for gaming
+privilege: Admin
+actions:
 
-- title: "Set IRQ Priority"
-  description: "Prioritize hardware interrupts"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
-      value: "IRQ8Priority"
-      type: "REG_DWORD"
-      data: "1"
+  # === Set Win32PrioritySeparation
+  # Optimize CPU scheduling for foreground applications
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
+    value: "Win32PrioritySeparation"
+    type: "REG_DWORD"
+    data: "38"
 
-- title: "Disable Priority Boost"
-  description: "Disable dynamic priority boosting for consistent performance"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
-      value: "ConvertibleSlateMode"
-      type: "REG_DWORD"
-      data: "0"
+  # === Set IRQ Priority
+  # Prioritize hardware interrupts
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
+    value: "IRQ8Priority"
+    type: "REG_DWORD"
+    data: "1"
+
+  # === Disable Priority Boost
+  # Disable dynamic priority boosting for consistent performance
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl"
+    value: "ConvertibleSlateMode"
+    type: "REG_DWORD"
+    data: "0"

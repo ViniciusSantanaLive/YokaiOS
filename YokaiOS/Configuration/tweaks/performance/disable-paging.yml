@@ -1,36 +1,36 @@
 # Disable Paging
 # Optimizes virtual memory for gaming
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Sub-tarefa virou comentario; `option:` de
+# sub-tarefa foi propagado pras actions dela.
 
 ---
-- title: "Disable Paging Executive"
-  description: "Keep kernel and drivers in physical memory"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      value: "DisablePagingExecutive"
-      type: "REG_DWORD"
-      data: "1"
+title: Disable Paging
+description: Optimizes virtual memory for gaming
+privilege: Admin
+actions:
 
-- title: "Disable Large System Cache"
-  description: "Prioritize applications over system cache"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      value: "LargeSystemCache"
-      type: "REG_DWORD"
-      data: "0"
+  # === Disable Paging Executive
+  # Keep kernel and drivers in physical memory
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+    value: "DisablePagingExecutive"
+    type: "REG_DWORD"
+    data: "1"
 
-- title: "Optimize IoPageLockLimit"
-  description: "Set optimal I/O page lock limit"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      value: "IoPageLockLimit"
-      type: "REG_DWORD"
-      data: "0"
+  # === Disable Large System Cache
+  # Prioritize applications over system cache
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+    value: "LargeSystemCache"
+    type: "REG_DWORD"
+    data: "0"
+
+  # === Optimize IoPageLockLimit
+  # Set optimal I/O page lock limit
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+    value: "IoPageLockLimit"
+    type: "REG_DWORD"
+    data: "0"

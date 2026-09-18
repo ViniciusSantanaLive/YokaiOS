@@ -1,44 +1,50 @@
 # Windows Defender Configuration
 # Toggles Windows Defender on/off based on user selection
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Sub-tarefa virou comentario; `option:` de
+# sub-tarefa foi propagado pras actions dela.
 
 ---
-- title: "Disable Windows Defender"
-  description: "Disable Windows Defender for maximum gaming performance"
-  category: "Security"
-  privilege: "Admin"
-  option: "defender-disable"
-  actions:
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender"
-      value: "DisableAntiSpyware"
-      type: "REG_DWORD"
-      data: "1"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
-      value: "DisableRealtimeMonitoring"
-      type: "REG_DWORD"
-      data: "1"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
-      value: "DisableBehaviorMonitoring"
-      type: "REG_DWORD"
-      data: "1"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
-      value: "DisableScanOnRealtimeEnable"
-      type: "REG_DWORD"
-      data: "1"
-    - !service: {name: 'WinDefend', operation: change, startup: 4}
+title: Windows Defender Configuration
+description: Toggles Windows Defender on/off based on user selection
+privilege: Admin
+actions:
 
-- title: "Keep Windows Defender Enabled"
-  description: "Keep Windows Defender active (default)"
-  category: "Security"
-  privilege: "Admin"
-  option: "defender-enable"
-  actions:
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender"
-      value: "DisableAntiSpyware"
-      type: "REG_DWORD"
-      data: "0"
-    - !service: {name: 'WinDefend', operation: change, startup: 2}
+  # === Disable Windows Defender
+  # Disable Windows Defender for maximum gaming performance
+  - !registryValue
+    option: "defender-disable"
+    path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender"
+    value: "DisableAntiSpyware"
+    type: "REG_DWORD"
+    data: "1"
+  - !registryValue
+    option: "defender-disable"
+    path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
+    value: "DisableRealtimeMonitoring"
+    type: "REG_DWORD"
+    data: "1"
+  - !registryValue
+    option: "defender-disable"
+    path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
+    value: "DisableBehaviorMonitoring"
+    type: "REG_DWORD"
+    data: "1"
+  - !registryValue
+    option: "defender-disable"
+    path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
+    value: "DisableScanOnRealtimeEnable"
+    type: "REG_DWORD"
+    data: "1"
+  - !service: {name: 'WinDefend', operation: change, startup: 4, option: 'defender-disable'}
+
+  # === Keep Windows Defender Enabled
+  # Keep Windows Defender active (default)
+  - !registryValue
+    option: "defender-enable"
+    path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender"
+    value: "DisableAntiSpyware"
+    type: "REG_DWORD"
+    data: "0"
+  - !service: {name: 'WinDefend', operation: change, startup: 2, option: 'defender-enable'}

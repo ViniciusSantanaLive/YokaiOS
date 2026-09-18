@@ -1,26 +1,32 @@
 # Timer Resolution Optimization
 # Sets system timer to 0.5ms for lower latency
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Agrupamento logico vai em comentario, nao
+# em sub-tarefa com title: dentro de actions: (item sem tag nao resolve).
 
 ---
-- title: "Set Timer Resolution"
-  description: "Configure system timer for 0.5ms resolution"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
-      value: "GlobalTimerResolutionRequests"
-      type: "REG_DWORD"
-      data: "1"
-    - !cmd
-      command: "bcdedit /set tscsyncpolicy enhanced"
+title: Timer Resolution Optimization
+description: Configura o timer do sistema para 0.5ms e forca tick consistente
+privilege: Admin
+actions:
 
-- title: "Disable Dynamic Tick"
-  description: "Force consistent timer behavior"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "bcdedit /set disabledynamictick yes"
-    - !cmd
-      command: "bcdedit /set useplatformtick yes"
+  - !writeStatus
+    status: "Otimizando timer do sistema..."
+
+  # === Set Timer Resolution - resolucao de 0.5ms
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
+    value: "GlobalTimerResolutionRequests"
+    type: "REG_DWORD"
+    data: "1"
+
+  - !cmd
+    command: "bcdedit /set tscsyncpolicy enhanced"
+
+  # === Disable Dynamic Tick - forca comportamento consistente do timer
+  - !cmd
+    command: "bcdedit /set disabledynamictick yes"
+
+  - !cmd
+    command: "bcdedit /set useplatformtick yes"

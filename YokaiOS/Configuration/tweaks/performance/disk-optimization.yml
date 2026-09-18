@@ -1,63 +1,57 @@
 # Disk Optimization
 # Optimizes disk I/O for gaming
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Sub-tarefa virou comentario; `option:` de
+# sub-tarefa foi propagado pras actions dela.
 
 ---
-- title: "Disable NTFS Last Access Time"
-  description: "Prevents updating file access timestamps"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
-      value: "NtfsDisableLastAccessUpdate"
-      type: "REG_DWORD"
-      data: "80000003"
+title: Disk Optimization
+description: Optimizes disk I/O for gaming
+privilege: Admin
+actions:
 
-- title: "Disable 8.3 Name Creation"
-  description: "Disables legacy short filename creation"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
-      value: "NtfsDisable8dot3NameCreation"
-      type: "REG_DWORD"
-      data: "1"
+  # === Disable NTFS Last Access Time
+  # Prevents updating file access timestamps
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+    value: "NtfsDisableLastAccessUpdate"
+    type: "REG_DWORD"
+    data: "80000003"
 
-- title: "Optimize NTFS Memory Usage"
-  description: "Configure NTFS paged pool memory"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
-      value: "NtfsPagedPoolSize"
-      type: "REG_DWORD"
-      data: "0"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
-      value: "NtfsNonPagedPoolSize"
-      type: "REG_DWORD"
-      data: "0"
+  # === Disable 8.3 Name Creation
+  # Disables legacy short filename creation
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+    value: "NtfsDisable8dot3NameCreation"
+    type: "REG_DWORD"
+    data: "1"
 
-- title: "Disable Bandwidth Limit"
-  description: "Remove network bandwidth reservation"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched"
-      value: "NonBestEffortLimit"
-      type: "REG_DWORD"
-      data: "0"
+  # === Optimize NTFS Memory Usage
+  # Configure NTFS paged pool memory
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+    value: "NtfsPagedPoolSize"
+    type: "REG_DWORD"
+    data: "0"
+  - !registryValue
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem"
+    value: "NtfsNonPagedPoolSize"
+    type: "REG_DWORD"
+    data: "0"
 
-- title: "Disable Background Disk Defragmentation"
-  description: "Prevent background defrag during gaming"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Dfrg\\BootOptimizeFunction"
-      value: "Enable"
-      type: "REG_SZ"
-      data: "N"
+  # === Disable Bandwidth Limit
+  # Remove network bandwidth reservation
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched"
+    value: "NonBestEffortLimit"
+    type: "REG_DWORD"
+    data: "0"
+
+  # === Disable Background Disk Defragmentation
+  # Prevent background defrag during gaming
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Dfrg\\BootOptimizeFunction"
+    value: "Enable"
+    type: "REG_SZ"
+    data: "N"

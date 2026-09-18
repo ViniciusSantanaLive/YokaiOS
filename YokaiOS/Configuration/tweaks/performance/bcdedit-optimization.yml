@@ -1,71 +1,56 @@
 # BCDedit Optimizations
 # Boot configuration optimizations for gaming
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Sub-tarefa virou comentario; `option:` de
+# sub-tarefa foi propagado pras actions dela.
 
 ---
-- title: "Disable Dynamic Tick"
-  description: "Prevent CPU from entering low-power states"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "bcdedit /set disabledynamictick yes"
+title: BCDedit Optimizations
+description: Boot configuration optimizations for gaming
+privilege: Admin
+actions:
 
-- title: "Set Platform Clock"
-  description: "Force use of platform clock for consistent timing"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "bcdedit /set useplatformclock true"
-    - !cmd
-      command: "bcdedit /set useplatformtick yes"
+  # === Disable Dynamic Tick
+  # Prevent CPU from entering low-power states
+  - !cmd
+    command: "bcdedit /set disabledynamictick yes"
 
-- title: "Set TSC Sync Policy"
-  description: "Configure TSC synchronization for better performance"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "bcdedit /set tscsyncpolicy enhanced"
+  # === Set Platform Clock
+  # Force use of platform clock for consistent timing
+  - !cmd
+    command: "bcdedit /set useplatformclock true"
+  - !cmd
+    command: "bcdedit /set useplatformtick yes"
 
-- title: "Disable Boot Log"
-  description: "Disable boot logging for faster boot"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "bcdedit /set bootlog no"
+  # === Set TSC Sync Policy
+  # Configure TSC synchronization for better performance
+  - !cmd
+    command: "bcdedit /set tscsyncpolicy enhanced"
 
-- title: "Disable Boot Menu"
-  description: "Skip boot menu for faster boot"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "bcdedit /set bootmenupolicy standard"
+  # === Disable Boot Log
+  # Disable boot logging for faster boot
+  - !cmd
+    command: "bcdedit /set bootlog no"
 
-- title: "Set Timeout"
-  description: "Set boot timeout to 0"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "bcdedit /timeout 0"
+  # === Disable Boot Menu
+  # Skip boot menu for faster boot
+  - !cmd
+    command: "bcdedit /set bootmenupolicy standard"
 
-- title: "Disable Integrity Checks"
-  description: "Disable driver integrity checks for performance"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "bcdedit /set nointegritychecks yes"
+  # === Set Timeout
+  # Set boot timeout to 0
+  - !cmd
+    command: "bcdedit /timeout 0"
 
-- title: "Disable Debug"
-  description: "Disable kernel debugging"
-  category: "Performance"
-  privilege: "Admin"
-  actions:
-    - !cmd
-      command: "bcdedit /debug off"
-    - !cmd
-      command: "bcdedit /set debug no"
+  # === Disable Integrity Checks
+  # Disable driver integrity checks for performance
+  - !cmd
+    command: "bcdedit /set nointegritychecks yes"
+
+  # === Disable Debug
+  # Disable kernel debugging
+  - !cmd
+    command: "bcdedit /debug off"
+  - !cmd
+    command: "bcdedit /set debug no"

@@ -1,111 +1,111 @@
 # MMCS Configuration
 # Multimedia Class Scheduler Service optimization for gaming
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Sub-tarefa virou comentario; `option:` de
+# sub-tarefa foi propagado pras actions dela.
 
 ---
-- title: "Optimize MMCS for Gaming"
-  description: "Configure Multimedia Class Scheduler Service for game prioritization"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
-      value: "NetworkThrottlingIndex"
-      type: "REG_DWORD"
-      data: "10"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
-      value: "SystemResponsiveness"
-      type: "REG_DWORD"
-      data: "0"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      value: "GPU Priority"
-      type: "REG_DWORD"
-      data: "8"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      value: "Priority"
-      type: "REG_DWORD"
-      data: "6"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      value: "Scheduling Category"
-      type: "REG_SZ"
-      data: "High"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      value: "SFIO Priority"
-      type: "REG_SZ"
-      data: "High"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      value: "Background Only"
-      type: "REG_SZ"
-      data: "False"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      value: "Clock Rate"
-      type: "REG_DWORD"
-      data: "10000"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      value: "Affinity"
-      type: "REG_DWORD"
-      data: "0"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
-      value: "BackgroundPriority"
-      type: "REG_DWORD"
-      data: "0"
+title: MMCS Configuration
+description: Multimedia Class Scheduler Service optimization for gaming
+privilege: Admin
+actions:
 
-- title: "Optimize Audio Tasks"
-  description: "Configure audio tasks for low latency"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
-      value: "GPU Priority"
-      type: "REG_DWORD"
-      data: "8"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
-      value: "Priority"
-      type: "REG_DWORD"
-      data: "6"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
-      value: "Scheduling Category"
-      type: "REG_SZ"
-      data: "High"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
-      value: "SFIO Priority"
-      type: "REG_SZ"
-      data: "High"
+  # === Optimize MMCS for Gaming
+  # Configure Multimedia Class Scheduler Service for game prioritization
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
+    value: "NetworkThrottlingIndex"
+    type: "REG_DWORD"
+    data: "10"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
+    value: "SystemResponsiveness"
+    type: "REG_DWORD"
+    data: "0"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+    value: "GPU Priority"
+    type: "REG_DWORD"
+    data: "8"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+    value: "Priority"
+    type: "REG_DWORD"
+    data: "6"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+    value: "Scheduling Category"
+    type: "REG_SZ"
+    data: "High"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+    value: "SFIO Priority"
+    type: "REG_SZ"
+    data: "High"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+    value: "Background Only"
+    type: "REG_SZ"
+    data: "False"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+    value: "Clock Rate"
+    type: "REG_DWORD"
+    data: "10000"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+    value: "Affinity"
+    type: "REG_DWORD"
+    data: "0"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games"
+    value: "BackgroundPriority"
+    type: "REG_DWORD"
+    data: "0"
 
-- title: "Optimize Playback Tasks"
-  description: "Configure playback tasks for smooth video"
-  category: "Gaming"
-  privilege: "Admin"
-  actions:
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
-      value: "GPU Priority"
-      type: "REG_DWORD"
-      data: "8"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
-      value: "Priority"
-      type: "REG_DWORD"
-      data: "6"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
-      value: "Scheduling Category"
-      type: "REG_SZ"
-      data: "High"
-    - !registryValue
-      path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
-      value: "SFIO Priority"
-      type: "REG_SZ"
-      data: "High"
+  # === Optimize Audio Tasks
+  # Configure audio tasks for low latency
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
+    value: "GPU Priority"
+    type: "REG_DWORD"
+    data: "8"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
+    value: "Priority"
+    type: "REG_DWORD"
+    data: "6"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
+    value: "Scheduling Category"
+    type: "REG_SZ"
+    data: "High"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Audio"
+    value: "SFIO Priority"
+    type: "REG_SZ"
+    data: "High"
+
+  # === Optimize Playback Tasks
+  # Configure playback tasks for smooth video
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
+    value: "GPU Priority"
+    type: "REG_DWORD"
+    data: "8"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
+    value: "Priority"
+    type: "REG_DWORD"
+    data: "6"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
+    value: "Scheduling Category"
+    type: "REG_SZ"
+    data: "High"
+  - !registryValue
+    path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Playback"
+    value: "SFIO Priority"
+    type: "REG_SZ"
+    data: "High"

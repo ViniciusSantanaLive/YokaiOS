@@ -1,87 +1,89 @@
 # Disable Mitigations
 # CPU security mitigations - balanced for gaming + anti-cheat compatibility
 # Follows ReviOS approach: disable heavy mitigations, keep critical ones for anti-cheats
+#
+# Raiz e um mapping UninstallTask: o engine do AME faz Deserialize<UninstallTask>
+# por arquivo e rejeita raiz em lista. Sub-tarefa virou comentario; `option:` de
+# sub-tarefa foi propagado pras actions dela.
 
 ---
-# === Anti-Cheat Compatibility Notes ===
-# YokaiOS keeps the following for anti-cheat compatibility:
-#   - CFG (Control Flow Guard) - Required by Vanguard (Valorant)
-#   - ASLR (Address Space Layout Randomization) - Required by osu!
-#   - DEP (Data Execution Prevention) - Required by most anti-cheats
-# These are NOT disabled to prevent bans and maintain game compatibility.
+title: Disable Mitigations
+description: CPU security mitigations - balanced for gaming + anti-cheat compatibility
+privilege: Admin
+actions:
 
-- title: "Disable Spectre Mitigations"
-  description: "Disable Spectre mitigations for better performance"
-  category: "Performance"
-  privilege: "Admin"
-  option: "mitigations-disable"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      value: "FeatureSettingsOverride"
-      type: "REG_DWORD"
-      data: "3"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      value: "FeatureSettingsOverrideMask"
-      type: "REG_DWORD"
-      data: "3"
+  # === Anti-Cheat Compatibility Notes ===
+  # YokaiOS keeps the following for anti-cheat compatibility:
+  #   - CFG (Control Flow Guard) - Required by Vanguard (Valorant)
+  #   - ASLR (Address Space Layout Randomization) - Required by osu!
+  #   - DEP (Data Execution Prevention) - Required by most anti-cheats
+  # These are NOT disabled to prevent bans and maintain game compatibility.
 
-- title: "Disable SEHOP"
-  description: "Disable Structured Exception Handling Overwrite Protection for performance"
-  category: "Performance"
-  privilege: "Admin"
-  option: "mitigations-disable"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
-      value: "DisableExceptionChainValidation"
-      type: "REG_DWORD"
-      data: "1"
+  # === Disable Spectre Mitigations
+  # Disable Spectre mitigations for better performance
+  - !registryValue
+    option: "mitigations-disable"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+    value: "FeatureSettingsOverride"
+    type: "REG_DWORD"
+    data: "3"
+  - !registryValue
+    option: "mitigations-disable"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+    value: "FeatureSettingsOverrideMask"
+    type: "REG_DWORD"
+    data: "3"
 
-- title: "Disable Core Isolation (VBS/HVCI)"
-  description: "Disable Virtualization-Based Security for gaming performance"
-  category: "Performance"
-  privilege: "Admin"
-  option: "mitigations-disable"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
-      value: "EnableVirtualizationBasedSecurity"
-      type: "REG_DWORD"
-      data: "0"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
-      value: "RequirePlatformSecurityFeatures"
-      type: "REG_DWORD"
-      data: "0"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity"
-      value: "Enabled"
-      type: "REG_DWORD"
-      data: "0"
+  # === Disable SEHOP
+  # Disable Structured Exception Handling Overwrite Protection for performance
+  - !registryValue
+    option: "mitigations-disable"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
+    value: "DisableExceptionChainValidation"
+    type: "REG_DWORD"
+    data: "1"
 
-- title: "Keep Mitigations Default"
-  description: "Keep CPU security mitigations enabled (default)"
-  category: "Performance"
-  privilege: "Admin"
-  option: "mitigations-default"
-  actions:
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      value: "FeatureSettingsOverride"
-      type: "REG_DWORD"
-      data: "0"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
-      value: "FeatureSettingsOverrideMask"
-      type: "REG_DWORD"
-      data: "0"
-    - !registryValue
-      path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
-      value: "EnableVirtualizationBasedSecurity"
-      type: "REG_DWORD"
-      data: "1"
+  # === Disable Core Isolation (VBS/HVCI)
+  # Disable Virtualization-Based Security for gaming performance
+  - !registryValue
+    option: "mitigations-disable"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
+    value: "EnableVirtualizationBasedSecurity"
+    type: "REG_DWORD"
+    data: "0"
+  - !registryValue
+    option: "mitigations-disable"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
+    value: "RequirePlatformSecurityFeatures"
+    type: "REG_DWORD"
+    data: "0"
+  - !registryValue
+    option: "mitigations-disable"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity"
+    value: "Enabled"
+    type: "REG_DWORD"
+    data: "0"
+
+  # === Keep Mitigations Default
+  # Keep CPU security mitigations enabled (default)
+  - !registryValue
+    option: "mitigations-default"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+    value: "FeatureSettingsOverride"
+    type: "REG_DWORD"
+    data: "0"
+  - !registryValue
+    option: "mitigations-default"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management"
+    value: "FeatureSettingsOverrideMask"
+    type: "REG_DWORD"
+    data: "0"
+  - !registryValue
+    option: "mitigations-default"
+    path: "HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard"
+    value: "EnableVirtualizationBasedSecurity"
+    type: "REG_DWORD"
+    data: "1"
 
 # === KEPT FOR ANTI-CHEAT COMPATIBILITY ===
 # ASLR is NOT disabled (MoveImages stays at default 1)
