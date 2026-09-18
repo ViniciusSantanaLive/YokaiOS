@@ -1,5 +1,10 @@
 # YokaiOS Root Playbook File
 # AME Wizard entry point — all tweaks are orchestrated from here
+#
+# Gating: `option:` num !task aplica a escolha do wizard ao ARQUIVO inteiro.
+# So use aqui quando o arquivo implementa exatamente uma opcao do playbook.conf.
+# Arquivo consolidado que atende varias opcoes (tcp-optimization, privacy-expandido,
+# winutil-tweaks, qol/*) e gateado por sub-tarefa dentro do proprio arquivo.
 
 ---
 title: "Root Playbook File"
@@ -14,8 +19,8 @@ actions:
   - !task: {path: 'tweaks\gaming\cpu-scheduling.yml'}
   - !task: {path: 'tweaks\gaming\cpu-deep-optimization.yml'}
   - !task: {path: 'tweaks\gaming\game-mode.yml'}
-  - !task: {path: 'tweaks\gaming\disable-fso.yml'}
-  - !task: {path: 'tweaks\gaming\timer-resolution.yml'}
+  - !task: {path: 'tweaks\gaming\disable-fso.yml', option: 'disable-fso'}
+  - !task: {path: 'tweaks\gaming\timer-resolution.yml', option: 'optimize-timer'}
   - !task: {path: 'tweaks\gaming\keyboard-mouse-latency.yml'}
   - !task: {path: 'tweaks\gaming\visual-effects.yml'}
   - !task: {path: 'tweaks\gaming\mmcs-optimization.yml'}
@@ -26,7 +31,7 @@ actions:
   - !task: {path: 'tweaks\performance\disable-startup.yml'}
   - !task: {path: 'tweaks\performance\memory-optimization.yml'}
   - !task: {path: 'tweaks\performance\disk-optimization.yml'}
-  - !task: {path: 'tweaks\performance\power-plan.yml'}
+  - !task: {path: 'tweaks\performance\power-plan.yml', option: 'disable-power-saving'}
   - !task: {path: 'tweaks\performance\disable-paging.yml'}
   - !task: {path: 'tweaks\performance\win32-priority.yml'}
   - !task: {path: 'tweaks\performance\disable-background-apps.yml'}
@@ -37,7 +42,7 @@ actions:
 
   # Privacy
   - !task: {path: 'tweaks\privacy\privacy-expandido.yml'}
-  - !task: {path: 'tweaks\privacy\disable-telemetry.yml'}
+  - !task: {path: 'tweaks\privacy\disable-telemetry.yml', option: 'disable-telemetry'}
 
   # Quality of Life
   - !task: {path: 'tweaks\qol\explorer.yml'}
@@ -56,14 +61,14 @@ actions:
 
   # Debloat
   - !task: {path: 'tweaks\debloat\remove-bloatware.yml'}
-  - !task: {path: 'tweaks\debloat\remove-edge.yml'}
-  - !task: {path: 'tweaks\debloat\remove-onedrive.yml'}
-  - !task: {path: 'tweaks\debloat\remove-xbox-apps.yml'}
-  - !task: {path: 'tweaks\debloat\remove-cortana.yml'}
-  - !task: {path: 'tweaks\debloat\disable-widgets.yml'}
-  - !task: {path: 'tweaks\debloat\disable-copilot.yml'}
-  - !task: {path: 'tweaks\debloat\disable-ai-copilot.yml'}
-  - !task: {path: 'tweaks\debloat\remove-teams.yml'}
+  - !task: {path: 'tweaks\debloat\remove-edge.yml', option: 'remove-edge'}
+  - !task: {path: 'tweaks\debloat\remove-onedrive.yml', option: 'remove-onedrive'}
+  - !task: {path: 'tweaks\debloat\remove-xbox-apps.yml', option: 'remove-xbox-apps'}
+  - !task: {path: 'tweaks\debloat\remove-cortana.yml', option: 'remove-cortana'}
+  - !task: {path: 'tweaks\debloat\disable-widgets.yml', option: 'remove-widgets'}
+  - !task: {path: 'tweaks\debloat\disable-copilot.yml', option: 'remove-ai'}
+  - !task: {path: 'tweaks\debloat\disable-ai-copilot.yml', option: 'remove-ai'}
+  - !task: {path: 'tweaks\debloat\remove-teams.yml', option: 'remove-teams'}
 
   # Network Optimization
   - !task: {path: 'tweaks\network\tcp-optimization.yml'}

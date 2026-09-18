@@ -7,8 +7,9 @@
   description: "Reduce TCP packet batching for lower latency"
   category: "Network"
   privilege: "Admin"
+  option: "disable-nagle"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
         foreach ($adapter in $adapters) {
@@ -35,6 +36,7 @@
   description: "Configure TCP for low latency via netsh"
   category: "Network"
   privilege: "Admin"
+  option: "optimize-tcp"
   actions:
     - !cmd
       command: "netsh int tcp set global autotuninglevel=normal"
@@ -61,6 +63,7 @@
   description: "Remove Windows network throttling index"
   category: "Network"
   privilege: "Admin"
+  option: "disable-network-throttling"
   actions:
     - !registryValue
       path: "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile"
@@ -82,8 +85,9 @@
   description: "Use Cloudflare DNS (1.1.1.1) for low latency"
   category: "Network"
   privilege: "Admin"
+  option: "dns-cloudflare"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
         foreach ($adapter in $adapters) {
@@ -97,7 +101,7 @@
   category: "Network"
   privilege: "Admin"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
         foreach ($adapter in $adapters) {
@@ -111,7 +115,7 @@
   category: "Network"
   privilege: "Admin"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
         foreach ($adapter in $adapters) {

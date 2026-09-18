@@ -6,8 +6,9 @@
   description: "Uninstall all pre-installed Windows apps"
   category: "Debloat"
   privilege: "Admin"
+  option: "remove-bloatware"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         $apps = @(
           "Microsoft.3DBuilder"
@@ -53,8 +54,9 @@
   description: "Uninstall Xbox apps except Game Bar overlay"
   category: "Debloat"
   privilege: "Admin"
+  option: "remove-xbox-apps"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         $xboxApps = @(
           "Microsoft.XboxApp"
@@ -72,8 +74,9 @@
   description: "Uninstall Microsoft Edge"
   category: "Debloat"
   privilege: "Admin"
+  option: "remove-edge"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         $edgePath = "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\*\Installer\setup.exe"
         if (Test-Path $edgePath) {
@@ -84,8 +87,9 @@
   description: "Uninstall Microsoft OneDrive"
   category: "Debloat"
   privilege: "Admin"
+  option: "remove-onedrive"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         Stop-Process -Name OneDrive -Force -ErrorAction SilentlyContinue
         Start-Sleep -Seconds 2
@@ -104,19 +108,21 @@
   description: "Disable and remove Windows Widgets"
   category: "Debloat"
   privilege: "Admin"
+  option: "remove-widgets"
   actions:
     - !registryValue
       path: "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh"
       value: "AllowNewsAndInterests"
       type: "REG_DWORD"
       data: "0"
-    - !powershell
+    - !powerShell
       command: "Get-AppxPackage *WebExperience* | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
 
 - title: "Disable Copilot"
   description: "Remove Microsoft Copilot"
   category: "Debloat"
   privilege: "Admin"
+  option: "remove-ai"
   actions:
     - !registryValue
       path: "HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsCopilot"
