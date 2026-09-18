@@ -11,11 +11,11 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: "Stop-Process -Name OneDriveStandaloneUpdater -Force -ErrorAction SilentlyContinue"
-      - !powershell
+      - !powerShell
         command: "Stop-Process -Name OneDriveSetup -Force -ErrorAction SilentlyContinue"
-      - !powershell
+      - !powerShell
         command: "Stop-Process -Name 'OneDrive*' -Force -ErrorAction SilentlyContinue"
 
   - title: "Desinstalar OneDrive"
@@ -23,7 +23,7 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           if (Test-Path "$env:SystemRoot\SysWOW64\OneDriveSetup.exe") {
             Start-Process "$env:SystemRoot\SysWOW64\OneDriveSetup.exe" -ArgumentList "/uninstall" -Wait
@@ -36,7 +36,7 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           Remove-Item -Path "$env:LocalAppData\Microsoft\OneDrive" -Recurse -Force -ErrorAction SilentlyContinue
           Remove-Item -Path "$env:ProgramData\Microsoft OneDrive" -Recurse -Force -ErrorAction SilentlyContinue

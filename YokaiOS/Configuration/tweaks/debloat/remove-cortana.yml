@@ -37,7 +37,7 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           Get-AppxPackage -Name "Microsoft.549981C3F5F10" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
           Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -like "*549981C3F5F10*"} | Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
@@ -47,7 +47,7 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           Disable-ScheduledTask -TaskName "Consolidator" -TaskPath "\Microsoft\Windows\Customer Experience Improvement Program\" -ErrorAction SilentlyContinue
           Disable-ScheduledTask -TaskName "UsbCeip" -TaskPath "\Microsoft\Windows\Customer Experience Improvement Program\" -ErrorAction SilentlyContinue

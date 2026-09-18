@@ -119,7 +119,7 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $allFolders = "HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags\AllFolders\Shell"
           if (!(Test-Path $allFolders)) { New-Item -Path $allFolders -Force }
@@ -148,7 +148,7 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $Memory = (Get-CimInstance Win32_PhysicalMemory | Measure-Object Capacity -Sum).Sum / 1KB
           Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name SvcHostSplitThresholdInKB -Value $Memory
@@ -181,8 +181,8 @@ actions:
     category: "Performance"
     privilege: "Admin"
     actions:
-      - !powershell
-        command: "New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}' -Name InprocServer32 -Value '' -Force"
+      - !powerShell
+        command: "New-Item -Path 'HKCU:\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}' -Name InprocServer32 -Value '' -Force"
 
   # === Show File Extensions
   - title: "Mostrar Extensoes de Arquivo"

@@ -12,8 +12,8 @@ actions:
     category: "Context Menu"
     privilege: "Admin"
     actions:
-      - !powershell
-        command: "New-Item -Path 'HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}' -Name InprocServer32 -Value '' -Force"
+      - !powerShell
+        command: "New-Item -Path 'HKCU:\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}' -Name InprocServer32 -Value '' -Force"
 
   # === Remover Cast to Device
   - title: "Remover Cast to Device"
@@ -45,7 +45,7 @@ actions:
     category: "Context Menu"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $path = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked"
           New-Item -Path $path -Force -ErrorAction SilentlyContinue
@@ -57,7 +57,7 @@ actions:
     category: "Context Menu"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $path = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked"
           New-ItemProperty -Path $path -Name "{3dad6c5d-2167-4cae-9914-f99e41c12cfa}" -Value "" -Force
@@ -80,7 +80,7 @@ actions:
     category: "Context Menu"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $regPath = "HKCR:\*\shell\runas"
           New-Item -Path $regPath -Force -ErrorAction SilentlyContinue
@@ -96,7 +96,7 @@ actions:
     category: "Context Menu"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $regPath = "HKCR:\Directory\shell\cmd"
           New-Item -Path $regPath -Force -ErrorAction SilentlyContinue
@@ -110,7 +110,7 @@ actions:
     category: "Context Menu"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $regPath = "HKCR:\Directory\shell\powershell"
           New-Item -Path $regPath -Force -ErrorAction SilentlyContinue

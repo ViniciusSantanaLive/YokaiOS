@@ -50,7 +50,7 @@
   category: "Gaming"
   privilege: "Admin"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         Get-AppxPackage Microsoft.XboxGameOverlay | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
         Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue

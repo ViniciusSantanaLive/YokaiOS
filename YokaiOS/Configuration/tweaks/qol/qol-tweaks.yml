@@ -297,7 +297,7 @@ actions:
     category: "QoL"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: "powercfg /hibernate off"
       - !registryValue
         path: "HKLM\\System\\CurrentControlSet\\Control\\Session Manager\\Power"

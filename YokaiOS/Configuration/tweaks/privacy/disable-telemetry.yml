@@ -9,12 +9,12 @@
   actions:
     - !service
       name: "DiagTrack"
-      startup_type: "disabled"
-      state: "stopped"
+      operation: change
+      startup: 4
     - !service
       name: "dmwappushservice"
-      startup_type: "disabled"
-      state: "stopped"
+      operation: change
+      startup: 4
 
 - title: "Set Telemetry Level to Security"
   description: "Minimize telemetry data sent to Microsoft"

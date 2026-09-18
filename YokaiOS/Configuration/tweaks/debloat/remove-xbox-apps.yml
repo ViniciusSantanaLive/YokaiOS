@@ -11,7 +11,7 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $xboxApps = @(
             "Microsoft.XboxApp"

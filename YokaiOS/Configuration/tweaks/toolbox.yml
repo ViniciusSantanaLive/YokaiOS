@@ -12,7 +12,7 @@ actions:
     privilege: "Admin"
     option: "install-toolbox"
     actions:
-      - !powershell
+      - !powerShell
         option: "install-toolbox"
         command: |
           $installPath = "$env:ProgramFiles\YokaiOS Toolbox"
@@ -33,7 +33,7 @@ actions:
     privilege: "Admin"
     option: "install-toolbox"
     actions:
-      - !powershell
+      - !powerShell
         option: "install-toolbox"
         command: |
           $installPath = "$env:ProgramFiles\YokaiOS Toolbox"
@@ -60,7 +60,7 @@ actions:
     privilege: "Admin"
     option: "install-toolbox"
     actions:
-      - !powershell
+      - !powerShell
         option: "install-toolbox"
         command: |
           $installPath = "$env:ProgramFiles\YokaiOS Toolbox"

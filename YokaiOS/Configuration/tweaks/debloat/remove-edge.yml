@@ -11,11 +11,11 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: "Stop-Process -Name MicrosoftEdgeUpdate -Force -ErrorAction SilentlyContinue"
-      - !powershell
+      - !powerShell
         command: "Stop-Process -Name msedge -Force -ErrorAction SilentlyContinue"
-      - !powershell
+      - !powerShell
         command: "Stop-Process -Name 'MicrosoftEdge*' -Force -ErrorAction SilentlyContinue"
 
   - title: "Desinstalar Edge"
@@ -23,7 +23,7 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $edgePath = "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\*\Installer\setup.exe"
           $resolved = Resolve-Path -Path $edgePath -ErrorAction SilentlyContinue | Select-Object -Last 1
@@ -37,7 +37,7 @@ actions:
     category: "Debloat"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           Get-AppxPackage -Name "Microsoft.MicrosoftEdge" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
           Get-AppxPackage -Name "Microsoft.MicrosoftEdgeDevToolsClient" -AllUsers | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue

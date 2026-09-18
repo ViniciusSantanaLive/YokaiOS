@@ -22,7 +22,7 @@
       value: "ShowCopilotButton"
       type: "REG_DWORD"
       data: "0"
-    - !powershell
+    - !powerShell
       command: "Get-AppxPackage *Microsoft.Windows.Ai.Copilot.Provider* | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
 
 - title: "Disable Recall"
@@ -35,7 +35,7 @@
       value: "DisableAIDataAnalysis"
       type: "REG_DWORD"
       data: "1"
-    - !powershell
+    - !powerShell
       command: "Get-AppxPackage *Microsoft.Windows.Recall* | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue"
 
 - title: "Disable AI Features"
@@ -59,7 +59,7 @@
   category: "Debloat"
   privilege: "Admin"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         $aiPackages = @(
           "Microsoft.Windows.Copilot",

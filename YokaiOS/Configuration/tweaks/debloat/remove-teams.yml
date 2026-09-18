@@ -10,7 +10,7 @@ actions:
     description: "Remove Microsoft Teams e MSTeams provisionados"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $teamsPackages = @("MicrosoftTeams", "MSTeams", "Microsoft.Teams")
           foreach ($pkg in $teamsPackages) {

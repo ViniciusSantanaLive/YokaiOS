@@ -8,7 +8,7 @@
   privilege: "Admin"
   option: "remove-pinned-items-startmenu"
   actions:
-    - !powershell
+    - !powerShell
       command: |
         # Remove pinned items from Start Menu
         $startMenuPath = "$env:LOCALAPPDATA\Packages\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\LocalState"

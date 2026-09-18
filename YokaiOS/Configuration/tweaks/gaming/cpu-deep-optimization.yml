@@ -12,7 +12,7 @@ actions:
     category: "CPU"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $cpuPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Processor"
           New-ItemProperty -Path $cpuPath -Name "Capabilities" -Value 0x0007e066 -PropertyType DWord -Force -ErrorAction SilentlyContinue
@@ -23,7 +23,7 @@ actions:
     category: "CPU"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           powercfg /setacvalueindex SCHEME_CURRENT 54533251-82be-4824-96c1-47b60b740d00 0cc5b647-c1df-4637-891a-dec35c318583 100
           powercfg /setactive SCHEME_CURRENT
@@ -36,7 +36,7 @@ actions:
     category: "CPU"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMAX 100
           powercfg /setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100
@@ -97,7 +97,7 @@ actions:
     category: "CPU"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $tsxPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\kernel"
           New-ItemProperty -Path $tsxPath -Name "DisableTsx" -Value 0 -PropertyType DWord -Force -ErrorAction SilentlyContinue

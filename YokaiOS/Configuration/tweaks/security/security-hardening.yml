@@ -29,7 +29,7 @@ actions:
     category: "Security"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart -ErrorAction SilentlyContinue
           Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force -ErrorAction SilentlyContinue
@@ -40,7 +40,7 @@ actions:
     category: "Security"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $adapters = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object {$_.IPEnabled}
           foreach ($adapter in $adapters) {

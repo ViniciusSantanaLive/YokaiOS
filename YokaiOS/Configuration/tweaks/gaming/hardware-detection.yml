@@ -12,7 +12,7 @@ actions:
     category: "Hardware"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           # Detectar GPU
           $gpu = Get-WmiObject Win32_VideoController | Select-Object -First 1
@@ -68,7 +68,7 @@ actions:
     category: "Hardware"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           # Detectar CPU
           $cpu = Get-WmiObject Win32_Processor | Select-Object -First 1
@@ -112,7 +112,7 @@ actions:
     category: "Hardware"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           # Detectar RAM
           $ram = Get-CimInstance Win32_PhysicalMemory | Measure-Object Capacity -Sum
@@ -149,7 +149,7 @@ actions:
     category: "Hardware"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           # Detectar tipo de disco
           $disks = Get-PhysicalDisk | Select-Object DeviceId, MediaType, FriendlyName, Size
@@ -184,7 +184,7 @@ actions:
     category: "Hardware"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           # Detectar adaptadores de rede
           $adapters = Get-NetAdapter | Where-Object {$_.Status -eq "Up"} | Select-Object Name, InterfaceDescription, LinkSpeed
@@ -209,7 +209,7 @@ actions:
     category: "Hardware"
     privilege: "Admin"
     actions:
-      - !powershell
+      - !powerShell
         command: |
           $report = @()
           $report += "=== YOKAIOS HARDWARE REPORT ==="

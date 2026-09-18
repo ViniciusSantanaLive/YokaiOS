@@ -33,7 +33,7 @@
   category: "Performance"
   privilege: "Admin"
   actions:
-    - !powershell
+    - !powerShell
       command: "Disable-MMAgent -MemoryCompression"
 
 - title: "Disable Prefetch and Superfetch"
